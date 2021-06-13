@@ -1,5 +1,4 @@
 import typescript from "rollup-plugin-typescript2";
-import generatePackageJson from "rollup-plugin-generate-package-json";
 import copy from "rollup-plugin-copy";
 
 export default {
@@ -10,12 +9,8 @@ export default {
     },
     plugins: [
         typescript(),
-        generatePackageJson({
-            inputFolder: "./packages",
-            outputFolder: "./react-rxjs-form-dist",
-        }),
         copy({
-            targets: [{ src: "./README.md", dest: "./react-rxjs-form-dist" }],
+            targets: [{ src: "./README.md", dest: "./react-rxjs-form-dist" },{ src: "./packages/package.json", dest: "./react-rxjs-form-dist" }],
         }),
     ],
 };
