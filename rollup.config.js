@@ -5,7 +5,7 @@ import copy from "rollup-plugin-copy";
 export default {
     input: "./packages/index.ts",
     output: {
-        file: "./react-rx-form-dist/index.js",
+        file: "./react-rxjs-form-dist/index.js",
         format: "es",
     },
     plugins: [

@@ -1,5 +1,6 @@
 {
   "version": "0.0.0",
+  "name": "react-rxjs-form",
   "scripts": {
     "dev": "vite",
     "buildHp": "tsc && vite build",
