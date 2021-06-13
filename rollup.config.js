@@ -12,10 +12,10 @@ export default {
         typescript(),
         generatePackageJson({
             inputFolder: "./packages",
-            outputFolder: "./react-rx-form-dist",
+            outputFolder: "./react-rxjs-form-dist",
         }),
         copy({
-            targets: [{ src: "./README.md", dest: "./react-rx-form-dist" }],
+            targets: [{ src: "./README.md", dest: "./react-rxjs-form-dist" }],
         }),
     ],
 };

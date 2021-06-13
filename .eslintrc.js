@@ -41,5 +41,5 @@ module.exports = {
             },
         ],
     },
-    ignorePatterns: ["node_modules/", "react-rx-form-dist"],
+    ignorePatterns: ["node_modules/", "react-rxjs-form-dist"],
 };
