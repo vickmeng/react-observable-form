@@ -12,6 +12,7 @@ export default defineConfig({
     },
   },
   build: {
+    base: "react-observable-form",
     outDir: "docs",
   },
 });
