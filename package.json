@@ -3,7 +3,7 @@
   "name": "react-rxjs-form",
   "scripts": {
     "dev": "vite",
-    "buildDocs": "tsc && vite build",
+    "buildDocs": "NODE_ENV=production tsc && vite build",
     "serve": "vite preview",
     "build": "NODE_ENV=production rollup -c"
   },
