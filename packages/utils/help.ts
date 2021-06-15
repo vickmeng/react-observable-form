@@ -1,14 +1,14 @@
 import { isEmpty } from "lodash";
 
 import { Errors, Validator } from "../types/control";
-import { FieldAsChildAttributes, FieldAttributes, GroupAsChildAttributes, GroupAttributes } from "../types/components";
+import { FieldWithNameProps, GroupWithNameProps, GroupProps, FieldProps } from "../types/items";
 
-export const isFieldAsChildAttributes = (props: FieldAttributes): props is FieldAsChildAttributes => {
-  return (props as FieldAsChildAttributes).name !== undefined;
+export const isFieldWithNameProps = (props: FieldProps): props is FieldWithNameProps => {
+  return (props as FieldWithNameProps).name !== undefined;
 };
 
-export const isGroupAsChildAttributes = (props: GroupAttributes): props is GroupAsChildAttributes => {
-  return (props as GroupAsChildAttributes).name !== undefined;
+export const isGroupWithNameProps = (props: GroupProps): props is GroupWithNameProps => {
+  return (props as GroupWithNameProps).name !== undefined;
 };
 
 export const getErrorsBy = (value: any, validators: Validator[]) => {

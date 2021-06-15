@@ -8,9 +8,7 @@ export type Controls = {
   [key: string]: AbstractControl<any>;
 };
 
-export type Errors = {
-  [key: string]: any;
-};
+export type Errors = Record<string, any>;
 
 export type Validator = (value: any) => Errors | null;
 

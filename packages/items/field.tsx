@@ -1,21 +1,21 @@
 import { useContext } from "react";
 
-import { FieldAttributes } from "../types/components";
-import { isFieldAsChildAttributes } from "../utils";
+import { FieldProps } from "../types/items";
+import { isFieldWithNameProps } from "../utils";
 import { FieldControl } from "../controls/fieldControl";
 import { useSubscribe } from "../hooks";
 import { Errors } from "../types/control";
 
 import { formGroupContext } from "./context";
 
-export const Field = (props: FieldAttributes) => {
+export const Field = (props: FieldProps) => {
   const { children } = props;
   /**
    * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
    */
   const parentGroup = useContext(formGroupContext);
 
-  const { name = undefined, control } = isFieldAsChildAttributes(props)
+  const { name = undefined, control } = isFieldWithNameProps(props)
     ? { name: props.name, control: parentGroup!.get<FieldControl>(props.name) }
     : { control: props.control };
 

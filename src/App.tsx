@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useRef } from "react";
 
-import { Field, FieldControl } from "../react-rxjs-form-dist";
+import { Field, FieldControl, FieldInternalProps } from "../react-rxjs-form-dist";
 
 import "./App.css";
 
-const Input = (props: any) => {
+const Input = (props: FieldInternalProps) => {
   const value = props.value as string;
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -21,22 +21,8 @@ function App() {
     })
   );
 
-  const [count, setCount] = useState(1);
-
   return (
     <div className="App">
-      {count}
-
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        add
-      </button>
-
-      <br />
-
       <label className="form-label">name</label>
       <Field control={controlRef.current}>{Input}</Field>
     </div>

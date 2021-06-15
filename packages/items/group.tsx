@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
 
-import { GroupAttributes, IGroupProps } from "../types/components";
-import { isGroupAsChildAttributes } from "../utils";
+import { GroupProps, GroupInternalProps } from "../types/items";
+import { isGroupWithNameProps } from "../utils";
 import { GroupControl } from "../controls/groupControl";
 import { useSubscribe } from "../hooks";
 import { Controls, Errors } from "../types/control";
 
 import { formGroupContext } from "./context";
 
-export const Group = (props: GroupAttributes) => {
+export const Group = (props: GroupProps) => {
   const { children } = props;
 
   const parentGroup = useContext(formGroupContext);
 
-  const { name = undefined, control } = isGroupAsChildAttributes(props)
+  const { name = undefined, control } = isGroupWithNameProps(props)
     ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
     : { control: props.control };
 
@@ -22,7 +22,7 @@ export const Group = (props: GroupAttributes) => {
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
-  const childProps: IGroupProps = {
+  const childProps: GroupInternalProps = {
     name,
     enabled,
     disabled: !enabled,
