@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
-import { GroupAttributes, IGroupProps } from "../../types/item";
-import { isGroupAsChildAttributes } from "../../utils";
-import { GroupControl } from "../../controls/groupControl";
-import { useSubscribe } from "../../hooks";
-import { Controls, Errors } from "../../types/control";
+import { GroupAttributes, IGroupProps } from "../types/components";
+import { isGroupAsChildAttributes } from "../utils";
+import { GroupControl } from "../controls/groupControl";
+import { useSubscribe } from "../hooks";
+import { Controls, Errors } from "../types/control";
 
 import { formGroupContext } from "./context";
 

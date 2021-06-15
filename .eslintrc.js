@@ -12,7 +12,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint", "sort-class-members"],
+  plugins: ["react", "@typescript-eslint", "sort-class-members", "react-hooks"],
   rules: {
     "no-var": "error",
     "no-console": "error",
@@ -41,6 +41,9 @@ module.exports = {
       },
     ],
     "react/prop-types": 0,
+    "react/react-in-jsx-scope": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
   },
   ignorePatterns: ["node_modules/", "react-rxjs-form-dist"],
 };

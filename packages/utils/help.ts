@@ -1,7 +1,7 @@
 import { isEmpty } from "lodash";
 
 import { Errors, Validator } from "../types/control";
-import { FieldAsChildAttributes, FieldAttributes, GroupAsChildAttributes, GroupAttributes } from "../types/item";
+import { FieldAsChildAttributes, FieldAttributes, GroupAsChildAttributes, GroupAttributes } from "../types/components";
 
 export const isFieldAsChildAttributes = (props: FieldAttributes): props is FieldAsChildAttributes => {
   return (props as FieldAsChildAttributes).name !== undefined;

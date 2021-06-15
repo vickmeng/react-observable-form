@@ -1,11 +1,12 @@
 import { useContext } from "react";
 
-import { formGroupContext } from "../group/context";
-import { FieldAttributes } from "../../types/item";
-import { isFieldAsChildAttributes } from "../../utils";
-import { FieldControl } from "../../controls/fieldControl";
-import { useSubscribe } from "../../hooks";
-import { Errors } from "../../types/control";
+import { FieldAttributes } from "../types/components";
+import { isFieldAsChildAttributes } from "../utils";
+import { FieldControl } from "../controls/fieldControl";
+import { useSubscribe } from "../hooks";
+import { Errors } from "../types/control";
+
+import { formGroupContext } from "./context";
 
 export const Field = (props: FieldAttributes) => {
   const { children } = props;
