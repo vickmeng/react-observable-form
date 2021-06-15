@@ -1,30 +1,29 @@
-import React, { ChangeEvent, useRef } from "react";
-
-import { Field, FieldControl, FieldInternalProps } from "../react-rxjs-form-dist";
+import React from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 
 import "./App.css";
-
-const Input = (props: FieldInternalProps) => {
-  const value = props.value as string;
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    props.setValue(e.target.value);
-  };
-
-  return <input className="form-control" value={value} onChange={onChange} />;
-};
+import Basic from "./pages/basic";
 
 function App() {
-  const controlRef = useRef(
-    new FieldControl({
-      value: "vick",
-    })
-  );
-
   return (
     <div className="App">
-      <label className="form-label">name</label>
-      <Field control={controlRef.current}>{Input}</Field>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/basic">basic</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/basic">
+              <Basic />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }
