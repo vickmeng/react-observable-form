@@ -1,50 +1,50 @@
 import React, { ChangeEvent, useRef } from "react";
 
+import { FieldControl, GroupControl, Group, Field } from "../react-rxjs-form-dist";
+
 import "./App.css";
-import { FieldControl, GroupControl, Group, Field } from "../react-rx-form-dist";
-// import { Group } from "../packages/item/group/group";
 
 const buildGroup = () => {
-    return new GroupControl({
-        controls: {
-            name: new FieldControl({
-                value: "vick",
-            }),
-        },
-    });
+  return new GroupControl({
+    controls: {
+      name: new FieldControl({
+        value: "vick",
+      }),
+    },
+  });
 };
 
 function App() {
-    const FormGroupRef = useRef(buildGroup());
+  const FormGroupRef = useRef(buildGroup());
 
-    return (
-        <div className="App">
-            <Group control={FormGroupRef.current}>
+  return (
+    <div className="App">
+      <Group control={FormGroupRef.current}>
+        {(props) => {
+          return (
+            <>
+              <Field name="name">
                 {(props) => {
-                    return (
-                        <>
-                            <Field name="name">
-                                {(props) => {
-                                    const value = props.value as string;
+                  const value = props.value as string;
 
-                                    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-                                        props.setValue(e.target.value);
-                                    };
+                  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+                    props.setValue(e.target.value);
+                  };
 
-                                    return (
-                                        <>
-                                            <label className="form-label">name</label>
-                                            <input className="form-control" value={value} onChange={onChange} />
-                                        </>
-                                    );
-                                }}
-                            </Field>
-                        </>
-                    );
+                  return (
+                    <>
+                      <label className="form-label">name</label>
+                      <input className="form-control" value={value} onChange={onChange} />
+                    </>
+                  );
                 }}
-            </Group>
-        </div>
-    );
+              </Field>
+            </>
+          );
+        }}
+      </Group>
+    </div>
+  );
 }
 
 export default App;

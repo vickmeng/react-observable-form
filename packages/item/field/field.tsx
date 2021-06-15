@@ -8,31 +8,31 @@ import { useSubscribe } from "../../utils/hook";
 import { Errors } from "../../types/control";
 
 export const Field = (props: FieldAttributes) => {
-    const { children } = props;
-    /**
-     * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
-     */
-    const parentGroup = useContext(formGroupContext);
+  const { children } = props;
+  /**
+   * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
+   */
+  const parentGroup = useContext(formGroupContext);
 
-    const { name = undefined, control } = isFieldAsChildAttributes(props)
-        ? { name: props.name, control: parentGroup!.get<FieldControl>(props.name) }
-        : { control: props.control };
+  const { name = undefined, control } = isFieldAsChildAttributes(props)
+    ? { name: props.name, control: parentGroup!.get<FieldControl>(props.name) }
+    : { control: props.control };
 
-    const value = useSubscribe<any>(control, control.value, control.valueChange);
-    const enabled = useSubscribe<boolean>(control, control.enabled, control.enabledChange);
-    const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
-    const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
+  const value = useSubscribe<any>(control, control.value, control.valueChange);
+  const enabled = useSubscribe<boolean>(control, control.enabled, control.enabledChange);
+  const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
+  const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
-    const childProps = {
-        name,
-        value,
-        setValue: control.setValue,
-        errors,
-        disabled: !enabled,
-        enabled,
-        valid,
-        invalid: !valid,
-    };
+  const childProps = {
+    name,
+    value,
+    setValue: control.setValue,
+    errors,
+    disabled: !enabled,
+    enabled,
+    valid,
+    invalid: !valid,
+  };
 
-    return children(childProps);
+  return children(childProps);
 };
