@@ -8,7 +8,9 @@ export default {
     format: "es",
   },
   plugins: [
-    typescript(),
+    typescript({
+      tsconfig: "./tsconfig.build.json",
+    }),
     copy({
       targets: [
         { src: "./README.md", dest: "./react-rxjs-form-dist" },
