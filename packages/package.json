@@ -7,8 +7,10 @@
     "name": "Vickmeng",
     "email": "1543458592@qq.com"
   },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "peerDependencies": {
-    "lodash": "^4.17.21",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "rxjs": "^7.1.0",
