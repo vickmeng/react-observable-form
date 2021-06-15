@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 
 import { GroupAttributes, IGroupProps } from "../../types/item";
 import { isGroupAsChildAttributes } from "../../utils";
-import { GroupControl } from "../../control/groupControl";
-import { useSubscribe } from "../../utils/hook";
+import { GroupControl } from "../../controls/groupControl";
+import { useSubscribe } from "../../hooks";
 import { Controls, Errors } from "../../types/control";
 
 import { formGroupContext } from "./context";

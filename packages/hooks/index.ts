@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Observable } from "rxjs";
 
-import { AbstractControl } from "../control/abstractControl";
+import { AbstractControl } from "../controls/abstractControl";
 
 export const useSubscribe = <T>(control: AbstractControl<any>, initValue: T, ObservableInstance: Observable<T>): T => {
   const [value, setValue] = useState(initValue);

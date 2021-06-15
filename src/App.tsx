@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, { ChangeEvent, useRef } from "react";
 
 import { FieldControl, GroupControl, Group, Field } from "../react-rxjs-form-dist";

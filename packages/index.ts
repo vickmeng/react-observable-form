@@ -1,4 +1,4 @@
-export { Field } from "./item/field/field";
-export { Group } from "./item/group/group";
-export { FieldControl } from "./control/fieldControl";
-export { GroupControl } from "./control/groupControl";
+export { Field } from "./components/field/field";
+export { Group } from "./components/group/group";
+export { FieldControl } from "./controls/fieldControl";
+export { GroupControl } from "./controls/groupControl";

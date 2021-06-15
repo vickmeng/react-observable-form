@@ -80,7 +80,7 @@ export class GroupControl extends AbstractControl<IGroupValue> {
   };
 
   /**
-   * has group level error or has invalid control
+   * has group level error or has invalid controls
    */
   protected checkValid = () => {
     return !(this.errors || Object.values(this._controls).some((control) => control.invalid));

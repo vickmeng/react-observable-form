@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { formGroupContext } from "../group/context";
 import { FieldAttributes } from "../../types/item";
 import { isFieldAsChildAttributes } from "../../utils";
-import { FieldControl } from "../../control/fieldControl";
-import { useSubscribe } from "../../utils/hook";
+import { FieldControl } from "../../controls/fieldControl";
+import { useSubscribe } from "../../hooks";
 import { Errors } from "../../types/control";
 
 export const Field = (props: FieldAttributes) => {

@@ -1,4 +1,4 @@
-import { AbstractControl } from "../control/abstractControl";
+import { AbstractControl } from "../controls/abstractControl";
 
 export interface IGroupValue {
   [key: string]: any;
