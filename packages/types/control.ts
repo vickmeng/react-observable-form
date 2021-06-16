@@ -1,8 +1,6 @@
 import { AbstractControl } from "../controls/abstractControl";
 
-export type ControlValue<V = any> = V | undefined | null;
-
-export type GroupValue = Record<string, ControlValue>;
+export type GroupValue = Record<string, any>;
 
 export type Controls = {
   [key: string]: AbstractControl<any>;

@@ -1,9 +1,9 @@
-import { ControlValue, FormControlOptions } from "../types/control";
+import { FormControlOptions } from "../types/control";
 
 import { AbstractControl } from "./abstractControl";
 
 export class FieldControl<V = any> extends AbstractControl<V> {
-  constructor(value: ControlValue<V>, options: FormControlOptions = {}) {
+  constructor(value: V, options: FormControlOptions = {}) {
     super();
     const { disabled = false, validators = [] } = options;
     this.initBasicParams(value, { disabled, validators });

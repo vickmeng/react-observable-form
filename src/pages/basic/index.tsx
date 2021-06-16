@@ -8,7 +8,7 @@ const Basic = () => {
   return (
     <>
       <label className="form-label">name</label>
-      <Field<string> control={controlRef.current}>{(props) => <>{props.value}</>}</Field>
+      <Field control={controlRef.current}>{(props) => <>{props.value}</>}</Field>
     </>
   );
 };

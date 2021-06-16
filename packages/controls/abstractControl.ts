@@ -2,7 +2,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { isEqual } from "lodash";
 
-import { ControlBasicOptions, ControlValue, Errors, Validator } from "../types/control";
+import { ControlBasicOptions, Errors, Validator } from "../types/control";
 import { getErrorsBy } from "../utils";
 
 export abstract class AbstractControl<V = any> {
@@ -50,7 +50,7 @@ export abstract class AbstractControl<V = any> {
 
   protected abstract checkValid(): boolean;
 
-  protected _value!: V | undefined | null;
+  protected _value!: V;
   protected _errors!: Errors | null;
   protected _enabled!: boolean;
   protected _valid!: boolean;
@@ -62,7 +62,7 @@ export abstract class AbstractControl<V = any> {
   protected errorsSubject$ = new Subject<Errors | null>();
   protected destroy$ = new Subject<true>();
 
-  protected initBasicParams(value: ControlValue, { disabled = false, validators = [] }: ControlBasicOptions) {
+  protected initBasicParams(value: V, { disabled = false, validators = [] }: ControlBasicOptions) {
     this.initValue(value);
     this.initValidators(validators);
     this.initEnabled(!disabled);
@@ -107,7 +107,7 @@ export abstract class AbstractControl<V = any> {
     this.validSubject$.next(valid);
   };
 
-  protected initValue = (value: ControlValue<V>) => {
+  protected initValue = (value: V) => {
     this.updatePrivateValue(value);
   };
 
@@ -127,7 +127,7 @@ export abstract class AbstractControl<V = any> {
     this._validators = validators;
   };
 
-  protected updatePrivateValue = (value: ControlValue<V>) => {
+  protected updatePrivateValue = (value: V) => {
     this._value = value;
   };
 
@@ -143,7 +143,7 @@ export abstract class AbstractControl<V = any> {
     this._enabled = enabled;
   };
 
-  protected validateAndUpdateErrors = (value: ControlValue<V>) => {
+  protected validateAndUpdateErrors = (value: V) => {
     const errors = getErrorsBy(value, this._validators);
 
     this.setErrors(errors);
