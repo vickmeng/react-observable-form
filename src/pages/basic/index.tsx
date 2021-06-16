@@ -1,19 +1,14 @@
 import React, { useRef } from "react";
 
-import Input from "../../components/Input";
-import { FieldControl, Field } from "../../../packages/index";
+import { Field, FieldControl } from "../../../packages/index";
 
 const Basic = () => {
-  const controlRef = useRef(
-    new FieldControl<string>({
-      value: "vick",
-    })
-  );
+  const controlRef = useRef(new FieldControl<string>("vick"));
 
   return (
     <>
       <label className="form-label">name</label>
-      <Field control={controlRef.current}>{Input}</Field>
+      <Field<string> control={controlRef.current}>{(props) => <>{props.value}</>}</Field>
     </>
   );
 };

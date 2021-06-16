@@ -3,9 +3,9 @@ import { isEmpty } from "lodash";
 import { Errors, Validator } from "../types/control";
 import { FieldWithNameProps, GroupWithNameProps, GroupProps, FieldProps } from "../types/items";
 
-export const isFieldWithNameProps = (props: FieldProps): props is FieldWithNameProps => {
-  return (props as FieldWithNameProps).name !== undefined;
-};
+export function isFieldWithNameProps<V>(props: FieldProps<V>): props is FieldWithNameProps<V> {
+  return (props as FieldWithNameProps<V>).name !== undefined;
+}
 
 export const isGroupWithNameProps = (props: GroupProps): props is GroupWithNameProps => {
   return (props as GroupWithNameProps).name !== undefined;

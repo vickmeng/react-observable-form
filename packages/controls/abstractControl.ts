@@ -2,7 +2,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { isEqual } from "lodash";
 
-import { ControlBasicParams, ControlValue, Errors, Validator } from "../types/control";
+import { ControlBasicOptions, ControlValue, Errors, Validator } from "../types/control";
 import { getErrorsBy } from "../utils";
 
 export abstract class AbstractControl<V = any> {
@@ -62,7 +62,7 @@ export abstract class AbstractControl<V = any> {
   protected errorsSubject$ = new Subject<Errors | null>();
   protected destroy$ = new Subject<true>();
 
-  protected initBasicParams({ value, disabled = false, validators = [] }: ControlBasicParams<V>) {
+  protected initBasicParams(value: ControlValue, { disabled = false, validators = [] }: ControlBasicOptions) {
     this.initValue(value);
     this.initValidators(validators);
     this.initEnabled(!disabled);

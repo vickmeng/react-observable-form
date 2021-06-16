@@ -12,14 +12,11 @@ export type Errors = Record<string, any>;
 
 export type Validator<V = any> = (value: V) => Errors | null;
 
-export interface ControlBasicParams<V> {
-  value?: V;
+export interface ControlBasicOptions {
   disabled?: boolean;
   validators?: Validator[];
 }
 
-export type FormControlParams<V> = ControlBasicParams<V>;
+export type FormControlOptions = ControlBasicOptions;
 
-export type FormGroupParams = ControlBasicParams<any> & {
-  controls: Controls;
-};
+export type FormGroupParams = ControlBasicOptions;

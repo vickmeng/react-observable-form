@@ -6,15 +6,15 @@ import { GroupControl } from "../controls/groupControl";
 
 import { Controls, Errors } from "./control";
 
-export interface IItemBasicAttributes<T> {
-  children: (props: T) => ReactElement;
+export interface IItemBasicProps<P> {
+  children: (props: P) => ReactElement;
 }
 
-export interface ItemWithNameProps<T> extends IItemBasicAttributes<T> {
+export interface ItemWithNameProps<P> extends IItemBasicProps<P> {
   name: string;
 }
 
-export interface ItemWithControlProps<T, U extends AbstractControl<any>> extends IItemBasicAttributes<T> {
+export interface ItemWithControlProps<P, U extends AbstractControl<any>> extends IItemBasicProps<P> {
   control: U;
 }
 
@@ -23,10 +23,10 @@ export interface ItemWithControlProps<T, U extends AbstractControl<any>> extends
  * Field
  */
 
-export interface FieldInternalProps {
+export interface FieldInternalProps<V = any> {
   name?: string;
-  value: any;
-  setValue(value: any): void;
+  value: V;
+  setValue(value: V): void;
   enabled: boolean;
   disabled: boolean;
   errors: Errors | null;
@@ -34,10 +34,10 @@ export interface FieldInternalProps {
   invalid: boolean;
 }
 
-export type FieldWithNameProps = ItemWithNameProps<FieldInternalProps>;
-export type FieldWithControlProps = ItemWithControlProps<FieldInternalProps, FieldControl>;
+export type FieldWithNameProps<V> = ItemWithNameProps<FieldInternalProps<V>>;
+export type FieldWithControlProps<V> = ItemWithControlProps<FieldInternalProps<V>, FieldControl<V>>;
 
-export type FieldProps = FieldWithNameProps | FieldWithControlProps;
+export type FieldProps<V = any> = FieldWithNameProps<V> | FieldWithControlProps<V>;
 
 /**
  * end

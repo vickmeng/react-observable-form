@@ -8,23 +8,23 @@ import { Errors } from "../types/control";
 
 import { formGroupContext } from "./context";
 
-export const Field = (props: FieldProps) => {
+export function Field<V = any>(props: FieldProps<V>) {
   const { children } = props;
   /**
    * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
    */
   const parentGroup = useContext(formGroupContext);
 
-  const { name = undefined, control } = isFieldWithNameProps(props)
+  const { name = undefined, control } = isFieldWithNameProps<V>(props)
     ? { name: props.name, control: parentGroup!.get<FieldControl>(props.name) }
     : { control: props.control };
 
-  const value = useSubscribe<any>(control, control.value, control.valueChange);
+  const value = useSubscribe<typeof control.value>(control, control.value, control.valueChange);
   const enabled = useSubscribe<boolean>(control, control.enabled, control.enabledChange);
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
-  const childProps = {
+  const childrenProps = {
     name,
     value,
     setValue: control.setValue,
@@ -35,5 +35,5 @@ export const Field = (props: FieldProps) => {
     invalid: !valid,
   };
 
-  return children(childProps);
-};
+  return children(childrenProps);
+}
