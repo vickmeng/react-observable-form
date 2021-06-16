@@ -1,7 +1,8 @@
 import { ReactElement } from "react";
 
-import { FieldControl, GroupControl } from "../index";
 import { AbstractControl } from "../controls/abstractControl";
+import { FieldControl } from "../controls/fieldControl";
+import { GroupControl } from "../controls/groupControl";
 
 import { Controls, Errors } from "./control";
 
