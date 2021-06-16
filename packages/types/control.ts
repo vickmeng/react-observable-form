@@ -20,4 +20,6 @@ export interface ControlBasicParams<V> {
 
 export type FormControlParams<V> = ControlBasicParams<V>;
 
-export type FormGroupParams = ControlBasicParams<any>;
+export type FormGroupParams = ControlBasicParams<any> & {
+  controls: Controls;
+};
