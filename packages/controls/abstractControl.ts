@@ -2,10 +2,10 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { isEqual } from "lodash";
 
-import { Errors, IControlBasicParams, IGroupValue, Validator } from "../types/control";
+import { ControlBasicParams, ControlValue, Errors, Validator } from "../types/control";
 import { getErrorsBy } from "../utils";
 
-export abstract class AbstractControl<T> {
+export abstract class AbstractControl<V = any> {
   get value() {
     return this._value;
   }
@@ -46,11 +46,11 @@ export abstract class AbstractControl<T> {
     return this.validSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  abstract setValue(value: any, options?: Object): void;
+  abstract setValue(value: V, options?: Object): void;
 
   protected abstract checkValid(): boolean;
 
-  protected _value!: T;
+  protected _value!: V | undefined | null;
   protected _errors!: Errors | null;
   protected _enabled!: boolean;
   protected _valid!: boolean;
@@ -62,7 +62,7 @@ export abstract class AbstractControl<T> {
   protected errorsSubject$ = new Subject<Errors | null>();
   protected destroy$ = new Subject<true>();
 
-  protected initBasicParams({ value, disabled = false, validators }: IControlBasicParams<T>) {
+  protected initBasicParams({ value, disabled = false, validators = [] }: ControlBasicParams<V>) {
     this.initValue(value);
     this.initValidators(validators);
     this.initEnabled(!disabled);
@@ -107,7 +107,7 @@ export abstract class AbstractControl<T> {
     this.validSubject$.next(valid);
   };
 
-  protected initValue = (value: T) => {
+  protected initValue = (value: ControlValue<V>) => {
     this.updatePrivateValue(value);
   };
 
@@ -127,7 +127,7 @@ export abstract class AbstractControl<T> {
     this._validators = validators;
   };
 
-  protected updatePrivateValue = (value: T) => {
+  protected updatePrivateValue = (value: ControlValue<V>) => {
     this._value = value;
   };
 
@@ -143,7 +143,7 @@ export abstract class AbstractControl<T> {
     this._enabled = enabled;
   };
 
-  protected validateAndUpdateErrors = (value: IGroupValue) => {
+  protected validateAndUpdateErrors = (value: ControlValue<V>) => {
     const errors = getErrorsBy(value, this._validators);
 
     this.setErrors(errors);

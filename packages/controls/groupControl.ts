@@ -1,11 +1,11 @@
 import { merge, Observable, Subject, Subscription } from "rxjs";
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 
-import { Controls, IFormGroupParams, IGroupValue } from "../types/control";
+import { Controls, FormGroupParams, GroupValue } from "../types/control";
 
 import { AbstractControl } from "./abstractControl";
 
-export class GroupControl extends AbstractControl<IGroupValue> {
+export class GroupControl extends AbstractControl<GroupValue> {
   get controls(): Controls {
     return this._controls;
   }
@@ -27,7 +27,7 @@ export class GroupControl extends AbstractControl<IGroupValue> {
   private validChangesSubscription!: Subscription;
   private enabledChangesSubscription!: Subscription;
 
-  constructor({ controls, disabled = false, validators = [] }: IFormGroupParams) {
+  constructor({ controls, disabled = false, validators = [] }: FormGroupParams) {
     super();
     this.initControls(controls);
     // TODO initBasicParams FIND A BETTER WAY
@@ -41,7 +41,7 @@ export class GroupControl extends AbstractControl<IGroupValue> {
     return this._controls[name] as T;
   };
 
-  setValue = (value: IGroupValue) => {
+  setValue = (value: GroupValue) => {
     if (value === this.value) {
       return;
     }
@@ -63,7 +63,7 @@ export class GroupControl extends AbstractControl<IGroupValue> {
     this._controls = controls;
   };
 
-  private setValueToControls = (value: IGroupValue) => {
+  private setValueToControls = (value: GroupValue) => {
     /**
      * open the lock and prevent trigger valueChange,validChange callback by controls value change
      */
@@ -96,7 +96,7 @@ export class GroupControl extends AbstractControl<IGroupValue> {
   };
 
   private getGroupValueFromControls = () => {
-    const value: IGroupValue = {};
+    const value: GroupValue = {};
     Object.keys(this._controls).forEach((name) => {
       const control = this._controls[name];
       if (control.enabled) {

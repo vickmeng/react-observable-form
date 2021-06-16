@@ -1,9 +1,9 @@
-import { IFormControlParams } from "../types/control";
+import { FormControlParams } from "../types/control";
 
 import { AbstractControl } from "./abstractControl";
 
-export class FieldControl extends AbstractControl<any> {
-  constructor({ value, disabled = false, validators = [] }: IFormControlParams) {
+export class FieldControl<V> extends AbstractControl<V> {
+  constructor({ value, disabled = false, validators = [] }: FormControlParams<V>) {
     super();
     this.initBasicParams({ value, disabled, validators });
   }

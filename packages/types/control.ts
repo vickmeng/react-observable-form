@@ -1,8 +1,8 @@
 import { AbstractControl } from "../controls/abstractControl";
 
-export interface IGroupValue {
-  [key: string]: any;
-}
+export type ControlValue<V = any> = V | undefined | null;
+
+export type GroupValue = Record<string, ControlValue>;
 
 export type Controls = {
   [key: string]: AbstractControl<any>;
@@ -10,22 +10,14 @@ export type Controls = {
 
 export type Errors = Record<string, any>;
 
-export type Validator = (value: any) => Errors | null;
+export type Validator<V = any> = (value: V) => Errors | null;
 
-export interface IControlBasicParams<T> {
-  value: T;
-  disabled: boolean;
-  validators: Validator[];
-}
-
-export interface IFormControlParams {
-  value: any;
+export interface ControlBasicParams<V> {
+  value?: V;
   disabled?: boolean;
   validators?: Validator[];
 }
 
-export interface IFormGroupParams {
-  controls: Controls;
-  disabled?: boolean;
-  validators?: Validator[];
-}
+export type FormControlParams<V> = ControlBasicParams<V>;
+
+export type FormGroupParams = ControlBasicParams<any>;
