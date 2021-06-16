@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 
-import { FieldInternalProps } from "../../../react-rxjs-form-dist";
+import { FieldInternalProps } from "../../../packages/types/items";
 
 const Input = (props: FieldInternalProps) => {
   const value = props.value;
