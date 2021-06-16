@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
-import { Field, FieldControl } from "../../../react-rxjs-form-dist";
-import MyInput from "../../components/myInput";
+import Input from "../../components/Input";
+import { FieldControl, Field } from "../../../react-rxjs-form-dist";
 
 const Basic = () => {
   const controlRef = useRef(
@@ -13,7 +13,7 @@ const Basic = () => {
   return (
     <>
       <label className="form-label">name</label>
-      <Field control={controlRef.current}>{MyInput}</Field>
+      <Field control={controlRef.current}>{Input}</Field>
     </>
   );
 };

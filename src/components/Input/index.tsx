@@ -2,8 +2,8 @@ import React, { ChangeEvent } from "react";
 
 import { FieldInternalProps } from "../../../react-rxjs-form-dist";
 
-const MyInput = (props: FieldInternalProps) => {
-  const value = props.value as string;
+const Input = (props: FieldInternalProps) => {
+  const value = props.value;
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     props.setValue(e.target.value);
@@ -20,4 +20,4 @@ const MyInput = (props: FieldInternalProps) => {
   );
 };
 
-export default MyInput;
+export default Input;

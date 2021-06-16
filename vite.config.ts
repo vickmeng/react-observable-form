@@ -14,5 +14,7 @@ export default defineConfig({
   build: {
     outDir: "docs",
   },
-  base: "react-observable-form",
+
+  // @ts-ignore
+  base: process.env === "production" ? "react-observable-form" : "",
 });
