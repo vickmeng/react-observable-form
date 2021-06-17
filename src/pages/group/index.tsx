@@ -14,6 +14,7 @@ const GroupDemo = () => {
       {(props) => {
         return (
           <>
+            {JSON.stringify(props.value)}
             <Field name="name">{Input}</Field>
             <Field name="address">{Input}</Field>
           </>
