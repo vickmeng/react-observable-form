@@ -8,7 +8,13 @@ export const useSubscribe = <T>(control: AbstractControl<any>, initValue: T, $: 
 
   useEffect(() => {
     const subscriber = $.subscribe(setValue);
-    return subscriber.unsubscribe;
+    /**
+     * cannot return subscriber.unsubscribe directly
+     * rxjs problem
+     */
+    return () => {
+      subscriber.unsubscribe();
+    };
   }, [$]);
 
   return value;

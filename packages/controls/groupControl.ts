@@ -1,7 +1,7 @@
 import { merge, Observable, Subject, Subscription } from "rxjs";
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 
-import { Controls, FormGroupParams, GroupValue } from "../types/control";
+import { Controls, FormGroupOptions, GroupValue } from "../types/control";
 
 import { AbstractControl } from "./abstractControl";
 
@@ -27,11 +27,12 @@ export class GroupControl extends AbstractControl<GroupValue> {
   private validChangesSubscription!: Subscription;
   private enabledChangesSubscription!: Subscription;
 
-  constructor({ controls, disabled = false, validators = [] }: FormGroupParams) {
+  constructor(controls: Controls, options: FormGroupOptions = {}) {
     super();
+    const { disabled = false, validators = [] } = options;
     this.initControls(controls);
     // TODO initBasicParams FIND A BETTER WAY
-    this.initBasicParams({ value: this.getGroupValueFromControls(), disabled, validators });
+    this.initBasicParams(this.getGroupValueFromControls(), { disabled, validators });
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetValue);
 
     this.reSubscribeControls();

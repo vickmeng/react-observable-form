@@ -7,5 +7,6 @@
     5. 简化Group api
     6. dirty
     7. value type
+    (直接穿入control可以提示value类型，传入name不可以)
     8. dirty
 ```
