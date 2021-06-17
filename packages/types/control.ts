@@ -17,4 +17,4 @@ export interface ControlBasicOptions {
 
 export type FormControlOptions = ControlBasicOptions;
 
-export type FormGroupParams = ControlBasicOptions;
+export type FormGroupOptions = ControlBasicOptions;
