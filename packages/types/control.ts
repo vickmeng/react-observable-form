@@ -17,4 +17,8 @@ export interface ControlBasicOptions {
 
 export type FormControlOptions = ControlBasicOptions;
 
+export type FormGroupControlsConfig = {
+  [key: string]: AbstractControl<any> | [value: any, options?: FormControlOptions];
+};
+
 export type FormGroupOptions = ControlBasicOptions;

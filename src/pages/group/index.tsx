@@ -8,19 +8,40 @@ const formGroup = new GroupControl({
   address: new FieldControl(""),
 });
 
+const formGroupInShort = new GroupControl({
+  name: ["vick"],
+  address: new FieldControl(""),
+});
+
 const GroupDemo = () => {
   return (
-    <Group control={formGroup}>
-      {(props) => {
-        return (
-          <>
-            {JSON.stringify(props.value)}
-            <Field name="name">{Input}</Field>
-            <Field name="address">{Input}</Field>
-          </>
-        );
-      }}
-    </Group>
+    <>
+      <Group control={formGroup}>
+        {(props) => {
+          return (
+            <>
+              {JSON.stringify(props.value)}
+              <Field name="name">{Input}</Field>
+              <Field name="address">{Input}</Field>
+            </>
+          );
+        }}
+      </Group>
+
+      <h3>简写：</h3>
+
+      <Group control={formGroupInShort}>
+        {(props) => {
+          return (
+            <>
+              {JSON.stringify(props.value)}
+              <Field name="name">{Input}</Field>
+              <Field name="address">{Input}</Field>
+            </>
+          );
+        }}
+      </Group>
+    </>
   );
 };
 

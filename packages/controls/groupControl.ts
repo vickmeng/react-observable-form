@@ -1,9 +1,10 @@
 import { merge, Observable, Subject, Subscription } from "rxjs";
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 
-import { Controls, FormGroupOptions, GroupValue } from "../types/control";
+import { Controls, FormGroupControlsConfig, FormGroupOptions, GroupValue } from "../types/control";
 
 import { AbstractControl } from "./abstractControl";
+import { FieldControl } from "./fieldControl";
 
 export class GroupControl extends AbstractControl<GroupValue> {
   get controls(): Controls {
@@ -27,10 +28,10 @@ export class GroupControl extends AbstractControl<GroupValue> {
   private validChangesSubscription!: Subscription;
   private enabledChangesSubscription!: Subscription;
 
-  constructor(controls: Controls, options: FormGroupOptions = {}) {
+  constructor(controlsConfig: FormGroupControlsConfig, options: FormGroupOptions = {}) {
     super();
     const { disabled = false, validators = [] } = options;
-    this.initControls(controls);
+    this.initControls(controlsConfig);
     // TODO initBasicParams FIND A BETTER WAY
     this.initBasicParams(this.getGroupValueFromControls(), { disabled, validators });
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetValue);
@@ -59,8 +60,20 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.controlsSubject.next(controls);
   };
 
-  // TODO =>
-  private initControls = (controls: Controls) => {
+  private initControls = (controlsConfig: FormGroupControlsConfig) => {
+    const controls: Controls = {};
+
+    for (const controlKey in controlsConfig) {
+      if (Object.prototype.hasOwnProperty.call(controlsConfig, controlKey)) {
+        const val = controlsConfig[controlKey];
+        if (val instanceof AbstractControl) {
+          controls[controlKey] = val;
+        } else {
+          controls[controlKey] = new FieldControl(...val);
+        }
+      }
+    }
+
     this._controls = controls;
   };
 
