@@ -9,26 +9,29 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/basic">basic</Link>
-              </li>
-              <li>
-                <Link to="/groupDemo">groupDemo</Link>
-              </li>
-            </ul>
-          </nav>
-
-          <Switch>
-            <Route path="/basic">
-              <Basic />
-            </Route>
-            <Route path="/groupDemo">
-              <GroupDemo />
-            </Route>
-          </Switch>
+        <div className="container">
+          <div className="row">
+            <nav className="col-3">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link to="/basic">basic</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/groupDemo">groupDemo</Link>
+                </li>
+              </ul>
+            </nav>
+            <div className="col">
+              <Switch>
+                <Route path="/basic">
+                  <Basic />
+                </Route>
+                <Route path="/groupDemo">
+                  <GroupDemo />
+                </Route>
+              </Switch>
+            </div>
+          </div>
         </div>
       </Router>
     </div>
