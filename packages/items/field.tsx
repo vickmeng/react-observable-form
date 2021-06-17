@@ -1,16 +1,29 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
-import { FieldProps, FieldWithControlProps, FieldWithNameProps } from "../types/items";
+import { FieldProps } from "../types/items";
 import { isFieldWithNameProps } from "../utils";
 import { useSubscribe } from "../hooks";
 import { Errors } from "../types/control";
 import { FieldControl } from "../controls/fieldControl";
+import { GroupControl } from "../controls/groupControl";
 
 import { formGroupContext } from "./context";
 
-function FieldWithName<V>({ name, children }: FieldWithNameProps<V>) {
+export function Field<V>(props: FieldProps<V>) {
+  const { children } = props;
+
   const parentGroup = useContext(formGroupContext);
-  const control = parentGroup!.get<FieldControl<V>>(name);
+
+  /**
+   * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
+   */
+  const { name = undefined, control } = isFieldWithNameProps(props)
+    ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
+    : { control: props.control };
+
+  if (!(control instanceof FieldControl)) {
+    throw new Error("props error:Field can only receive FieldControl as control");
+  }
 
   const value = useSubscribe<V>(control, control.value, control.valueChange);
   const enabled = useSubscribe<boolean>(control, control.enabled, control.enabledChange);
@@ -29,37 +42,4 @@ function FieldWithName<V>({ name, children }: FieldWithNameProps<V>) {
   };
 
   return children(childrenProps);
-}
-
-function FieldWithControl<V>({ control, children }: FieldWithControlProps<V>) {
-  const value = useSubscribe<V>(control, control.value, control.valueChange);
-  const enabled = useSubscribe<boolean>(control, control.enabled, control.enabledChange);
-  const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
-  const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
-
-  const childrenProps = {
-    value,
-    setValue: control.setValue,
-    errors,
-    disabled: !enabled,
-    enabled,
-    valid,
-    invalid: !valid,
-  };
-
-  return children(childrenProps);
-}
-
-export function Field<V>(props: FieldProps<V>) {
-  /**
-   * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
-   */
-
-  if (isFieldWithNameProps(props)) {
-    const { children, ...rest } = props;
-    return <FieldWithName {...rest}>{children}</FieldWithName>;
-  } else {
-    const { children, ...rest } = props;
-    return <FieldWithControl {...rest}>{children}</FieldWithControl>;
-  }
 }
