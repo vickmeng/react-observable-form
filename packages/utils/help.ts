@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 
-import { Errors, Validator } from "../types/control";
+import { Errors, ValidatorFn } from "../types/control";
 import { FieldWithNameProps, GroupWithNameProps, GroupProps, FieldProps } from "../types/items";
 
 export function isFieldWithNameProps<V>(props: FieldProps<V>): props is FieldWithNameProps<V> {
@@ -11,7 +11,7 @@ export const isGroupWithNameProps = (props: GroupProps): props is GroupWithNameP
   return (props as GroupWithNameProps).name !== undefined;
 };
 
-export const getErrorsBy = (value: any, validators: Validator[]) => {
+export const getErrorsBy = (value: any, validators: ValidatorFn[]) => {
   const errors: Errors = validators.reduce((acc, cur) => {
     const error = cur(value);
     if (error) {

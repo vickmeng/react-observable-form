@@ -31,7 +31,6 @@ export const Group = (props: GroupProps) => {
     errors,
     valid: valid,
     invalid: !valid,
-    group: control,
     controls,
   };
 

@@ -8,11 +8,11 @@ export type Controls = {
 
 export type Errors = Record<string, any>;
 
-export type Validator<V = any> = (value: V) => Errors | null;
+export type ValidatorFn<V = any> = (value: V) => Errors | null;
 
 export interface ControlBasicOptions {
   disabled?: boolean;
-  validators?: Validator[];
+  validators?: ValidatorFn[];
 }
 
 export type FormControlOptions = ControlBasicOptions;

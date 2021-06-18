@@ -2,7 +2,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { isEqual } from "lodash";
 
-import { ControlBasicOptions, Errors, Validator } from "../types/control";
+import { ControlBasicOptions, Errors, ValidatorFn } from "../types/control";
 import { getErrorsBy } from "../utils";
 
 export abstract class AbstractControl<V = any> {
@@ -54,7 +54,7 @@ export abstract class AbstractControl<V = any> {
   protected _errors!: Errors | null;
   protected _enabled!: boolean;
   protected _valid!: boolean;
-  protected _validators!: Validator[];
+  protected _validators!: ValidatorFn[];
 
   protected valueSubject$ = new Subject<any>();
   protected enabledSubject$ = new Subject<boolean>();
@@ -87,7 +87,7 @@ export abstract class AbstractControl<V = any> {
     this.errorsSubject$.next(errors);
   };
 
-  setValidators = (validators: Validator[]) => {
+  setValidators = (validators: ValidatorFn[]) => {
     this._validators = validators;
     this.validateAndUpdateErrors(this.value);
   };
@@ -123,7 +123,7 @@ export abstract class AbstractControl<V = any> {
     this._valid = valid;
   };
 
-  protected initValidators = (validators: Validator[]) => {
+  protected initValidators = (validators: ValidatorFn[]) => {
     this._validators = validators;
   };
 

@@ -5,6 +5,7 @@ import "./App.css";
 import Basic from "./pages/basic";
 import GroupDemo from "./pages/group";
 import NestedGroupDemo from "./pages/nestedGroup";
+import ValidatorsDemo from "./pages/validators";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
                 <li className="nav-item">
                   <Link to="/NestedGroupDemo">NestedGroupDemo</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/ValidatorsDemo">ValidatorsDemo</Link>
+                </li>
               </ul>
             </nav>
 
@@ -36,6 +40,9 @@ function App() {
                 </Route>
                 <Route path="/NestedGroupDemo">
                   <NestedGroupDemo />
+                </Route>
+                <Route path="/ValidatorsDemo">
+                  <ValidatorsDemo />
                 </Route>
               </Switch>
             </div>
