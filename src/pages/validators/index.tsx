@@ -18,8 +18,8 @@ const confirmPassword: ValidatorFn<FormValue> = (value) => {
 
 const formGroup = new GroupControl(
   {
-    passWord: new FieldControl("", { validators: [required] }),
-    confirmPassWord: new FieldControl("", { validators: [required] }),
+    passWord: ["", { validators: [required] }],
+    confirmPassWord: ["", { validators: [required] }],
   },
   { validators: [confirmPassword] }
 );
