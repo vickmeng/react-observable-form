@@ -34,8 +34,8 @@ export interface FieldInternalProps<V = any> {
   invalid: boolean;
 }
 
-export type FieldWithNameProps<V> = ItemWithNameProps<FieldInternalProps<V>>;
-export type FieldWithControlProps<V> = ItemWithControlProps<FieldInternalProps<V>, FieldControl<V>>;
+export type FieldWithNameProps<V = any> = ItemWithNameProps<FieldInternalProps<V>>;
+export type FieldWithControlProps<V = any> = ItemWithControlProps<FieldInternalProps<V>, FieldControl<V>>;
 
 export type FieldProps<V = any> = FieldWithNameProps<V> | FieldWithControlProps<V>;
 
@@ -65,3 +65,16 @@ export type GroupProps = GroupWithNameProps | GroupWithControlProps;
 /**
  * end
  */
+
+/**
+ * start
+ * Error
+ */
+export interface ErrorInternalProps {
+  name?: string;
+  errors: Errors | null;
+}
+export type ErrorWithNameProps = ItemWithNameProps<ErrorInternalProps>;
+export type ErrorWithControlProps = ItemWithControlProps<ErrorInternalProps, AbstractControl>;
+
+export type ErrorProps = ErrorWithNameProps | ErrorWithControlProps;

@@ -17,7 +17,7 @@ export function Field<V>(props: FieldProps<V>) {
   /**
    * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
    */
-  const { name = undefined, control } = isFieldWithNameProps(props)
+  const { name = undefined, control } = isFieldWithNameProps<V>(props)
     ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
     : { control: props.control };
 
