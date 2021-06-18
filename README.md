@@ -4,9 +4,11 @@
     2. FormList
     3. UT
     4. useForm, useField
-    5. 简化Group api
+    5. 简化Group api(搞定)
     6. dirty
     7. value type
-    (直接穿入control可以提示value类型，传入name不可以)
+    (FieldWithName搞不定了)
     8. dirty
+    9.group嵌套group(搞定)
+    10， validators
 ```

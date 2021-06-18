@@ -12,10 +12,10 @@ const Input = (props: FieldInternalProps) => {
   return (
     <>
       <input className="form-control" value={value} onChange={onChange} />
-      <div>value: {JSON.stringify(props.value)}</div>
-      <div>invalid: {JSON.stringify(props.invalid)}</div>
-      <div>errors: {JSON.stringify(props.errors)}</div>
-      <div>disabled: {JSON.stringify(props.disabled)}</div>
+      <div className="text-info">value: {JSON.stringify(props.value)}</div>
+      <div className="text-info">invalid: {JSON.stringify(props.invalid)}</div>
+      <div className="text-info">errors: {JSON.stringify(props.errors)}</div>
+      <div className="text-info">disabled: {JSON.stringify(props.disabled)}</div>
     </>
   );
 };

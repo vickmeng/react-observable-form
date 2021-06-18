@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Basic from "./pages/basic";
 import GroupDemo from "./pages/group";
+import NestedGroupDemo from "./pages/nestedGroup";
 
 function App() {
   return (
@@ -14,20 +15,27 @@ function App() {
             <nav className="col-3">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link to="/basic">basic</Link>
+                  <Link to="/Basic">Basic</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/groupDemo">groupDemo</Link>
+                  <Link to="/GroupDemo">GroupDemo</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/NestedGroupDemo">NestedGroupDemo</Link>
                 </li>
               </ul>
             </nav>
+
             <div className="col">
               <Switch>
-                <Route path="/basic">
+                <Route path="/Basic">
                   <Basic />
                 </Route>
-                <Route path="/groupDemo">
+                <Route path="/GroupDemo">
                   <GroupDemo />
+                </Route>
+                <Route path="/NestedGroupDemo">
+                  <NestedGroupDemo />
                 </Route>
               </Switch>
             </div>

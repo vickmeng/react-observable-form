@@ -28,7 +28,7 @@ const GroupDemo = () => {
         }}
       </Group>
 
-      <h3>简写：</h3>
+      <h3>简写只支持创建Field：</h3>
 
       <Group control={formGroupInShort}>
         {(props) => {
