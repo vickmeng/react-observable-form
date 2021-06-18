@@ -1,13 +1,12 @@
 ###TODO
 ```
-    1. <ErrorMessage/>
+    1. <ErrorMessage/>（done）
     2. FormList
     3. UT
     4. useForm, useField
-    5. 简化Group api(搞定)
+    5. 简化Group api(done)
     6. dirty
     7. value type (FieldWithName搞不定了)
-    8. dirty
-    9. group嵌套group(搞定)
-    10， validators
+    8. group嵌套group(done)
+    9，validators(pending,copy angular)
 ```
