@@ -26,7 +26,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
   private controlsChangeNotifyLock = false;
   private valueChangesSubscription!: Subscription;
   private validChangesSubscription!: Subscription;
-  private disabledChangesSubscription!: Subscription;
 
   constructor(controlsConfig: FormGroupControlsConfig, options: FormGroupOptions = {}) {
     super();
@@ -35,10 +34,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     // TODO initBasicParams FIND A BETTER WAY
     this.initBasicParams(this.getGroupValueFromControls(), { disabled, validators });
 
-    // TODO reSubscribeControls when controlsChange maybe a bug
-    this.controlsChange.subscribe(this.updatePrivateControlsAndResetValue);
-
-    this.reSubscribeControls();
+    this.resetGraph();
+    // TODO resetGraph when controlsChange maybe a bug
+    this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
   get = <T extends AbstractControl<any>>(name: string): T => {
@@ -56,9 +54,17 @@ export class GroupControl extends AbstractControl<GroupValue> {
   };
 
   addControl = (name: string, control: AbstractControl<any>) => {
+    /**
+     * reject control of the same name
+     */
+    if (this.controls[name]) {
+      return;
+    }
+
     const controls = Object.assign({}, this.controls, {
       [name]: control,
     });
+
     this.controlsSubject.next(controls);
   };
 
@@ -102,9 +108,10 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return !(this.errors || Object.values(this._controls).some((control) => control.invalid));
   };
 
-  private updatePrivateControlsAndResetValue = (controls: Controls) => {
+  private updatePrivateControlsAndResetSubscribeGraph = (controls: Controls) => {
     this.updatePrivateControls(controls);
     this.valueSubject$.next(this.getGroupValueFromControls());
+    this.resetGraph();
   };
 
   private updatePrivateControls = (controls: Controls) => {
@@ -123,23 +130,22 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return value;
   };
 
-  private reSubscribeControls = () => {
+  private resetGraph = () => {
     const controls = Object.values(this._controls);
     const valueChanges = controls.map((control) => control.valueChange);
     const validChanges = controls.map((control) => control.validChange);
     const disabledChanges = controls.map((control) => control.disabledChange);
 
-    this.reSubscribeControlsValueChange(valueChanges);
-    this.reSubscribeControlsValidChange(validChanges);
-    this.reSubscribeControlsDisabledChange(disabledChanges);
+    this.resetValueGraph([...valueChanges, ...disabledChanges]);
+    this.resetValidGraph(validChanges);
   };
 
-  private reSubscribeControlsValueChange(valueChanges: Observable<any>[]) {
+  private resetValueGraph(changes: Observable<any>[]) {
     if (this.valueChangesSubscription) {
       this.valueChangesSubscription.unsubscribe();
     }
 
-    this.valueChangesSubscription = merge(...valueChanges)
+    this.valueChangesSubscription = merge(...changes)
       .pipe(
         takeUntil(this.destroy$),
         skipWhile(() => this.controlsChangeNotifyLock),
@@ -150,7 +156,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
       });
   }
 
-  private reSubscribeControlsValidChange = (validChanges: Observable<boolean>[]) => {
+  private resetValidGraph = (validChanges: Observable<boolean>[]) => {
     if (this.validChangesSubscription) {
       this.validChangesSubscription.unsubscribe();
     }
@@ -162,25 +168,5 @@ export class GroupControl extends AbstractControl<GroupValue> {
         map(() => this.checkValid())
       )
       .subscribe(this.setValid);
-  };
-
-  /**
-   * FormGroup ignore disabled field's value,
-   * when one of controls change the disabled status, update group value.
-   */
-  private reSubscribeControlsDisabledChange = (disabledChanges: Observable<boolean>[]) => {
-    if (this.disabledChangesSubscription) {
-      this.disabledChangesSubscription.unsubscribe();
-    }
-
-    this.disabledChangesSubscription = merge(...disabledChanges)
-      .pipe(
-        takeUntil(this.destroy$),
-        skipWhile(() => this.controlsChangeNotifyLock),
-        map(() => this.getGroupValueFromControls())
-      )
-      .subscribe((v) => {
-        this.valueSubject$.next(v);
-      });
   };
 }

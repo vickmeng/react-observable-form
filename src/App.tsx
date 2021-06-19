@@ -8,6 +8,7 @@ import NestedGroupDemo from "./pages/nestedGroup";
 import ValidatorsDemo from "./pages/validators";
 import DisabledDemo from "./pages/disabledDemo";
 import DirtyDemo from "./pages/dirtyDemo";
+import GroupDynamicControlDemo from "./pages/groupDynamicControlDemo";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
                 <li className="nav-item">
                   <Link to="/DirtyDemo">DirtyDemo</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/GroupDynamicControlDemo">GroupDynamicControlDemo</Link>
+                </li>
               </ul>
             </nav>
 
@@ -57,6 +61,9 @@ function App() {
                 </Route>
                 <Route path="/DirtyDemo">
                   <DirtyDemo />
+                </Route>
+                <Route path="/GroupDynamicControlDemo">
+                  <GroupDynamicControlDemo />
                 </Route>
               </Switch>
             </div>
