@@ -1,10 +1,10 @@
 import { merge, Observable, Subject, Subscription } from "rxjs";
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 
-import { Controls, FormGroupControlsConfig, FormGroupOptions, GroupValue } from "../types/control";
+import { Controls, CreateControlParams, FormGroupControlsConfig, FormGroupOptions, GroupValue } from "../types/control";
+import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
-import { FieldControl } from "./fieldControl";
 
 export class GroupControl extends AbstractControl<GroupValue> {
   get controls(): Controls {
@@ -53,7 +53,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.valueSubject$.next(value);
   };
 
-  addControl = (name: string, control: AbstractControl<any>) => {
+  addControl = (name: string, control: CreateControlParams) => {
     /**
      * reject control of the same name
      */
@@ -62,7 +62,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     }
 
     const controls = Object.assign({}, this.controls, {
-      [name]: control,
+      [name]: createControl(control),
     });
 
     this.controlsSubject.next(controls);
@@ -74,11 +74,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     for (const controlKey in controlsConfig) {
       if (Object.prototype.hasOwnProperty.call(controlsConfig, controlKey)) {
         const val = controlsConfig[controlKey];
-        if (val instanceof AbstractControl) {
-          controls[controlKey] = val;
-        } else {
-          controls[controlKey] = new FieldControl(...val);
-        }
+        controls[controlKey] = createControl(val);
       }
     }
 

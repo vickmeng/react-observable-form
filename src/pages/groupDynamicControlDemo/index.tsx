@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Field, FieldControl, Group, GroupControl } from "../../../packages/index";
+import { Field, Group, GroupControl } from "../../../packages/index";
 import Input from "../../components/Input";
 
 const formGroup = new GroupControl({
@@ -34,7 +34,7 @@ const GroupDynamicControlDemo = () => {
         <button
           className="btn btn-primary btn-lg"
           onClick={() => {
-            formGroup.addControl("address", new FieldControl("a"));
+            formGroup.addControl("address", ["Beijing China"]);
           }}
         >
           add address

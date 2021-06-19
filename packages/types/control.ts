@@ -1,12 +1,16 @@
 import { AbstractControl } from "../controls/abstractControl";
 
-export type GroupValue = Record<string, any>;
+export type GroupValue = {
+  [key: string]: any;
+};
 
 export type Controls = {
   [key: string]: AbstractControl<any>;
 };
 
-export type Errors = Record<string, any>;
+export type Errors = {
+  [key: string]: any;
+};
 
 export type ValidatorFn<V = any> = (value: V) => Errors | null;
 
@@ -18,8 +22,10 @@ export interface ControlBasicOptions {
 
 export type FormControlOptions = ControlBasicOptions;
 
+export type CreateControlParams = AbstractControl<any> | [value: any, options?: FormControlOptions];
+
 export type FormGroupControlsConfig = {
-  [key: string]: AbstractControl<any> | [value: any, options?: FormControlOptions];
+  [key: string]: CreateControlParams;
 };
 
 export type FormGroupOptions = ControlBasicOptions;

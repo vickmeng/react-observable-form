@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 
-import { Errors, ValidatorFn } from "../types/control";
+import { CreateControlParams, Errors, ValidatorFn } from "../types/control";
 import {
   ErrorProps,
   ErrorWithNameProps,
@@ -9,6 +9,8 @@ import {
   GroupProps,
   GroupWithNameProps,
 } from "../types/items";
+import { AbstractControl } from "../controls/abstractControl";
+import { FieldControl } from "../controls/fieldControl";
 
 export function isFieldWithNameProps<V>(props: FieldProps<V>): props is FieldWithNameProps<V> {
   return (props as FieldWithNameProps<V>).name !== undefined;
@@ -32,4 +34,12 @@ export const getErrorsBy = (value: any, validators: ValidatorFn[]) => {
   }, {});
 
   return isEmpty(errors) ? null : errors;
+};
+
+export const createControl = (params: CreateControlParams) => {
+  if (params instanceof AbstractControl) {
+    return params;
+  } else {
+    return new FieldControl(...params);
+  }
 };
