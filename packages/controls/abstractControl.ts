@@ -22,12 +22,12 @@ export abstract class AbstractControl<V = any> {
     return !this._valid;
   }
 
-  get enabled() {
-    return this._enabled;
+  get disabled() {
+    return this._disabled;
   }
 
-  get disabled() {
-    return !this._enabled;
+  get enabled() {
+    return !this._disabled;
   }
 
   get valueChange() {
@@ -38,8 +38,8 @@ export abstract class AbstractControl<V = any> {
     return this.errorsSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  get enabledChange() {
-    return this.enabledSubject$.asObservable().pipe(takeUntil(this.destroy$));
+  get disabledChange() {
+    return this.disabledSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
   get validChange() {
@@ -52,12 +52,12 @@ export abstract class AbstractControl<V = any> {
 
   protected _value!: V;
   protected _errors!: Errors | null;
-  protected _enabled!: boolean;
+  protected _disabled!: boolean;
   protected _valid!: boolean;
   protected _validators!: ValidatorFn[];
 
   protected valueSubject$ = new Subject<any>();
-  protected enabledSubject$ = new Subject<boolean>();
+  protected disabledSubject$ = new Subject<boolean>();
   protected validSubject$ = new Subject<boolean>();
   protected errorsSubject$ = new Subject<Errors | null>();
   protected destroy$ = new Subject<true>();
@@ -65,13 +65,13 @@ export abstract class AbstractControl<V = any> {
   protected initBasicParams(value: V, { disabled = false, validators = [] }: ControlBasicOptions) {
     this.initValue(value);
     this.initValidators(validators);
-    this.initEnabled(!disabled);
+    this.initDisabled(disabled);
     this.initErrors(getErrorsBy(value, validators));
     this.initValid(this.checkValid());
 
     this.validChange.subscribe(this.updatePrivateValid);
     this.errorsChange.subscribe(this.updatePrivateErrors);
-    this.enabledChange.subscribe(this.updatePrivateEnabledStatus);
+    this.disabledChange.subscribe(this.updatePrivateDisabled);
     this.valueChange.subscribe(this.updatePrivateValue);
     this.valueChange.subscribe(this.validateAndUpdateErrors);
   }
@@ -93,11 +93,11 @@ export abstract class AbstractControl<V = any> {
   };
 
   disable = () => {
-    this.setEnabled(false);
+    this.setDisabled(true);
   };
 
   enable = () => {
-    this.setEnabled(true);
+    this.setDisabled(false);
   };
 
   setValid = (valid: boolean) => {
@@ -111,8 +111,8 @@ export abstract class AbstractControl<V = any> {
     this.updatePrivateValue(value);
   };
 
-  protected initEnabled = (enabled: boolean) => {
-    this._enabled = enabled;
+  protected initDisabled = (disabled: boolean) => {
+    this._disabled = disabled;
   };
 
   protected initErrors = (errors: Errors | null) => {
@@ -139,8 +139,8 @@ export abstract class AbstractControl<V = any> {
     this._errors = errors;
   };
 
-  protected updatePrivateEnabledStatus = (enabled: boolean) => {
-    this._enabled = enabled;
+  protected updatePrivateDisabled = (disabled: boolean) => {
+    this._disabled = disabled;
   };
 
   protected validateAndUpdateErrors = (value: V) => {
@@ -150,11 +150,11 @@ export abstract class AbstractControl<V = any> {
     this.setValid(this.checkValid());
   };
 
-  private setEnabled = (enabled: boolean) => {
-    if (enabled === this.enabled) {
+  private setDisabled = (disabled: boolean) => {
+    if (disabled === this.disabled) {
       return;
     }
 
-    this.enabledSubject$.next(enabled);
+    this.disabledSubject$.next(disabled);
   };
 }

@@ -26,7 +26,7 @@ export function Field<V>(props: FieldProps<V>) {
   }
 
   const value = useSubscribe<V>(control, control.value, control.valueChange);
-  const enabled = useSubscribe<boolean>(control, control.enabled, control.enabledChange);
+  const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
@@ -35,8 +35,8 @@ export function Field<V>(props: FieldProps<V>) {
     value,
     setValue: control.setValue,
     errors,
-    disabled: !enabled,
-    enabled,
+    disabled,
+    enabled: !disabled,
     valid,
     invalid: !valid,
   };

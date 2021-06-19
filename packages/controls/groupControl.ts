@@ -113,7 +113,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     const value: GroupValue = {};
     Object.keys(this._controls).forEach((name) => {
       const control = this._controls[name];
-      if (control.enabled) {
+      if (control.disabled) {
         value[name] = control.value;
       }
     });
@@ -125,7 +125,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     const controls = Object.values(this._controls);
     const valueChanges = controls.map((control) => control.valueChange);
     const validChanges = controls.map((control) => control.validChange);
-    const enabledChanges = controls.map((control) => control.enabledChange);
+    const enabledChanges = controls.map((control) => control.disabledChange);
 
     this.reSubscribeControlValueChanges(valueChanges);
     this.reSubscribeControlValidChanges(validChanges);
