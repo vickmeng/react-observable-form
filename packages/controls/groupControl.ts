@@ -26,7 +26,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
   private controlsChangeNotifyLock = false;
   private valueChangesSubscription!: Subscription;
   private validChangesSubscription!: Subscription;
-  private enabledChangesSubscription!: Subscription;
+  private disabledChangesSubscription!: Subscription;
 
   constructor(controlsConfig: FormGroupControlsConfig, options: FormGroupOptions = {}) {
     super();
@@ -34,6 +34,8 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.initControls(controlsConfig);
     // TODO initBasicParams FIND A BETTER WAY
     this.initBasicParams(this.getGroupValueFromControls(), { disabled, validators });
+
+    // TODO reSubscribeControls when controlsChange maybe a bug
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetValue);
 
     this.reSubscribeControls();
@@ -113,7 +115,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     const value: GroupValue = {};
     Object.keys(this._controls).forEach((name) => {
       const control = this._controls[name];
-      if (control.disabled) {
+      if (control.enabled) {
         value[name] = control.value;
       }
     });
@@ -125,14 +127,14 @@ export class GroupControl extends AbstractControl<GroupValue> {
     const controls = Object.values(this._controls);
     const valueChanges = controls.map((control) => control.valueChange);
     const validChanges = controls.map((control) => control.validChange);
-    const enabledChanges = controls.map((control) => control.disabledChange);
+    const disabledChanges = controls.map((control) => control.disabledChange);
 
-    this.reSubscribeControlValueChanges(valueChanges);
-    this.reSubscribeControlValidChanges(validChanges);
-    this.reSubscribeControlEnabledChanges(enabledChanges);
+    this.reSubscribeControlsValueChange(valueChanges);
+    this.reSubscribeControlsValidChange(validChanges);
+    this.reSubscribeControlsDisabledChange(disabledChanges);
   };
 
-  private reSubscribeControlValueChanges(valueChanges: Observable<any>[]) {
+  private reSubscribeControlsValueChange(valueChanges: Observable<any>[]) {
     if (this.valueChangesSubscription) {
       this.valueChangesSubscription.unsubscribe();
     }
@@ -148,7 +150,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
       });
   }
 
-  private reSubscribeControlValidChanges = (validChanges: Observable<boolean>[]) => {
+  private reSubscribeControlsValidChange = (validChanges: Observable<boolean>[]) => {
     if (this.validChangesSubscription) {
       this.validChangesSubscription.unsubscribe();
     }
@@ -162,13 +164,16 @@ export class GroupControl extends AbstractControl<GroupValue> {
       .subscribe(this.setValid);
   };
 
-  // TODO ?? merge with reSubscribeControlValueChanges
-  private reSubscribeControlEnabledChanges = (enabledChanges: Observable<boolean>[]) => {
-    if (this.enabledChangesSubscription) {
-      this.enabledChangesSubscription.unsubscribe();
+  /**
+   * FormGroup ignore disabled field's value,
+   * when one of controls change the disabled status, update group value.
+   */
+  private reSubscribeControlsDisabledChange = (disabledChanges: Observable<boolean>[]) => {
+    if (this.disabledChangesSubscription) {
+      this.disabledChangesSubscription.unsubscribe();
     }
 
-    this.enabledChangesSubscription = merge(...enabledChanges)
+    this.disabledChangesSubscription = merge(...disabledChanges)
       .pipe(
         takeUntil(this.destroy$),
         skipWhile(() => this.controlsChangeNotifyLock),
