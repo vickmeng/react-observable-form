@@ -32,6 +32,8 @@ export interface FieldInternalProps<V = any> {
   errors: Errors | null;
   valid: boolean;
   invalid: boolean;
+  dirty: boolean;
+  pristine: boolean;
 }
 
 export type FieldWithNameProps<V = any> = ItemWithNameProps<FieldInternalProps<V>>;

@@ -30,6 +30,14 @@ export abstract class AbstractControl<V = any> {
     return !this._disabled;
   }
 
+  get dirty() {
+    return this._dirty;
+  }
+
+  get pristine() {
+    return !this._dirty;
+  }
+
   get valueChange() {
     return this.valueSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
@@ -40,6 +48,10 @@ export abstract class AbstractControl<V = any> {
 
   get disabledChange() {
     return this.disabledSubject$.asObservable().pipe(takeUntil(this.destroy$));
+  }
+
+  get dirtyChange() {
+    return this.dirtySubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
   get validChange() {
@@ -53,19 +65,23 @@ export abstract class AbstractControl<V = any> {
   protected _value!: V;
   protected _errors!: Errors | null;
   protected _disabled!: boolean;
+  protected _dirty!: boolean;
   protected _valid!: boolean;
   protected _validators!: ValidatorFn[];
 
   protected valueSubject$ = new Subject<any>();
   protected disabledSubject$ = new Subject<boolean>();
   protected validSubject$ = new Subject<boolean>();
+  protected dirtySubject$ = new Subject<boolean>();
   protected errorsSubject$ = new Subject<Errors | null>();
   protected destroy$ = new Subject<true>();
 
-  protected initBasicParams(value: V, { disabled = false, validators = [] }: ControlBasicOptions) {
+  protected initBasicParams(value: V, { disabled = false, dirty = false, validators = [] }: ControlBasicOptions) {
     this.initValue(value);
     this.initValidators(validators);
     this.initDisabled(disabled);
+    this.initDirty(dirty);
+
     this.initErrors(getErrorsBy(value, validators));
     this.initValid(this.checkValid());
 
@@ -113,6 +129,10 @@ export abstract class AbstractControl<V = any> {
 
   protected initDisabled = (disabled: boolean) => {
     this._disabled = disabled;
+  };
+
+  protected initDirty = (dirty: boolean) => {
+    this._dirty = dirty;
   };
 
   protected initErrors = (errors: Errors | null) => {

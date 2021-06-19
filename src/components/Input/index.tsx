@@ -15,6 +15,8 @@ const Input = (props: FieldInternalProps) => {
       <div className="text-info">errors: {JSON.stringify(props.errors)}</div>
       <div className="text-info">disabled: {JSON.stringify(props.disabled)}</div>
       <div className="text-info">enabled: {JSON.stringify(props.enabled)}</div>
+      <div className="text-info">dirty: {JSON.stringify(props.dirty)}</div>
+      <div className="text-info">pristine: {JSON.stringify(props.pristine)}</div>
     </>
   );
 };

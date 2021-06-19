@@ -7,6 +7,7 @@ import GroupDemo from "./pages/group";
 import NestedGroupDemo from "./pages/nestedGroup";
 import ValidatorsDemo from "./pages/validators";
 import DisabledDemo from "./pages/disabledDemo";
+import DirtyDemo from "./pages/dirtyDemo";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
                 <li className="nav-item">
                   <Link to="/DisabledDemo">DisabledDemo</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/DirtyDemo">DirtyDemo</Link>
+                </li>
               </ul>
             </nav>
 
@@ -50,6 +54,9 @@ function App() {
                 </Route>
                 <Route path="/DisabledDemo">
                   <DisabledDemo />
+                </Route>
+                <Route path="/DirtyDemo">
+                  <DirtyDemo />
                 </Route>
               </Switch>
             </div>

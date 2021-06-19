@@ -27,6 +27,7 @@ export function Field<V>(props: FieldProps<V>) {
 
   const value = useSubscribe<V>(control, control.value, control.valueChange);
   const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
+  const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
@@ -39,6 +40,8 @@ export function Field<V>(props: FieldProps<V>) {
     enabled: !disabled,
     valid,
     invalid: !valid,
+    dirty,
+    pristine: !dirty,
   };
 
   return children(childrenProps);

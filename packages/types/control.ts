@@ -12,6 +12,7 @@ export type ValidatorFn<V = any> = (value: V) => Errors | null;
 
 export interface ControlBasicOptions {
   disabled?: boolean;
+  dirty?: boolean;
   validators?: ValidatorFn[];
 }
 
