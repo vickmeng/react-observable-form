@@ -88,8 +88,11 @@ export abstract class AbstractControl<V = any> {
     this.validChange.subscribe(this.updatePrivateValid);
     this.errorsChange.subscribe(this.updatePrivateErrors);
     this.disabledChange.subscribe(this.updatePrivateDisabled);
+    this.dirtyChange.subscribe(this.updatePrivateDirty);
+
     this.valueChange.subscribe(this.updatePrivateValue);
     this.valueChange.subscribe(this.validateAndUpdateErrors);
+    this.valueChange.subscribe(this.markAsDirty);
   }
 
   destroy = () => {
@@ -121,6 +124,14 @@ export abstract class AbstractControl<V = any> {
       return;
     }
     this.validSubject$.next(valid);
+  };
+
+  markAsDirty = () => {
+    this.setDirty(true);
+  };
+
+  markAsPristine = () => {
+    this.setDirty(false);
   };
 
   protected initValue = (value: V) => {
@@ -163,6 +174,10 @@ export abstract class AbstractControl<V = any> {
     this._disabled = disabled;
   };
 
+  protected updatePrivateDirty = (dirty: boolean) => {
+    this._dirty = dirty;
+  };
+
   protected validateAndUpdateErrors = (value: V) => {
     const errors = getErrorsBy(value, this._validators);
 
@@ -176,5 +191,13 @@ export abstract class AbstractControl<V = any> {
     }
 
     this.disabledSubject$.next(disabled);
+  };
+
+  private setDirty = (dirty: boolean) => {
+    if (dirty === this.dirty) {
+      return;
+    }
+
+    this.dirtySubject$.next(dirty);
   };
 }

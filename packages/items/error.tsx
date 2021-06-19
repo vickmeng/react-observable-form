@@ -18,12 +18,16 @@ const Error = (props: ErrorProps) => {
     : { control: props.control };
 
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
+  const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
   const childrenProps = {
     name,
-    valid,
     errors,
+    valid,
+    invalid: valid,
+    dirty,
+    pristine: !dirty,
   };
   return children(childrenProps);
 };

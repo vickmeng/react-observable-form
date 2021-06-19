@@ -8,23 +8,25 @@ const formControl = new FieldControl<string>("vick");
 const DisabledDemo = () => {
   return (
     <>
-      <button
-        className="btn btn-primary btn-lg"
-        onClick={() => {
-          formControl.disable();
-        }}
-      >
-        disable
-      </button>
+      <div>
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => {
+            formControl.disable();
+          }}
+        >
+          disable
+        </button>
 
-      <button
-        className="btn btn-primary btn-lg"
-        onClick={() => {
-          formControl.enable();
-        }}
-      >
-        enable
-      </button>
+        <button
+          className="btn btn-primary btn-lg"
+          onClick={() => {
+            formControl.enable();
+          }}
+        >
+          enable
+        </button>
+      </div>
 
       <label className="form-label">name</label>
       <Field control={formControl}>{Input}</Field>
