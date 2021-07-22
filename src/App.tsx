@@ -10,6 +10,7 @@ import DisabledDemo from "./pages/disabledDemo";
 import DirtyDemo from "./pages/dirtyDemo";
 import GroupDynamicControlDemo from "./pages/groupDynamicControlDemo";
 import UseAntd from "./pages/useAntd";
+import ListDemo from "./pages/listDemo";
 
 function App() {
   return (
@@ -48,6 +49,9 @@ function App() {
                 <li className="nav-item">
                   <Link to="/UseAntd">UseAntd</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/ListDemo">ListDemo</Link>
+                </li>
               </ul>
             </nav>
 
@@ -76,6 +80,9 @@ function App() {
                 </Route>
                 <Route path="/UseAntd">
                   <UseAntd />
+                </Route>
+                <Route path="/ListDemo">
+                  <ListDemo />
                 </Route>
               </Switch>
             </div>

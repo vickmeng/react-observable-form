@@ -8,6 +8,8 @@ import {
   FieldWithNameProps,
   GroupProps,
   GroupWithNameProps,
+  ListProps,
+  ListWithNameProps,
 } from "../types/items";
 import { AbstractControl } from "../controls/abstractControl";
 import { FieldControl } from "../controls/fieldControl";
@@ -18,6 +20,10 @@ export function isFieldWithNameProps<V>(props: FieldProps<V>): props is FieldWit
 
 export const isGroupWithNameProps = (props: GroupProps): props is GroupWithNameProps => {
   return (props as GroupWithNameProps).name !== undefined;
+};
+
+export const isListWithNameProps = (props: ListProps): props is ListWithNameProps => {
+  return (props as ListWithNameProps).name !== undefined;
 };
 
 export function isErrorWithNameProps(props: ErrorProps): props is ErrorWithNameProps {

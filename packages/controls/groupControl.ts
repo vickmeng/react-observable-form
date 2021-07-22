@@ -45,8 +45,8 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
-  get = <T extends AbstractControl<any>>(name: string): T => {
-    return this._controls[name] as T;
+  get = <C extends AbstractControl<any>>(name: string): C => {
+    return this._controls[name] as C;
   };
 
   override setValue = (value: GroupValue) => {
@@ -92,13 +92,20 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.controlsSubject.next(controls);
   };
 
+  /**
+   * has group level error or has invalid controls
+   */
+  protected checkValid = () => {
+    return !(this.errors || Object.values(this._controls).some((control) => control.invalid));
+  };
+
   private initControls = (controlsConfig: FormGroupControlsConfig) => {
     const controls: GroupControls = {};
 
     for (const controlKey in controlsConfig) {
       if (Object.prototype.hasOwnProperty.call(controlsConfig, controlKey)) {
-        const val = controlsConfig[controlKey];
-        controls[controlKey] = createControl(val);
+        const config = controlsConfig[controlKey];
+        controls[controlKey] = createControl(config);
       }
     }
 
@@ -119,13 +126,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
      * close the lock
      */
     this.controlsChangeNotifyLock = false;
-  };
-
-  /**
-   * has group level error or has invalid controls
-   */
-  protected checkValid = () => {
-    return !(this.errors || Object.values(this._controls).some((control) => control.invalid));
   };
 
   private updatePrivateControlsAndResetSubscribeGraph = (controls: GroupControls) => {

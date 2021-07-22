@@ -3,8 +3,9 @@ import { ReactElement } from "react";
 import { AbstractControl } from "../controls/abstractControl";
 import { FieldControl } from "../controls/fieldControl";
 import { GroupControl } from "../controls/groupControl";
+import { ListControl } from "../controls/listControl";
 
-import { GroupControls, Errors } from "./control";
+import { GroupControls, Errors, ListControls } from "./control";
 
 export interface IItemBasicProps<P> {
   children: (props: P) => ReactElement;
@@ -66,6 +67,31 @@ export type GroupWithNameProps = ItemWithNameProps<GroupInternalProps>;
 export type GroupWithControlProps = ItemWithControlProps<GroupInternalProps, GroupControl>;
 
 export type GroupProps = GroupWithNameProps | GroupWithControlProps;
+/**
+ * end
+ */
+
+/**
+ * start
+ * List
+ */
+export interface ListInternalProps {
+  name?: string;
+  value: any[];
+  enabled: boolean;
+  disabled: boolean;
+  errors: Errors | null;
+  valid: boolean;
+  invalid: boolean;
+  controls: ListControls;
+  dirty: boolean;
+  pristine: boolean;
+}
+
+export type ListWithNameProps = ItemWithNameProps<ListInternalProps>;
+export type ListWithControlProps = ItemWithControlProps<ListInternalProps, ListControl<any>>;
+
+export type ListProps = ListWithNameProps | ListWithControlProps;
 /**
  * end
  */

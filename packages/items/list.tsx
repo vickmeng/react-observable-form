@@ -1,30 +1,30 @@
 import React, { useContext } from "react";
 
-import { GroupProps, GroupInternalProps } from "../types/items";
-import { isGroupWithNameProps } from "../utils";
-import { GroupControl } from "../controls/groupControl";
+import { isListWithNameProps } from "../utils";
+import { ListInternalProps, ListProps } from "../types/items";
 import { useSubscribe } from "../hooks";
-import { GroupControls, Errors } from "../types/control";
+import { Errors, ListControls } from "../types/control";
+import { ListControl } from "../controls/listControl";
 
 import { ParentFormContext } from "./context";
 
-export const Group = (props: GroupProps) => {
+export const List = (props: ListProps) => {
   const { children } = props;
 
   const parentGroup = useContext(ParentFormContext);
 
-  const { name = undefined, control } = isGroupWithNameProps(props)
-    ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
+  const { name = undefined, control } = isListWithNameProps(props)
+    ? { name: props.name, control: parentGroup!.get<ListControl<any>>(props.name) }
     : { control: props.control };
 
-  const value = useSubscribe<GroupInternalProps["value"]>(control, control.value, control.valueChange);
-  const controls = useSubscribe<GroupControls>(control, control.controls, control.controlsChange);
+  const value = useSubscribe<ListInternalProps["value"]>(control, control.value, control.valueChange);
+  const controls = useSubscribe<ListControls>(control, control.controls, control.controlsChange);
   const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
   const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
-  const childProps: GroupInternalProps = {
+  const childProps: ListInternalProps = {
     name,
     value,
     disabled,

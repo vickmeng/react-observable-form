@@ -8,6 +8,10 @@ export type GroupControls = {
   [key: string]: AbstractControl<any>;
 };
 
+export type ListValue<V = any> = V[];
+
+export type ListControls<V = any> = AbstractControl<V>[];
+
 export type Errors = {
   [key: string]: any;
 };
@@ -22,13 +26,17 @@ export interface ControlBasicOptions {
 
 export type FormControlOptions = ControlBasicOptions;
 
+export type FormGroupOptions = ControlBasicOptions;
+
+export type FormListOptions = ControlBasicOptions;
+
 export type CreateControlParams = AbstractControl<any> | [value: any, options?: FormControlOptions];
 
 export type FormGroupControlsConfig = {
   [key: string]: CreateControlParams;
 };
 
-export type FormGroupOptions = ControlBasicOptions;
+export type FormListControlsConfig = CreateControlParams[];
 
 export interface SetValueOptions {
   emitEvent: boolean;

@@ -6,12 +6,12 @@ import { GroupControl } from "../controls/groupControl";
 import { useSubscribe } from "../hooks";
 import { Errors } from "../types/control";
 
-import { formGroupContext } from "./context";
+import { ParentFormContext } from "./context";
 
 const Error = (props: ErrorProps) => {
   const { children } = props;
 
-  const parentGroup = useContext(formGroupContext);
+  const parentGroup = useContext(ParentFormContext);
 
   const { name = undefined, control } = isErrorWithNameProps(props)
     ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }

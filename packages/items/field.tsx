@@ -7,12 +7,12 @@ import { Errors } from "../types/control";
 import { FieldControl } from "../controls/fieldControl";
 import { GroupControl } from "../controls/groupControl";
 
-import { formGroupContext } from "./context";
+import { ParentFormContext } from "./context";
 
 export function Field<V>(props: FieldProps<V>) {
   const { children } = props;
 
-  const parentGroup = useContext(formGroupContext);
+  const parentGroup = useContext(ParentFormContext);
 
   /**
    * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
