@@ -31,6 +31,23 @@ function App() {
                 <li className="nav-item">
                   <Link to="/ValidatorsDemo">ValidatorsDemo</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/ValidatorsDemo">ValidatorsDemo</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/DisabledDemo">DisabledDemo</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/DirtyDemo">DirtyDemo</Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to="/GroupDynamicControlDemo">GroupDynamicControlDemo</Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to="/UseAntd">UseAntd</Link>
+                </li>
               </ul>
             </nav>
 
