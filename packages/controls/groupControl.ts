@@ -144,6 +144,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return value;
   };
 
+  /**
+   * build the flow of group and children controls
+   */
   private resetGraph = () => {
     const controls = Object.values(this._controls);
     const valueChanges = controls.map((control) => control.valueChange);

@@ -1,4 +1,4 @@
-import { FormControlOptions } from "../types/control";
+import { FormControlOptions, SetValueOptions } from "../types/control";
 
 import { AbstractControl } from "./abstractControl";
 
@@ -9,7 +9,7 @@ export class FieldControl<V = any> extends AbstractControl<V> {
     this.initBasicParams(value, { disabled, validators });
   }
 
-  override setValue = (value: any) => {
+  override setValue = (value: any, options?: SetValueOptions) => {
     /**
      * start
      * distinct value change

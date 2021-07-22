@@ -19,15 +19,15 @@ export const Group = (props: GroupProps) => {
 
   const value = useSubscribe<GroupInternalProps["value"]>(control, control.value, control.valueChange);
   const controls = useSubscribe<Controls>(control, control.controls, control.controlsChange);
-  const enabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
+  const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
   const childProps: GroupInternalProps = {
     name,
     value,
-    enabled,
-    disabled: !enabled,
+    disabled,
+    enabled: !disabled,
     errors,
     valid: valid,
     invalid: !valid,

@@ -25,6 +25,19 @@ const NestedGroupDemo = () => {
             <label className="form-label">name</label>
             <Field name="name">{Input}</Field>
             <div className="card p-3 bg-secondary">
+              <button
+                className="btn btn-primary btn-lg"
+                onClick={() => {
+                  if (formGroup.get("detail").enabled) {
+                    formGroup.get("detail").disable();
+                  } else {
+                    formGroup.get("detail").enable();
+                  }
+                }}
+              >
+                switch disable detail form
+              </button>
+
               <Group name="detail">
                 {(props) => {
                   return (

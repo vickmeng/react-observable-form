@@ -9,5 +9,5 @@
     7. value type (FieldWithName搞不定了)
     8. group嵌套group(done)
     9，validators(pending,copy angular)
-    10 remove control
+    10 remove control（done）
 ```
