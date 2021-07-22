@@ -8,7 +8,12 @@ import { Group } from "../../../packages/items/group";
 
 const formGroup = new GroupControl({
   name: new FieldControl("vick"),
-  detail: new GroupControl({
+  detail1: new GroupControl({
+    tel: new FieldControl("13100000000"),
+    address: new FieldControl("Beijing China"),
+  }),
+
+  detail2: new GroupControl({
     tel: new FieldControl("13100000000"),
     address: new FieldControl("Beijing China"),
   }),
@@ -24,21 +29,37 @@ const NestedGroupDemo = () => {
 
             <label className="form-label">name</label>
             <Field name="name">{Input}</Field>
-            <div className="card p-3 bg-secondary">
+
+            <div className="card p-3">
               <button
                 className="btn btn-primary btn-lg"
                 onClick={() => {
-                  if (formGroup.get("detail").enabled) {
-                    formGroup.get("detail").disable();
+                  if (formGroup.get("detail1").enabled) {
+                    formGroup.get("detail1").disable();
                   } else {
-                    formGroup.get("detail").enable();
+                    formGroup.get("detail1").enable();
                   }
                 }}
               >
-                switch disable detail form
+                switch disable detail1 form
               </button>
 
-              <Group name="detail">
+              <Group name="detail1">
+                {(props) => {
+                  return (
+                    <>
+                      <label className="form-label">tel</label>
+                      <Field name="tel">{Input}</Field>
+                      <label className="form-label">address</label>
+                      <Field name="address">{Input}</Field>
+                    </>
+                  );
+                }}
+              </Group>
+            </div>
+
+            <div className="card p-3">
+              <Group name="detail2">
                 {(props) => {
                   return (
                     <>
