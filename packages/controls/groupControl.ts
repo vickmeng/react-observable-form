@@ -43,7 +43,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return this._controls[name] as T;
   };
 
-  setValue = (value: GroupValue) => {
+  override setValue = (value: GroupValue) => {
     if (value === this.value) {
       return;
     }

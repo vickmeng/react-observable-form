@@ -9,7 +9,7 @@ export class FieldControl<V = any> extends AbstractControl<V> {
     this.initBasicParams(value, { disabled, validators });
   }
 
-  setValue = (value: any) => {
+  override setValue = (value: any) => {
     /**
      * start
      * distinct value change

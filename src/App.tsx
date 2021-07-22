@@ -9,6 +9,7 @@ import ValidatorsDemo from "./pages/validators";
 import DisabledDemo from "./pages/disabledDemo";
 import DirtyDemo from "./pages/dirtyDemo";
 import GroupDynamicControlDemo from "./pages/groupDynamicControlDemo";
+import UseAntd from "./pages/useAntd";
 
 function App() {
   return (
@@ -29,15 +30,6 @@ function App() {
                 </li>
                 <li className="nav-item">
                   <Link to="/ValidatorsDemo">ValidatorsDemo</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/DisabledDemo">DisabledDemo</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/DirtyDemo">DirtyDemo</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/GroupDynamicControlDemo">GroupDynamicControlDemo</Link>
                 </li>
               </ul>
             </nav>
@@ -64,6 +56,9 @@ function App() {
                 </Route>
                 <Route path="/GroupDynamicControlDemo">
                   <GroupDynamicControlDemo />
+                </Route>
+                <Route path="/UseAntd">
+                  <UseAntd />
                 </Route>
               </Switch>
             </div>

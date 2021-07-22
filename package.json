@@ -8,6 +8,7 @@
     "build": "NODE_ENV=production rollup -c"
   },
   "dependencies": {
+    "antd": "^4.16.8",
     "bootstrap": "^5.0.1",
     "lodash": "^4.17.21",
     "react": "^17.0.0",
