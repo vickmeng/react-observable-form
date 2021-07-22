@@ -58,12 +58,30 @@ export class GroupControl extends AbstractControl<GroupValue> {
      * reject control of the same name
      */
     if (this.controls[name]) {
+      // eslint-disable-next-line no-console
+      console.warn(`already has control named ${name} in formGroup`);
       return;
     }
 
     const controls = Object.assign({}, this.controls, {
       [name]: createControl(control),
     });
+
+    this.controlsSubject.next(controls);
+  };
+
+  removeControl = (name: string) => {
+    /**
+     * reject control of the same name
+     */
+    if (!this.controls[name]) {
+      // eslint-disable-next-line no-console
+      console.warn(`cannot find control named ${name} in formGroup`);
+      return;
+    }
+
+    const controls = Object.assign({}, this.controls);
+    delete controls[name];
 
     this.controlsSubject.next(controls);
   };

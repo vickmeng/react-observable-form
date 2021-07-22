@@ -42,7 +42,7 @@ const GroupDynamicControlDemo = () => {
         <button
           className="btn btn-primary btn-lg"
           onClick={() => {
-            // formGroup("address", new FieldControl("a"));
+            formGroup.removeControl("address");
           }}
         >
           remove address
