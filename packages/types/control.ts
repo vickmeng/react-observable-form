@@ -29,3 +29,7 @@ export type FormGroupControlsConfig = {
 };
 
 export type FormGroupOptions = ControlBasicOptions;
+
+export interface SetValueOptions {
+  emitEvent: boolean;
+}
