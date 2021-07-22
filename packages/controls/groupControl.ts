@@ -1,13 +1,19 @@
 import { merge, Observable, Subject, Subscription } from "rxjs";
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 
-import { Controls, CreateControlParams, FormGroupControlsConfig, FormGroupOptions, GroupValue } from "../types/control";
+import {
+  ControlMap,
+  CreateControlParams,
+  FormGroupControlsConfig,
+  FormGroupOptions,
+  GroupValue,
+} from "../types/control";
 import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
 
 export class GroupControl extends AbstractControl<GroupValue> {
-  get controls(): Controls {
+  get controls(): ControlMap {
     return this._controls;
   }
 
@@ -15,9 +21,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return this.controlsSubject.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  private _controls!: Controls;
+  private _controls!: ControlMap;
 
-  private controlsSubject = new Subject<Controls>();
+  private controlsSubject = new Subject<ControlMap>();
 
   /**
    * @private controlsChangeNotifyLock
@@ -87,7 +93,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
   };
 
   private initControls = (controlsConfig: FormGroupControlsConfig) => {
-    const controls: Controls = {};
+    const controls: ControlMap = {};
 
     for (const controlKey in controlsConfig) {
       if (Object.prototype.hasOwnProperty.call(controlsConfig, controlKey)) {
@@ -122,13 +128,13 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return !(this.errors || Object.values(this._controls).some((control) => control.invalid));
   };
 
-  private updatePrivateControlsAndResetSubscribeGraph = (controls: Controls) => {
+  private updatePrivateControlsAndResetSubscribeGraph = (controls: ControlMap) => {
     this.updatePrivateControls(controls);
     this.valueSubject$.next(this.getGroupValueFromControls());
     this.resetGraph();
   };
 
-  private updatePrivateControls = (controls: Controls) => {
+  private updatePrivateControls = (controls: ControlMap) => {
     this._controls = controls;
   };
 

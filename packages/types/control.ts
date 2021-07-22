@@ -4,7 +4,7 @@ export type GroupValue = {
   [key: string]: any;
 };
 
-export type Controls = {
+export type ControlMap = {
   [key: string]: AbstractControl<any>;
 };
 
