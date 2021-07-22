@@ -4,7 +4,7 @@ import { AbstractControl } from "../controls/abstractControl";
 import { FieldControl } from "../controls/fieldControl";
 import { GroupControl } from "../controls/groupControl";
 
-import { ControlMap, Errors } from "./control";
+import { GroupControls, Errors } from "./control";
 
 export interface IItemBasicProps<P> {
   children: (props: P) => ReactElement;
@@ -57,7 +57,7 @@ export interface GroupInternalProps {
   errors: Errors | null;
   valid: boolean;
   invalid: boolean;
-  controls: ControlMap;
+  controls: GroupControls;
   dirty: boolean;
   pristine: boolean;
 }

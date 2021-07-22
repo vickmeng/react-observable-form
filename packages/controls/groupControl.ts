@@ -2,7 +2,7 @@ import { merge, Observable, Subject, Subscription } from "rxjs";
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 
 import {
-  ControlMap,
+  GroupControls,
   CreateControlParams,
   FormGroupControlsConfig,
   FormGroupOptions,
@@ -13,7 +13,7 @@ import { createControl } from "../utils";
 import { AbstractControl } from "./abstractControl";
 
 export class GroupControl extends AbstractControl<GroupValue> {
-  get controls(): ControlMap {
+  get controls(): GroupControls {
     return this._controls;
   }
 
@@ -21,9 +21,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return this.controlsSubject.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  private _controls!: ControlMap;
+  private _controls!: GroupControls;
 
-  private controlsSubject = new Subject<ControlMap>();
+  private controlsSubject = new Subject<GroupControls>();
 
   /**
    * @private controlsChangeNotifyLock
@@ -93,7 +93,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
   };
 
   private initControls = (controlsConfig: FormGroupControlsConfig) => {
-    const controls: ControlMap = {};
+    const controls: GroupControls = {};
 
     for (const controlKey in controlsConfig) {
       if (Object.prototype.hasOwnProperty.call(controlsConfig, controlKey)) {
@@ -128,13 +128,13 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return !(this.errors || Object.values(this._controls).some((control) => control.invalid));
   };
 
-  private updatePrivateControlsAndResetSubscribeGraph = (controls: ControlMap) => {
+  private updatePrivateControlsAndResetSubscribeGraph = (controls: GroupControls) => {
     this.updatePrivateControls(controls);
     this.valueSubject$.next(this.getGroupValueFromControls());
     this.resetGraph();
   };
 
-  private updatePrivateControls = (controls: ControlMap) => {
+  private updatePrivateControls = (controls: GroupControls) => {
     this._controls = controls;
   };
 
