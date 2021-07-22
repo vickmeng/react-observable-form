@@ -20,6 +20,7 @@ export const Group = (props: GroupProps) => {
   const value = useSubscribe<GroupInternalProps["value"]>(control, control.value, control.valueChange);
   const controls = useSubscribe<Controls>(control, control.controls, control.controlsChange);
   const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
+  const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
   const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
   const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
 
@@ -31,6 +32,8 @@ export const Group = (props: GroupProps) => {
     errors,
     valid: valid,
     invalid: !valid,
+    dirty,
+    pristine: !dirty,
     controls,
   };
 

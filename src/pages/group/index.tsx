@@ -20,7 +20,7 @@ const GroupDemo = () => {
         {(props) => {
           return (
             <>
-              {JSON.stringify(props.value)}
+              <pre>{JSON.stringify(Object.assign(props, { controls: "这个没法显示" }), null, 2)}</pre>
               <Field name="name">{Input}</Field>
               <Field name="address">{Input}</Field>
             </>

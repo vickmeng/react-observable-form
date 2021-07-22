@@ -58,6 +58,8 @@ export interface GroupInternalProps {
   valid: boolean;
   invalid: boolean;
   controls: Controls;
+  dirty: boolean;
+  pristine: boolean;
 }
 
 export type GroupWithNameProps = ItemWithNameProps<GroupInternalProps>;
