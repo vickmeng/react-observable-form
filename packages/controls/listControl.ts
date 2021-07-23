@@ -43,7 +43,7 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
    * @param name
    * for list, we use index as name
    */
-  get = <C extends AbstractControl<any>>(name: string): C => {
+  get = <C extends AbstractControl<any>>(name: string | number): C => {
     return this._controls[+name] as C;
   };
 

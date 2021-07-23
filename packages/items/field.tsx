@@ -5,7 +5,6 @@ import { isFieldWithNameProps } from "../utils";
 import { useSubscribe } from "../hooks";
 import { Errors } from "../types/control";
 import { FieldControl } from "../controls/fieldControl";
-import { GroupControl } from "../controls/groupControl";
 
 import { ParentFormContext } from "./context";
 
@@ -18,7 +17,7 @@ export function Field<V>(props: FieldProps<V>) {
    * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
    */
   const { name = undefined, control } = isFieldWithNameProps<V>(props)
-    ? { name: props.name, control: parent!.get<GroupControl>(props.name) }
+    ? { name: props.name, control: parent!.get<FieldControl<V>>(props.name) }
     : { control: props.control };
 
   if (!(control instanceof FieldControl)) {
