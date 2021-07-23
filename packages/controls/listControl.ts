@@ -47,9 +47,9 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     return this._controls[+name] as C;
   };
 
-  insertControl = (index: number, ...rest: AbstractControl<V>[]) => {
+  insertControl = (start: number, ...rest: AbstractControl<V>[]) => {
     const controls = [...this.controls];
-    controls.splice(index, 0, ...rest);
+    controls.splice(start, 0, ...rest);
 
     this.controlsSubject.next(controls);
   };

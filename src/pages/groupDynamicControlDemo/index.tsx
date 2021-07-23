@@ -34,7 +34,7 @@ const GroupDynamicControlDemo = () => {
         <button
           className="btn btn-primary btn-lg"
           onClick={() => {
-            formGroup.addControl("address", ["Beijing China"]);
+            formGroup.add("address", ["Beijing China"]);
           }}
         >
           add address
@@ -42,7 +42,7 @@ const GroupDynamicControlDemo = () => {
         <button
           className="btn btn-primary btn-lg"
           onClick={() => {
-            formGroup.removeControl("address");
+            formGroup.remove("address");
           }}
         >
           remove address

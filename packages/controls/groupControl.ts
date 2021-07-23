@@ -59,7 +59,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.valueSubject$.next(value);
   };
 
-  addControl = (name: string, control: CreateControlParams) => {
+  add = (name: string, control: CreateControlParams) => {
     /**
      * reject control of the same name
      */
@@ -76,7 +76,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.controlsSubject.next(controls);
   };
 
-  removeControl = (name: string) => {
+  remove = (name: string) => {
     /**
      * reject control of the same name
      */
