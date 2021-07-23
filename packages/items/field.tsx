@@ -12,13 +12,13 @@ import { ParentFormContext } from "./context";
 export function Field<V>(props: FieldProps<V>) {
   const { children } = props;
 
-  const parentGroup = useContext(ParentFormContext);
+  const parent = useContext(ParentFormContext);
 
   /**
    * Two and only two way can get formControl,from props or formGroupContext or TODO formArrayContext
    */
   const { name = undefined, control } = isFieldWithNameProps<V>(props)
-    ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
+    ? { name: props.name, control: parent!.get<GroupControl>(props.name) }
     : { control: props.control };
 
   if (!(control instanceof FieldControl)) {

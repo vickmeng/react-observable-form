@@ -11,10 +11,10 @@ import { ParentFormContext } from "./context";
 export const Group = (props: GroupProps) => {
   const { children } = props;
 
-  const parentGroup = useContext(ParentFormContext);
+  const parent = useContext(ParentFormContext);
 
   const { name = undefined, control } = isGroupWithNameProps(props)
-    ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
+    ? { name: props.name, control: parent!.get<GroupControl>(props.name) }
     : { control: props.control };
 
   const value = useSubscribe<GroupInternalProps["value"]>(control, control.value, control.valueChange);

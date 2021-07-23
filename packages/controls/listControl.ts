@@ -39,8 +39,12 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
     // this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
-  get = <C extends AbstractControl<any>>(index: string): C => {
-    return this._controls[+index] as C;
+  /**
+   * @param name
+   * for list, we use index as name
+   */
+  get = <C extends AbstractControl<any>>(name: string): C => {
+    return this._controls[+name] as C;
   };
 
   override setValue = (value: ListValue<V>) => {

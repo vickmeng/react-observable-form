@@ -11,10 +11,10 @@ import { ParentFormContext } from "./context";
 export const List = (props: ListProps) => {
   const { children } = props;
 
-  const parentGroup = useContext(ParentFormContext);
+  const parent = useContext(ParentFormContext);
 
   const { name = undefined, control } = isListWithNameProps(props)
-    ? { name: props.name, control: parentGroup!.get<ListControl<any>>(props.name) }
+    ? { name: props.name, control: parent!.get<ListControl<any>>(props.name) }
     : { control: props.control };
 
   const value = useSubscribe<ListInternalProps["value"]>(control, control.value, control.valueChange);
