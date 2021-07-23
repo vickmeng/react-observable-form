@@ -1,7 +1,7 @@
-import { takeUntil } from "rxjs/operators";
-import { Subject } from "rxjs";
+import { map, skipWhile, takeUntil } from "rxjs/operators";
+import { merge, Observable, Subject, Subscription } from "rxjs";
 
-import { FormListControlsConfig, FormListOptions, ListControls, ListValue } from "../types/control";
+import { FormListControlsConfig, FormListOptions, GroupValue, ListControls, ListValue } from "../types/control";
 import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
@@ -19,6 +19,14 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
 
   private controlsSubject = new Subject<ListControls<V>>();
 
+  /**
+   * @private controlsChangeNotifyLock
+   * Prevent frequent triggering of ValueChangeCallback when setting Value
+   */
+  private controlsChangeNotifyLock = false;
+  private valueChangesSubscription!: Subscription;
+  private validChangesSubscription!: Subscription;
+
   constructor(controlsConfig: FormListControlsConfig, options: FormListOptions = {}) {
     super();
     const { disabled = false, validators = [] } = options;
@@ -26,7 +34,7 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
     // TODO initBasicParams FIND A BETTER WAY
     this.initBasicParams(this.getListValueFromControls(), { disabled, validators });
 
-    // this.resetGraph();
+    this.resetGraph();
     // // TODO resetGraph when controlsChange maybe a bug
     // this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
@@ -45,6 +53,9 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
     this.valueSubject$.next(value);
   };
 
+  /**
+   * has list level error or has invalid controls
+   */
   protected checkValid = () => {
     return !(this.errors || this._controls.some((control) => control.invalid));
   };
@@ -53,5 +64,57 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
     this._controls = controlsConfig.map((config) => createControl(config));
   };
 
-  private getListValueFromControls = () => this._controls.map((control) => control.value);
+  private getListValueFromControls = () => {
+    const value: ListValue<V> = [];
+    Object.keys(this._controls).forEach((name, i) => {
+      const control = this._controls[i];
+      if (control.enabled) {
+        value[i] = control.value;
+      }
+    });
+
+    return value;
+  };
+
+  /**
+   * build the flow of group and children controls
+   */
+  private resetGraph = () => {
+    const valueChanges = this._controls.map((control) => control.valueChange);
+    const validChanges = this._controls.map((control) => control.validChange);
+    const disabledChanges = this._controls.map((control) => control.disabledChange);
+
+    this.resetValueGraph([...valueChanges, ...disabledChanges]);
+    this.resetValidGraph(validChanges);
+  };
+
+  private resetValueGraph(changes: Observable<any>[]) {
+    if (this.valueChangesSubscription) {
+      this.valueChangesSubscription.unsubscribe();
+    }
+
+    this.valueChangesSubscription = merge(...changes)
+      .pipe(
+        takeUntil(this.destroy$),
+        skipWhile(() => this.controlsChangeNotifyLock),
+        map(() => this.getListValueFromControls())
+      )
+      .subscribe((v) => {
+        this.valueSubject$.next(v);
+      });
+  }
+
+  private resetValidGraph = (validChanges: Observable<boolean>[]) => {
+    if (this.validChangesSubscription) {
+      this.validChangesSubscription.unsubscribe();
+    }
+
+    this.validChangesSubscription = merge(...validChanges)
+      .pipe(
+        takeUntil(this.destroy$),
+        skipWhile(() => this.controlsChangeNotifyLock),
+        map(() => this.checkValid())
+      )
+      .subscribe(this.setValid);
+  };
 }
