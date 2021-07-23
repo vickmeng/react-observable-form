@@ -1,21 +1,121 @@
-import { useEffect, useState } from "react";
-import { Observable } from "rxjs";
+import { useEffect, useRef, useState } from "react";
 
 import { AbstractControl } from "../controls/abstractControl";
+import { GroupControl } from "../controls/groupControl";
+import { ListControl } from "../controls/listControl";
 
-export const useSubscribe = <T>(control: AbstractControl<any>, initValue: T, $: Observable<T>): T => {
-  const [value, setValue] = useState(initValue);
+const useUpdateEffect: typeof useEffect = (effect, deps) => {
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    const subscriber = $.subscribe(setValue);
-    /**
-     * cannot return subscriber.unsubscribe directly
-     * rxjs problem
-     */
+    if (!isMounted.current) {
+      isMounted.current = true;
+    } else {
+      return effect();
+    }
+    // eslint-disable-next-line
+  }, deps);
+};
+
+export const useControlValue = <V>(control: AbstractControl<V>) => {
+  const [value, setValue] = useState<V>(control.value);
+
+  useEffect(() => {
+    const subscriber = control.valueChange.subscribe(setValue);
     return () => {
       subscriber.unsubscribe();
     };
-  }, [$]);
+  }, [control]);
+
+  useUpdateEffect(() => {
+    setValue(control.value);
+  }, [control]);
 
   return value;
+};
+
+export const useControlDisabled = (control: AbstractControl) => {
+  const [disabled, setDisabled] = useState<boolean>(control.disabled);
+
+  useEffect(() => {
+    const subscriber = control.disabledChange.subscribe(setDisabled);
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [control]);
+
+  useUpdateEffect(() => {
+    setDisabled(control.disabled);
+  }, [control]);
+
+  return disabled;
+};
+
+export const useControlDirty = (control: AbstractControl) => {
+  const [dirty, setDirty] = useState<boolean>(control.dirty);
+
+  useEffect(() => {
+    const subscriber = control.dirtyChange.subscribe(setDirty);
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [control]);
+
+  useUpdateEffect(() => {
+    setDirty(control.dirty);
+  }, [control]);
+
+  return dirty;
+};
+
+export const useControlValid = (control: AbstractControl) => {
+  const [valid, setValid] = useState(control.valid);
+
+  useEffect(() => {
+    const subscriber = control.validChange.subscribe(setValid);
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [control]);
+
+  useUpdateEffect(() => {
+    setValid(control.valid);
+  }, [control]);
+
+  return valid;
+};
+
+export const useControlErrors = (control: AbstractControl) => {
+  const [errors, setErrors] = useState(control.errors);
+
+  useEffect(() => {
+    const subscriber = control.errorsChange.subscribe(setErrors);
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [control]);
+
+  useUpdateEffect(() => {
+    setErrors(control.errors);
+  }, [control]);
+
+  return errors;
+};
+
+export const useControlControls = <C extends GroupControl | ListControl>(control: C) => {
+  const [controls, setControls] = useState<C["controls"]>(control.controls);
+
+  useEffect(() => {
+    // @ts-ignore TODO
+    const subscriber = control.controlsChange.subscribe(setControls);
+    return () => {
+      subscriber.unsubscribe();
+    };
+  }, [control]);
+
+  useUpdateEffect(() => {
+    setControls(control.controls);
+  }, [control]);
+
+  return controls;
 };

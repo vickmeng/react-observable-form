@@ -8,37 +8,27 @@ import { Group } from "../../../packages/items/group";
 import { GroupControl } from "../../../packages/controls/groupControl";
 import { FieldControl } from "../../../packages/controls/fieldControl";
 
-const formList = new ListControl([
-  new GroupControl({
-    name: new FieldControl("vick"),
-    address: new FieldControl(""),
-  }),
-]);
+const formList = new ListControl([new FieldControl("vick")]);
 
 // eslint-disable-next-line no-console
-formList.valueChange.subscribe(console.log);
+// formList.controlsChange.subscribe(console.log);
 
 const ListAddAndRemoveItemDemo = () => {
   const onAddOneRow = () => {
-    formList.push(
-      new GroupControl({
-        name: [],
-        address: [],
-      })
-    );
+    formList.push(new FieldControl("vick"));
   };
 
   const onAddTwoRows = () => {
-    formList.push(
-      new GroupControl({
-        name: [],
-        address: [],
-      }),
-      new GroupControl({
-        name: [],
-        address: [],
-      })
-    );
+    // formList.push(
+    //   new GroupControl({
+    //     name: [],
+    //     address: [],
+    //   }),
+    //   new GroupControl({
+    //     name: [],
+    //     address: [],
+    //   })
+    // );
   };
 
   return (
@@ -48,7 +38,6 @@ const ListAddAndRemoveItemDemo = () => {
           <tr>
             <th scope="col">#</th>
             <th scope="col">name</th>
-            <th scope="col">address</th>
             <th scope="col">actions</th>
           </tr>
         </thead>
@@ -59,48 +48,31 @@ const ListAddAndRemoveItemDemo = () => {
                 <>
                   {controls.map((control, i) => {
                     return (
-                      <tr key={`key${i}`}>
-                        <Group name={`${i}`}>
-                          {() => {
-                            return (
-                              <>
-                                <td>{i}</td>
-                                <td>
-                                  <Field<string> name="name">
-                                    {({ value, setValue }) => {
-                                      return (
-                                        <Input
-                                          onChange={(e) => {
-                                            setValue(e.target.value);
-                                          }}
-                                          value={value}
-                                        />
-                                      );
-                                    }}
-                                  </Field>
-                                </td>
-                                <td>
-                                  <Field<string> name="address">
-                                    {({ value, setValue }) => {
-                                      return (
-                                        <Input
-                                          onChange={(e) => {
-                                            setValue(e.target.value);
-                                          }}
-                                          value={value}
-                                        />
-                                      );
-                                    }}
-                                  </Field>
-                                </td>
-                                <td>
-                                  <Button>delete</Button>
-                                  <Button>copy</Button>
-                                </td>
-                              </>
-                            );
-                          }}
-                        </Group>
+                      <tr key={i}>
+                        <td>{i}</td>
+                        <td>
+                          <Field<string> name={`${i}`}>
+                            {({ value, setValue }) => {
+                              return (
+                                <Input
+                                  onChange={(e) => {
+                                    setValue(e.target.value);
+                                  }}
+                                  value={value}
+                                />
+                              );
+                            }}
+                          </Field>
+                        </td>
+                        <td>
+                          <Button
+                            onClick={() => {
+                              formList.remove(i);
+                            }}
+                          >
+                            delete
+                          </Button>
+                        </td>
                       </tr>
                     );
                   })}

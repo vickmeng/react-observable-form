@@ -2,8 +2,15 @@ import React, { useContext } from "react";
 
 import { isListWithNameProps } from "../utils";
 import { ListInternalProps, ListProps } from "../types/items";
-import { useSubscribe } from "../hooks";
-import { Errors, ListControls } from "../types/control";
+import {
+  useControlControls,
+  useControlDirty,
+  useControlDisabled,
+  useControlErrors,
+  useControlValid,
+  useControlValue,
+} from "../hooks";
+import { ListValue } from "../types/control";
 import { ListControl } from "../controls/listControl";
 
 import { ParentFormContext } from "./context";
@@ -17,12 +24,12 @@ export const List = (props: ListProps) => {
     ? { name: props.name, control: parent!.get<ListControl<any>>(props.name) }
     : { control: props.control };
 
-  const value = useSubscribe<ListInternalProps["value"]>(control, control.value, control.valueChange);
-  const controls = useSubscribe<ListControls>(control, control.controls, control.controlsChange);
-  const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
-  const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
-  const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
-  const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
+  const value = useControlValue<ListValue>(control);
+  const disabled = useControlDisabled(control);
+  const dirty = useControlDirty(control);
+  const valid = useControlValid(control);
+  const errors = useControlErrors(control);
+  const controls = useControlControls<ListControl>(control);
 
   const childProps: ListInternalProps = {
     name,

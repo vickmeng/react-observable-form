@@ -1,10 +1,17 @@
 import React, { useContext } from "react";
 
-import { GroupProps, GroupInternalProps } from "../types/items";
+import { GroupInternalProps, GroupProps } from "../types/items";
 import { isGroupWithNameProps } from "../utils";
 import { GroupControl } from "../controls/groupControl";
-import { useSubscribe } from "../hooks";
-import { GroupControls, Errors } from "../types/control";
+import {
+  useControlControls,
+  useControlDirty,
+  useControlDisabled,
+  useControlErrors,
+  useControlValid,
+  useControlValue,
+} from "../hooks";
+import { GroupValue } from "../types/control";
 
 import { ParentFormContext } from "./context";
 
@@ -17,12 +24,12 @@ export const Group = (props: GroupProps) => {
     ? { name: props.name, control: parent!.get<GroupControl>(props.name) }
     : { control: props.control };
 
-  const value = useSubscribe<GroupInternalProps["value"]>(control, control.value, control.valueChange);
-  const controls = useSubscribe<GroupControls>(control, control.controls, control.controlsChange);
-  const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
-  const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
-  const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
-  const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
+  const value = useControlValue<GroupValue>(control);
+  const disabled = useControlDisabled(control);
+  const dirty = useControlDirty(control);
+  const valid = useControlValid(control);
+  const errors = useControlErrors(control);
+  const controls = useControlControls<GroupControl>(control);
 
   const childProps: GroupInternalProps = {
     name,

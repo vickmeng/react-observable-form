@@ -47,7 +47,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     return this._controls[+name] as C;
   };
 
-  insertControl = (start: number, ...rest: AbstractControl<V>[]) => {
+  insert = (start: number, ...rest: AbstractControl<V>[]) => {
     const controls = [...this.controls];
     controls.splice(start, 0, ...rest);
 
@@ -55,7 +55,14 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
   };
 
   push = (...rest: AbstractControl<V>[]) => {
-    this.insertControl(this.controls.length, ...rest);
+    this.insert(this.controls.length, ...rest);
+  };
+
+  remove = (start: number, deleteCount = 1) => {
+    const controls = [...this.controls];
+    controls.splice(start, deleteCount);
+
+    this.controlsSubject.next(controls);
   };
 
   override setValue = (value: ListValue<V>) => {

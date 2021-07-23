@@ -3,8 +3,7 @@ import { useContext } from "react";
 import { ErrorProps } from "../types/items";
 import { isErrorWithNameProps } from "../utils";
 import { GroupControl } from "../controls/groupControl";
-import { useSubscribe } from "../hooks";
-import { Errors } from "../types/control";
+import { useControlDirty, useControlErrors, useControlValid } from "../hooks";
 
 import { ParentFormContext } from "./context";
 
@@ -17,9 +16,9 @@ const Error = (props: ErrorProps) => {
     ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
     : { control: props.control };
 
-  const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
-  const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
-  const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
+  const valid = useControlValid(control);
+  const dirty = useControlDirty(control);
+  const errors = useControlErrors(control);
 
   const childrenProps = {
     name,

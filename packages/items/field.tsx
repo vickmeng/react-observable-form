@@ -2,8 +2,7 @@ import { useContext } from "react";
 
 import { FieldProps } from "../types/items";
 import { isFieldWithNameProps } from "../utils";
-import { useSubscribe } from "../hooks";
-import { Errors } from "../types/control";
+import { useControlDirty, useControlDisabled, useControlErrors, useControlValid, useControlValue } from "../hooks";
 import { FieldControl } from "../controls/fieldControl";
 
 import { ParentFormContext } from "./context";
@@ -24,11 +23,11 @@ export function Field<V>(props: FieldProps<V>) {
     throw new Error("props error:Field can only receive FieldControl as control");
   }
 
-  const value = useSubscribe<V>(control, control.value, control.valueChange);
-  const disabled = useSubscribe<boolean>(control, control.disabled, control.disabledChange);
-  const dirty = useSubscribe<boolean>(control, control.dirty, control.dirtyChange);
-  const valid = useSubscribe<boolean>(control, control.valid, control.validChange);
-  const errors = useSubscribe<Errors | null>(control, control.errors, control.errorsChange);
+  const value = useControlValue<V>(control);
+  const disabled = useControlDisabled(control);
+  const dirty = useControlDirty(control);
+  const valid = useControlValid(control);
+  const errors = useControlErrors(control);
 
   const childrenProps = {
     name,
