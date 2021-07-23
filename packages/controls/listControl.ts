@@ -1,7 +1,7 @@
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 import { merge, Observable, Subject, Subscription } from "rxjs";
 
-import { FormListControlsConfig, FormListOptions, GroupValue, ListControls, ListValue } from "../types/control";
+import { FormListControlsConfig, FormListOptions, ListControls, ListValue } from "../types/control";
 import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
@@ -45,6 +45,22 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
    */
   get = <C extends AbstractControl<any>>(name: string | number): C => {
     return this._controls[+name] as C;
+  };
+
+  insertControl = (index: number, ...rest: AbstractControl<V>[]) => {
+    if (index < 0) {
+      // eslint-disable-next-line no-console
+      console.warn(`cannot find the specified location ${index} in formList`);
+      return;
+    }
+
+    const controls = [...this.controls].splice(0, 0, ...rest);
+
+    this.controlsSubject.next(controls);
+  };
+
+  push = (...rest: AbstractControl<V>[]) => {
+    this.insertControl(this.controls.length - 1, ...rest);
   };
 
   override setValue = (value: ListValue<V>) => {
