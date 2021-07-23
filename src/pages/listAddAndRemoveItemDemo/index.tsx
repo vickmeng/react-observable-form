@@ -19,6 +19,28 @@ const formList = new ListControl([
 formList.valueChange.subscribe(console.log);
 
 const ListAddAndRemoveItemDemo = () => {
+  const onAddOneRow = () => {
+    formList.push(
+      new GroupControl({
+        name: [],
+        address: [],
+      })
+    );
+  };
+
+  const onAddTwoRows = () => {
+    formList.push(
+      new GroupControl({
+        name: [],
+        address: [],
+      }),
+      new GroupControl({
+        name: [],
+        address: [],
+      })
+    );
+  };
+
   return (
     <>
       <table className="table">
@@ -88,6 +110,14 @@ const ListAddAndRemoveItemDemo = () => {
           </List>
         </tbody>
       </table>
+
+      <Button type="primary" onClick={onAddOneRow}>
+        add one row
+      </Button>
+
+      <Button type="primary" onClick={onAddTwoRows}>
+        add two rows
+      </Button>
     </>
   );
 };

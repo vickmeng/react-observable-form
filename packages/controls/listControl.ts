@@ -6,7 +6,7 @@ import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
 
-export class ListControl<V> extends AbstractControl<ListValue<V>> {
+export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
   get controls(): ListControls<V> {
     return this._controls;
   }
@@ -36,7 +36,7 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
 
     this.resetGraph();
     // // TODO resetGraph when controlsChange maybe a bug
-    // this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
+    this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
   /**
@@ -48,19 +48,14 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
   };
 
   insertControl = (index: number, ...rest: AbstractControl<V>[]) => {
-    if (index < 0) {
-      // eslint-disable-next-line no-console
-      console.warn(`cannot find the specified location ${index} in formList`);
-      return;
-    }
-
-    const controls = [...this.controls].splice(0, 0, ...rest);
+    const controls = [...this.controls];
+    controls.splice(index, 0, ...rest);
 
     this.controlsSubject.next(controls);
   };
 
   push = (...rest: AbstractControl<V>[]) => {
-    this.insertControl(this.controls.length - 1, ...rest);
+    this.insertControl(this.controls.length, ...rest);
   };
 
   override setValue = (value: ListValue<V>) => {
@@ -82,6 +77,16 @@ export class ListControl<V> extends AbstractControl<ListValue<V>> {
 
   private initControls = (controlsConfig: FormListControlsConfig) => {
     this._controls = controlsConfig.map((config) => createControl(config));
+  };
+
+  private updatePrivateControlsAndResetSubscribeGraph = (controls: ListControls) => {
+    this.updatePrivateControls(controls);
+    this.valueSubject$.next(this.getListValueFromControls());
+    this.resetGraph();
+  };
+
+  private updatePrivateControls = (controls: ListControls) => {
+    this._controls = controls;
   };
 
   private getListValueFromControls = () => {

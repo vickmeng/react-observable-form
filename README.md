@@ -11,4 +11,6 @@
     9，validators(pending,copy angular)
     10 remove control（done）
     11 各种warning
+    12 list setValue
+    13. list嵌套group(done)
 ```
