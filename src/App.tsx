@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div className="container">
+        <div>
           <div className="row">
             <nav className="col-3">
               <ul className="navbar-nav">
@@ -29,9 +29,6 @@ function App() {
                 </li>
                 <li className="nav-item">
                   <Link to="/NestedGroupDemo">NestedGroupDemo</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/ValidatorsDemo">ValidatorsDemo</Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/ValidatorsDemo">ValidatorsDemo</Link>
