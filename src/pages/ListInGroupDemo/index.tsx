@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Input, Radio } from "antd";
+import { Button, Input, Radio } from "antd";
 
 import { GroupControl } from "../../../packages/controls/groupControl";
 import { Group } from "../../../packages/items/group";
@@ -9,6 +9,7 @@ import { ListControl } from "../../../packages/controls/listControl";
 import { List } from "../../../packages/items/list";
 import { required } from "../../../packages/validators";
 import Error from "../../../packages/items/error";
+import { FieldControl } from "../../../packages/controls/fieldControl";
 
 const requiredFamilyMembers = (value: string[]) => {
   if (value.every((v: any) => !v)) {
@@ -97,6 +98,16 @@ const ListInGroupDemo = () => {
               );
             }}
           </List>
+
+          <Button
+            onClick={() => {
+              fromGroupRef.current
+                .get<ListControl>("familyMembers")
+                .push(new FieldControl("", { validators: [required] }));
+            }}
+          >
+            加一名
+          </Button>
           <Error name="familyMembers">
             {({ errors, dirty }) => <>{errors?.required && <p className="text-danger">{"至少填一个家庭成员"}</p>}</>}
           </Error>
