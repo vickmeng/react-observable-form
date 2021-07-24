@@ -12,6 +12,7 @@ import GroupDynamicControlDemo from "./pages/groupDynamicControlDemo";
 import UseAntd from "./pages/useAntd";
 import ListDemo from "./pages/listDemo";
 import ListAddAndRemoveItemDemo from "./pages/listAddAndRemoveItemDemo";
+import ListInGroupDemo from "./pages/ListInGroupDemo";
 
 function App() {
   return (
@@ -54,6 +55,9 @@ function App() {
                 <li className="nav-item">
                   <Link to="/ListAddAndRemoveItemDemo">ListAddAndRemoveItemDemo</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/ListInGroupDemo">ListInGroupDemo</Link>
+                </li>
               </ul>
             </nav>
 
@@ -88,6 +92,10 @@ function App() {
                 </Route>
                 <Route path="/ListAddAndRemoveItemDemo">
                   <ListAddAndRemoveItemDemo />
+                </Route>
+
+                <Route path="/ListInGroupDemo">
+                  <ListInGroupDemo />
                 </Route>
               </Switch>
             </div>
