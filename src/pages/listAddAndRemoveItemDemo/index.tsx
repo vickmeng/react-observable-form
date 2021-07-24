@@ -54,7 +54,7 @@ const ListAddAndRemoveItemDemo = () => {
         </thead>
         <tbody>
           <List control={formList}>
-            {({ controls, ...rest }) => {
+            {({ controls, value }) => {
               return (
                 <>
                   {controls.map((control, i) => {
@@ -101,7 +101,19 @@ const ListAddAndRemoveItemDemo = () => {
                                   >
                                     delete
                                   </Button>
-                                  <Button>copy</Button>
+                                  <Button
+                                    onClick={() => {
+                                      formList.insert(
+                                        i + 1,
+                                        new GroupControl({
+                                          name: [],
+                                          address: [],
+                                        })
+                                      );
+                                    }}
+                                  >
+                                    insert
+                                  </Button>
                                 </td>
                               </>
                             );
@@ -110,6 +122,8 @@ const ListAddAndRemoveItemDemo = () => {
                       </tr>
                     );
                   })}
+
+                  <pre>{JSON.stringify(value, null, 2)}</pre>
                 </>
               );
             }}
