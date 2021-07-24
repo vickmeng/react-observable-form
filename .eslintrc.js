@@ -45,5 +45,5 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "error",
   },
-  ignorePatterns: ["node_modules/", "react-rxjs-form-dist"],
+  ignorePatterns: ["node_modules/", "react-observable-form-dist"],
 };

@@ -4,4 +4,4 @@ dist
 dist-ssr
 *.local
 .idea
-react-rxjs-form-dist
+.react-observable-form-dist
