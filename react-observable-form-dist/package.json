@@ -1,0 +1,25 @@
+{
+  "name": "react-observable-form",
+  "version": "1.0.2-beta",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "form",
+    "rxjs"
+  ],
+  "author": {
+    "name": "Vickmeng",
+    "email": "1543458592@qq.com"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "rxjs": "^7.1.0",
+    "typescript": "^4.3.2"
+  },
+  "module": "index.js",
+  "types": "index.d.ts"
+}
