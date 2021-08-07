@@ -12,8 +12,8 @@ export { FieldControl } from "./controls/fieldControl";
 export { GroupControl } from "./controls/groupControl";
 export { ListControl } from "./controls/listControl";
 
-export { FieldInternalProps, GroupInternalProps, ListInternalProps, ErrorInternalProps } from "./types/items";
-export {
+export type { FieldInternalProps, GroupInternalProps, ListInternalProps, ErrorInternalProps } from "./types/items";
+export type {
   FormControlOptions,
   FormGroupOptions,
   FormListOptions,
