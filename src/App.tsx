@@ -13,6 +13,7 @@ import UseAntd from "./pages/useAntd";
 import ListDemo from "./pages/listDemo";
 import ListAddAndRemoveItemDemo from "./pages/listAddAndRemoveItemDemo";
 import ListInGroupDemo from "./pages/ListInGroupDemo";
+import ManualMarkAsDirty from "./pages/manualMarkAsDirty";
 
 function App() {
   return (
@@ -58,6 +59,9 @@ function App() {
                 <li className="nav-item">
                   <Link to="/ListInGroupDemo">ListInGroupDemo</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to="/ManualMarkAsDirty">ManualMarkAsDirty</Link>
+                </li>
               </ul>
             </nav>
 
@@ -93,9 +97,11 @@ function App() {
                 <Route path="/ListAddAndRemoveItemDemo">
                   <ListAddAndRemoveItemDemo />
                 </Route>
-
                 <Route path="/ListInGroupDemo">
                   <ListInGroupDemo />
+                </Route>
+                <Route path="/ManualMarkAsDirty">
+                  <ManualMarkAsDirty />
                 </Route>
               </Switch>
             </div>

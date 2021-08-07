@@ -8,8 +8,8 @@ import { FieldInternalProps } from "../../../packages/types/items";
 import { ListControl } from "../../../packages/controls/listControl";
 import { List } from "../../../packages/items/list";
 import { required } from "../../../packages/validators";
-import Error from "../../../packages/items/error";
 import { FieldControl } from "../../../packages/controls/fieldControl";
+import { Error } from "../../../packages/items/error";
 
 const requiredFamilyMembers = (value: string[]) => {
   if (value.every((v: any) => !v)) {

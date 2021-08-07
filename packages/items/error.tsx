@@ -7,7 +7,7 @@ import { useControlDirty, useControlErrors, useControlValid } from "../hooks";
 
 import { ParentFormContext } from "./context";
 
-const Error = (props: ErrorProps) => {
+export const Error = (props: ErrorProps) => {
   const { children } = props;
 
   const parentGroup = useContext(ParentFormContext);
@@ -30,5 +30,3 @@ const Error = (props: ErrorProps) => {
   };
   return children(childrenProps);
 };
-
-export default Error;

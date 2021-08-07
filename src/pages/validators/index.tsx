@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Field, FieldControl, Group, GroupControl } from "../../../packages/index";
+import { Field, Group, GroupControl } from "../../../packages/index";
 import Input from "../../components/Input";
 import { required } from "../../../packages/validators";
 import { ValidatorFn } from "../../../packages/types/control";
-import Error from "../../../packages/items/error";
+import { Error } from "../../../packages/items/error";
 import { ErrorInternalProps } from "../../../packages/types/items";
 
 interface FormValue {

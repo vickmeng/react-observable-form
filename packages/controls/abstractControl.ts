@@ -76,7 +76,10 @@ export abstract class AbstractControl<V = any> {
   protected errorsSubject$ = new Subject<Errors | null>();
   protected destroy$ = new Subject<true>();
 
-  protected initBasicParams(value: V, { disabled = false, dirty = false, validators = [] }: ControlBasicOptions) {
+  protected initBasicParams(
+    value: V,
+    { disabled = false, dirty = false, validators = [], autoMarkAsDirty = true }: ControlBasicOptions
+  ) {
     this.initValue(value);
     this.initValidators(validators);
     this.initDisabled(disabled);
@@ -92,7 +95,9 @@ export abstract class AbstractControl<V = any> {
 
     this.valueChange.subscribe(this.updatePrivateValue);
     this.valueChange.subscribe(this.validateAndUpdateErrors);
-    this.valueChange.subscribe(this.markAsDirty);
+    if (autoMarkAsDirty) {
+      this.valueChange.subscribe(this.markAsDirty);
+    }
   }
 
   destroy = () => {

@@ -20,8 +20,9 @@ export type ValidatorFn<V = any> = (value: V) => Errors | null;
 
 export interface ControlBasicOptions {
   disabled?: boolean;
-  dirty?: boolean;
   validators?: ValidatorFn[];
+  dirty?: boolean;
+  autoMarkAsDirty?: boolean;
 }
 
 export type FormControlOptions = ControlBasicOptions;

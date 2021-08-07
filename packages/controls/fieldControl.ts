@@ -5,8 +5,8 @@ import { AbstractControl } from "./abstractControl";
 export class FieldControl<V = any> extends AbstractControl<V> {
   constructor(value: V, options: FormControlOptions = {}) {
     super();
-    const { disabled = false, validators = [] } = options;
-    this.initBasicParams(value, { disabled, validators });
+    // const { disabled = false, validators = [] } = options;
+    this.initBasicParams(value, options);
   }
 
   override setValue = (value: any, options?: SetValueOptions) => {

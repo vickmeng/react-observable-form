@@ -4,6 +4,7 @@
 export { Field } from "./items/field";
 export { Group } from "./items/group";
 export { List } from "./items/list";
+export { Error } from "./items/error";
 
 /**
  * Controls

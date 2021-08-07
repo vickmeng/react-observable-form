@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { FieldProps } from "../types/items";
+import { FieldInternalProps, FieldProps } from "../types/items";
 import { isFieldWithNameProps } from "../utils";
 import { useControlDirty, useControlDisabled, useControlErrors, useControlValid, useControlValue } from "../hooks";
 import { FieldControl } from "../controls/fieldControl";
@@ -29,10 +29,12 @@ export function Field<V>(props: FieldProps<V>) {
   const valid = useControlValid(control);
   const errors = useControlErrors(control);
 
-  const childrenProps = {
+  const childrenProps: FieldInternalProps = {
     name,
     value,
     setValue: control.setValue,
+    markAsDirty: control.markAsDirty,
+    markAsPristine: control.markAsPristine,
     errors,
     disabled,
     enabled: !disabled,
