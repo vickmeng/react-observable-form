@@ -102,11 +102,12 @@ export type ListProps = ListWithNameProps | ListWithControlProps;
  * start
  * Error
  */
-// TODO get type from Control
+
 export interface ErrorInternalProps {
   name?: string;
   errors: Errors | null;
-  dirty: AbstractControl["dirty"];
+  dirty: boolean;
+  pristine: boolean;
 }
 export type ErrorWithNameProps = ItemWithNameProps<ErrorInternalProps>;
 export type ErrorWithControlProps = ItemWithControlProps<ErrorInternalProps, AbstractControl>;

@@ -29,13 +29,10 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
 
   constructor(controlsConfig: FormListControlsConfig, options: FormListOptions = {}) {
     super();
-    const { disabled = false, validators = [] } = options;
     this.initControls(controlsConfig);
-    // TODO initBasicParams FIND A BETTER WAY
-    this.initBasicParams(this.getListValueFromControls(), { disabled, validators });
+    this.initBasicParams(this.getListValueFromControls(), options);
 
     this.resetGraph();
-    // // TODO resetGraph when controlsChange maybe a bug
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 

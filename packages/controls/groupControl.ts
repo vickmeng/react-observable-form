@@ -35,13 +35,10 @@ export class GroupControl extends AbstractControl<GroupValue> {
 
   constructor(controlsConfig: FormGroupControlsConfig, options: FormGroupOptions = {}) {
     super();
-    const { disabled = false, validators = [] } = options;
     this.initControls(controlsConfig);
-    // TODO initBasicParams FIND A BETTER WAY
-    this.initBasicParams(this.getGroupValueFromControls(), { disabled, validators });
+    this.initBasicParams(this.getGroupValueFromControls(), options);
 
     this.resetGraph();
-    // TODO resetGraph when controlsChange maybe a bug
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
