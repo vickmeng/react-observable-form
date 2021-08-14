@@ -8,7 +8,6 @@ import { FieldInternalProps } from "../../../packages/types/items";
 import { ListControl } from "../../../packages/controls/listControl";
 import { List } from "../../../packages/items/list";
 import { required } from "../../../packages/validators";
-import { FieldControl } from "../../../packages/controls/fieldControl";
 import { Error } from "../../../packages/items/error";
 
 const requiredFamilyMembers = (value: string[]) => {
@@ -101,9 +100,7 @@ const ListInGroupDemo = () => {
 
           <Button
             onClick={() => {
-              fromGroupRef.current
-                .get<ListControl>("familyMembers")
-                .push(new FieldControl("", { validators: [required] }));
+              fromGroupRef.current.get<ListControl>("familyMembers").push(["", { validators: [required] }]);
             }}
           >
             加一名

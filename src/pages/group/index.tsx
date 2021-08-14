@@ -21,7 +21,9 @@ const GroupDemo = () => {
           return (
             <>
               <pre>{JSON.stringify(Object.assign(props, { controls: "这个没法显示" }), null, 2)}</pre>
+              <label className="form-label">name</label>
               <Field name="name">{Input}</Field>
+              <label className="form-label">address</label>
               <Field name="address">{Input}</Field>
             </>
           );

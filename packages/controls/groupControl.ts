@@ -56,7 +56,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.valueSubject$.next(value);
   };
 
-  add = (name: string, control: CreateControlParams) => {
+  add = (name: string, params: CreateControlParams) => {
     /**
      * reject control of the same name
      */
@@ -67,7 +67,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     }
 
     const controls = Object.assign({}, this.controls, {
-      [name]: createControl(control),
+      [name]: createControl(params),
     });
 
     this.controlsSubject.next(controls);

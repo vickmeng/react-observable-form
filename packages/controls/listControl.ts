@@ -1,7 +1,13 @@
 import { map, skipWhile, takeUntil } from "rxjs/operators";
 import { merge, Observable, Subject, Subscription } from "rxjs";
 
-import { FormListControlsConfig, FormListOptions, ListControls, ListValue } from "../types/control";
+import {
+  CreateControlParams,
+  FormListControlsConfig,
+  FormListOptions,
+  ListControls,
+  ListValue,
+} from "../types/control";
 import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
@@ -44,14 +50,16 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     return this._controls[+name] as C;
   };
 
-  insert = (start: number, ...rest: AbstractControl<V>[]) => {
+  insert = (start: number, ...rest: CreateControlParams[]) => {
     const controls = [...this.controls];
-    controls.splice(start, 0, ...rest);
+    const newControls = rest.map((params) => createControl(params));
+
+    controls.splice(start, 0, ...newControls);
 
     this.controlsSubject.next(controls);
   };
 
-  push = (...rest: AbstractControl<V>[]) => {
+  push = (...rest: CreateControlParams[]) => {
     this.insert(this.controls.length, ...rest);
   };
 
