@@ -8,7 +8,9 @@
     "build": "rollup -c"
   },
   "dependencies": {
+    "@fontsource/roboto": "^4.5.0",
     "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "antd": "^4.16.8",
     "bootstrap": "^5.0.1",
     "lodash": "^4.17.21",
@@ -36,6 +38,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-sort-class-members": "^1.11.0",
     "eslint-plugin-standard": "^5.0.0",
+    "less": "^4.1.1",
     "prettier": "^2.3.1",
     "rollup": "^2.51.2",
     "rollup-plugin-copy": "^3.4.0",

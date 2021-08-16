@@ -1,0 +1,23 @@
+
+.App{
+  display: flex;
+  height: 100vh;
+  background-color: #fff;
+
+  &>aside {
+    flex-basis: 300px;
+    background-color: #fff;
+    border-right:1px solid #f7f7f7;
+
+    .sublist {
+      background-color: #f9f9f9;
+    }
+    .nested{
+      padding-left: 32px;
+    }
+  }
+
+  &>div {
+    flex: 1;
+  }
+}
