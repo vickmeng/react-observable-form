@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { Collapse, List, ListItem, ListItemText, Typography } from "@material-ui/core";
+import { Collapse, List, ListItem, ListItemText } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import Highlight from "react-highlight";
+
+import basicDoc from "./pages/basic?raw";
 
 import "./App.less";
 
@@ -29,6 +32,44 @@ const MENU_DATA: ISubMenu[] = [
       },
       {
         text: "核心概念",
+        link: "",
+      },
+    ],
+  },
+  {
+    title: "基础使用",
+    routes: [
+      {
+        text: "单一元素",
+        link: "",
+      },
+      {
+        text: "群组",
+        link: "",
+      },
+      {
+        text: "列表",
+        link: "",
+      },
+    ],
+  },
+  {
+    title: "高级使用",
+    routes: [
+      {
+        text: "订阅变化",
+        link: "",
+      },
+      {
+        text: "嵌套关系",
+        link: "",
+      },
+      {
+        text: "动态表单",
+        link: "",
+      },
+      {
+        text: "联合校验",
         link: "",
       },
     ],
@@ -62,27 +103,6 @@ const MENU_DATA: ISubMenu[] = [
       },
       {
         text: "ListControl",
-        link: "",
-      },
-    ],
-  },
-  {
-    title: "高级使用",
-    routes: [
-      {
-        text: "订阅变化",
-        link: "",
-      },
-      {
-        text: "嵌套关系",
-        link: "",
-      },
-      {
-        text: "动态表单",
-        link: "",
-      },
-      {
-        text: "联合校验",
         link: "",
       },
     ],
@@ -129,9 +149,7 @@ function App() {
         </aside>
 
         <div>
-          <Typography variant="h1" component="h2" gutterBottom>
-            高级
-          </Typography>
+          <Highlight className="javascript">{basicDoc}</Highlight>
         </div>
       </div>
     </Router>
