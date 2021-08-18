@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Route, Switch, useHistory, Redirect } from "react-router-dom";
 import { Collapse, List, ListItem, ListItemText } from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import Highlight from "react-highlight";
+import { ExpandLess, ExpandMore, Home } from "@material-ui/icons";
 
-import basicDoc from "./pages/basic?raw";
+import Intro from "./pages/intro";
 
 import "./App.less";
 
@@ -23,8 +22,8 @@ const MENU_DATA: ISubMenu[] = [
     title: "简介",
     routes: [
       {
-        text: "动机",
-        link: "",
+        text: "介绍",
+        link: "Intro",
       },
       {
         text: "快速使用",
@@ -111,6 +110,7 @@ const MENU_DATA: ISubMenu[] = [
 
 const SubMenu = (props: { routes: IRoute[]; title: string }) => {
   const [open, setOpen] = useState(false);
+  const history = useHistory();
 
   return (
     <>
@@ -126,7 +126,14 @@ const SubMenu = (props: { routes: IRoute[]; title: string }) => {
       <Collapse in={open} timeout="auto">
         <List component="div" disablePadding className="sublist">
           {props.routes.map((r, index) => (
-            <ListItem button key={`key-${index}`} className="nested">
+            <ListItem
+              button
+              key={`key-${index}`}
+              className="nested"
+              onClick={() => {
+                history.push(r.link);
+              }}
+            >
               <ListItemText primary={r.text} />
             </ListItem>
           ))}
@@ -138,21 +145,26 @@ const SubMenu = (props: { routes: IRoute[]; title: string }) => {
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <aside>
-          <List component="nav">
-            {MENU_DATA.map((v, index) => (
-              <SubMenu key={`key-${index}`} routes={v.routes} title={v.title} />
-            ))}
-          </List>
-        </aside>
+    <div className="App">
+      <aside>
+        <List component="nav">
+          {MENU_DATA.map((v, index) => (
+            <SubMenu key={`key-${index}`} routes={v.routes} title={v.title} />
+          ))}
+        </List>
+      </aside>
 
-        <div>
-          <Highlight className="javascript">{basicDoc}</Highlight>
-        </div>
+      <div>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to={"/Intro"} />
+          </Route>
+          <Route path="/Intro">
+            <Intro />
+          </Route>
+        </Switch>
       </div>
-    </Router>
+    </div>
   );
 }
 
