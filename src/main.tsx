@@ -7,7 +7,11 @@ import "./index.css";
 import App from "./App";
 
 const theme = createTheme({
+  // palette: {
+  //   type: "dark",
+  // },
   typography: {
+    h2: { color: "coral" },
     body1: {
       fontWeight: 100,
     },

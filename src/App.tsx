@@ -1,11 +1,22 @@
 import React, { useState } from "react";
 import { Route, Switch, useHistory, Redirect } from "react-router-dom";
-import { Collapse, List, ListItem, ListItemText } from "@material-ui/core";
-import { ExpandLess, ExpandMore, Home } from "@material-ui/icons";
+import {
+  Button,
+  Collapse,
+  createStyles,
+  Link,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  Theme,
+} from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
 import Intro from "./pages/intro";
 
 import "./App.less";
+import Home from "./pages/home";
 
 interface IRoute {
   text: string;
@@ -108,56 +119,14 @@ const MENU_DATA: ISubMenu[] = [
   },
 ];
 
-const SubMenu = (props: { routes: IRoute[]; title: string }) => {
-  const [open, setOpen] = useState(false);
-  const history = useHistory();
-
-  return (
-    <>
-      <ListItem
-        button
-        onClick={() => {
-          setOpen(!open);
-        }}
-      >
-        <ListItemText primary={props.title} />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout="auto">
-        <List component="div" disablePadding className="sublist">
-          {props.routes.map((r, index) => (
-            <ListItem
-              button
-              key={`key-${index}`}
-              className="nested"
-              onClick={() => {
-                history.push(r.link);
-              }}
-            >
-              <ListItemText primary={r.text} />
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
-    </>
-  );
-};
-
 function App() {
+  // const classes = useStyles();
   return (
     <div className="App">
-      <aside>
-        <List component="nav">
-          {MENU_DATA.map((v, index) => (
-            <SubMenu key={`key-${index}`} routes={v.routes} title={v.title} />
-          ))}
-        </List>
-      </aside>
-
-      <div>
+      <div className="content">
         <Switch>
           <Route exact path="/">
-            <Redirect to={"/Intro"} />
+            <Home />
           </Route>
           <Route path="/Intro">
             <Intro />
