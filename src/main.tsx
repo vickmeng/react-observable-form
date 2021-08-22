@@ -10,6 +10,7 @@ const theme = createTheme({
   // palette: {
   //   type: "dark",
   // },
+  palette: { primary: { main: "#FE6B8B" } },
   typography: {
     h2: { color: "coral" },
     body1: {

@@ -3,7 +3,6 @@
   .banner{
     width: 100%;
     height: 600px;
-    //background-color: #248067;
     background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
     display: flex;
     align-items: center;
@@ -11,6 +10,17 @@
     position: relative;
     overflow: hidden;
     flex-direction: column;
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 24px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      a{color:#fff}
+    }
+
     .rxImg{
       position: absolute;
       width: 40vw;
@@ -43,13 +53,12 @@
       margin-bottom: 20px;
     }
 
-    .quick-start,.source-code{
+    .link{
       font-size: 16px;
-
       color: #fff;
       font-weight: 100;
       margin: 0 10px;
-      padding:0 10px 4px;
+      padding:0 10px 6px;
       &:hover {
         border-bottom: 1px solid #fff;
       }
@@ -57,7 +66,7 @@
   }
 
   section {
-    margin: 40px 0 80px;
+    margin: 60px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,5 +83,39 @@
       font-size: 18px;
       font-weight: 100;
     }
+  }
+
+  .third {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    &--demo {
+      margin: 20px 40px;
+      flex: 1;
+
+      &.mui {
+       margin-top: 0;
+      }
+    }
+  }
+
+  .declare {
+    margin: 40px 0;
+    display: flex;
+
+    .demo {
+      padding: 40px 80px;
+    }
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    font-size: 12px;
+    font-weight: 100;
+    background-color: #fff;
+    color: #757575;
   }
 }

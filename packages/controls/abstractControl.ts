@@ -69,7 +69,7 @@ export abstract class AbstractControl<V = any> {
   protected _valid!: boolean;
   protected _validators!: ValidatorFn[];
 
-  protected valueSubject$ = new Subject<any>();
+  protected valueSubject$ = new Subject<V>();
   protected disabledSubject$ = new Subject<boolean>();
   protected validSubject$ = new Subject<boolean>();
   protected dirtySubject$ = new Subject<boolean>();
