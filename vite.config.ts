@@ -16,5 +16,5 @@ export default defineConfig({
   },
 
   // @ts-ignore
-  base: process.env === "production" ? "react-observable-form" : "",
+  // base: process.env.NODE_ENV === "production" ? "react-observable-form" : "",
 });
