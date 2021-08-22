@@ -36,16 +36,16 @@ const Home = () => {
         </nav>
 
         <h1>React Observable Form</h1>
-        <h2>可自由订阅状态变化的React表单方案</h2>
+        <h2>可自由订阅状态变化的React响应式表单方案</h2>
         <div>
           <Link className="quick-start link" to="/">
-            起步
+            快速开始
           </Link>
         </div>
       </div>
 
       <section>
-        <h2>灵活订阅</h2>
+        <h2>响应式</h2>
         <p>随时随处订阅表单元素状态变化</p>
         <img src={flowImg} width={500} />
       </section>
