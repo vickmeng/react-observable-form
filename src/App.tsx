@@ -1,17 +1,5 @@
-import React, { useState } from "react";
-import { Route, Switch, useHistory, Redirect } from "react-router-dom";
-import {
-  Button,
-  Collapse,
-  createStyles,
-  Link,
-  List,
-  ListItem,
-  ListItemText,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
 import Intro from "./pages/intro";
 
@@ -120,7 +108,6 @@ const MENU_DATA: ISubMenu[] = [
 ];
 
 function App() {
-  // const classes = useStyles();
   return (
     <div className="App">
       <div className="content">

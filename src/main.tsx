@@ -22,7 +22,7 @@ const theme = createTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Router>
+      <Router basename="/react-observable-form">
         <App />
       </Router>
     </ThemeProvider>
