@@ -1,10 +1,10 @@
-import React from "react";
 import { Route, Switch } from "react-router-dom";
-
-import Intro from "./pages/intro";
+import React from "react";
 
 import "./App.less";
+
 import Home from "./pages/home";
+import Intro from "./pages/intro";
 
 interface IRoute {
   text: string;
@@ -112,12 +112,9 @@ function App() {
     <div className="App">
       <div className="content">
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/Intro">
-            <Intro />
-          </Route>
+          <Route exact path="/" component={Home} />
+
+          <Route path="/intro" component={Intro} />
         </Switch>
       </div>
     </div>

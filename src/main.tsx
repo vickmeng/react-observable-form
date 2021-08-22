@@ -1,9 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@material-ui/core";
+import ReactDOM from "react-dom";
 
 import "./index.css";
+
 import App from "./App";
 
 const theme = createTheme({
@@ -22,9 +23,9 @@ const theme = createTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Router basename="/react-observable-form">
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")

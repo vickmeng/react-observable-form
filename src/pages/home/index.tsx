@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Highlight from "react-highlight";
+// import Highlight from "react-highlight";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
 import { BasicWithAntd, BasicWithMui } from "../../demo/basic";
@@ -20,7 +20,7 @@ const Home = () => {
 
         <nav>
           <div>
-            <Link className="link" to="/">
+            <Link className="link" to="/intro">
               Docs
             </Link>
             <Link className="link" to="/">
@@ -72,24 +72,24 @@ const Home = () => {
 
         <div className="declare">
           <div className="code">
-            <Highlight className="typescript">
-              {"const group = new GroupControl({\n" +
-                '  married: ["unmarried"],\n' +
-                '  spouse: ["", { disabled: true }],\n' +
-                "});\n" +
-                "\n" +
-                'const married = group.get("married");\n' +
-                'const spouse = group.get("spouse");\n' +
-                "\n" +
-                "married.valueChange.subscribe((v) => {\n" +
-                '  if (v === "married") {\n' +
-                "    spouse.enable();\n" +
-                "  } else {\n" +
-                '    spouse.setValue("");\n' +
-                "    spouse.disable();\n" +
-                "  }\n" +
-                "});"}
-            </Highlight>
+            {/* <Highlight className="typescript"> */}
+            {/*  {"const group = new GroupControl({\n" + */}
+            {/*    '  married: ["unmarried"],\n' + */}
+            {/*    '  spouse: ["", { disabled: true }],\n' + */}
+            {/*    "});\n" + */}
+            {/*    "\n" + */}
+            {/*    'const married = group.get("married");\n' + */}
+            {/*    'const spouse = group.get("spouse");\n' + */}
+            {/*    "\n" + */}
+            {/*    "married.valueChange.subscribe((v) => {\n" + */}
+            {/*    '  if (v === "married") {\n' + */}
+            {/*    "    spouse.enable();\n" + */}
+            {/*    "  } else {\n" + */}
+            {/*    '    spouse.setValue("");\n' + */}
+            {/*    "    spouse.disable();\n" + */}
+            {/*    "  }\n" + */}
+            {/*    "});"} */}
+            {/* </Highlight> */}
           </div>
 
           <div className="demo">
