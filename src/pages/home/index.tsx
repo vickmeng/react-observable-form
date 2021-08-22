@@ -5,10 +5,9 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 
 import { BasicWithAntd, BasicWithMui } from "../../demo/basic";
 import { DisableField } from "../../demo/disable";
-
-import rxImg from "./img/rx.png";
-import reactImg from "./img/react.svg";
-import flowImg from "./img/flow.png";
+import rxImg from "../../assets/img/rx.png";
+import reactImg from "../../assets/img/react.svg";
+import flowImg from "../../assets/img/flow.png";
 
 import "./index.less";
 
