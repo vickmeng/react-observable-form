@@ -1,6 +1,8 @@
 import React from "react";
-import { Group, GroupControl, Field } from "react-observable-form";
 import { FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from "@material-ui/core";
+
+import { GroupControl } from "../../../packages/controls/groupControl";
+import { Field } from "../../../packages/items/field";
 
 const group = new GroupControl({
   married: ["unmarried"],
