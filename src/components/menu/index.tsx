@@ -21,15 +21,15 @@ const BASIC: ISubMenu = {
   routes: [
     {
       text: "单一元素",
-      link: "",
-    },
-    {
-      text: "群组",
-      link: "",
+      link: "/field",
     },
     {
       text: "列表",
-      link: "",
+      link: "/list",
+    },
+    {
+      text: "群组",
+      link: "/group",
     },
   ],
 };
@@ -108,9 +108,11 @@ const SubMenu = ({ menu }: { menu: ISubMenu }) => {
         <List component="div" disablePadding className={"submenu--list"}>
           {menu.routes.map((route) => {
             return (
-              <ListItem button key={route.text} className={"nested"}>
-                <ListItemText primary={route.text} />
-              </ListItem>
+              <Link to={route.link} key={route.text}>
+                <ListItem button className={"nested"}>
+                  <ListItemText primary={route.text} />
+                </ListItem>
+              </Link>
             );
           })}
         </List>
