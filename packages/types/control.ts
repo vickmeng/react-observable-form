@@ -38,7 +38,3 @@ export type FormGroupControlsConfig = {
 };
 
 export type FormListControlsConfig = CreateControlParams[];
-
-export interface SetValueOptions {
-  emitEvent: boolean;
-}

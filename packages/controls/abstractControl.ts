@@ -2,7 +2,7 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { isEqual } from "lodash";
 
-import { ControlBasicOptions, Errors, SetValueOptions, ValidatorFn } from "../types/control";
+import { ControlBasicOptions, Errors, ValidatorFn } from "../types/control";
 import { getErrorsBy } from "../utils";
 
 export abstract class AbstractControl<V = any> {
@@ -58,7 +58,7 @@ export abstract class AbstractControl<V = any> {
     return this.validSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  abstract setValue(value: V, options?: SetValueOptions): void;
+  abstract setValue(value: V): void;
 
   protected abstract checkValid(): boolean;
 
