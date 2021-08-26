@@ -125,6 +125,11 @@ const Menu = () => {
   return (
     <aside className={"menu"}>
       <List component="nav" aria-labelledby="nested-list-subheader">
+        <Link to="/">
+          <ListItem button>
+            <ListItemText primary="首页" />
+          </ListItem>
+        </Link>
         <Link to="/quick-start">
           <ListItem button>
             <ListItemText primary="快速开始" />
