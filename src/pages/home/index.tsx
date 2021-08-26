@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { a11yLight, atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
 import { BasicWithAntd, BasicWithMui } from "../../demo/basic";
@@ -21,11 +21,11 @@ const Home = () => {
 
         <nav>
           <div>
-            <Link className="link" to="/intro">
-              Docs
+            <Link className="link" to="/quick-start">
+              文档
             </Link>
             <Link className="link" to="/">
-              Demos
+              示例
             </Link>
           </div>
           <div>
@@ -38,7 +38,7 @@ const Home = () => {
         <h1>React Observable Form</h1>
         <h2>可自由订阅状态变化的React响应式表单方案</h2>
         <div>
-          <Link className="quick-start link" to="/">
+          <Link className="quick-start link" to="/quick-start">
             快速开始
           </Link>
         </div>
@@ -73,7 +73,7 @@ const Home = () => {
 
         <div className="declare">
           <div className="code">
-            <SyntaxHighlighter language="javascript" style={a11yLight}>
+            <SyntaxHighlighter language="javascript" style={atomOneLight}>
               {"const group = new GroupControl({\n" +
                 '  married: ["unmarried"],\n' +
                 '  spouse: ["", { disabled: true }],\n' +

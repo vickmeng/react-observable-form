@@ -13,7 +13,8 @@ const theme = createTheme({
   // },
   palette: { primary: { main: "#FE6B8B" } },
   typography: {
-    h2: { color: "coral" },
+    h2: { color: "#FE6B8B", fontWeight: 100 },
+    h4: { fontWeight: 100 },
     body1: {
       fontWeight: 100,
     },

@@ -13,5 +13,18 @@
     margin: 0 40px;
     width: 3px;
     height: 40px;
+}
 
+
+.page {
+    padding: 20px 160px;
+}
+
+.page a {
+    color: #FE6B8B;
+}
+
+pre.code {
+    margin: 0 auto;
+    padding: 20px 40px;
 }
