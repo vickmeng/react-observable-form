@@ -5,8 +5,8 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
 import CodeIcon from "@material-ui/icons/Code";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
+import TsCode from "../tsCode";
 
 interface IProps {
   demo: ReactNode;
@@ -30,9 +30,7 @@ const DemoCard = (props: IProps) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <SyntaxHighlighter language="typescript" style={atomOneLight}>
-            {props.code}
-          </SyntaxHighlighter>
+          <TsCode>{props.code}</TsCode>
         </CardContent>
       </Collapse>
     </Card>

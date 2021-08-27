@@ -1,49 +1,60 @@
-import React from "react";
+import React, { useRef } from "react";
+import { TextField } from "@material-ui/core";
 
 import { Field, FieldControl, Group, GroupControl } from "../../../packages/index";
-import Input from "../../components/Input";
 
-const formGroup = new GroupControl({
-  name: new FieldControl("vick"),
-  address: new FieldControl(""),
-});
-
-const formGroupInShort = new GroupControl({
-  name: ["vick"],
-  address: new FieldControl(""),
-});
+// const formGroup = new GroupControl({
+//   name: new FieldControl("vick"),
+//   address: new FieldControl(""),
+// });
 
 const GroupDemo = () => {
+  const groupControlRef = useRef(
+    new GroupControl({
+      consignee: ["vick"],
+      address: new FieldControl("No.1,Chaowai Street,Chaoyang District,Beijing City"),
+    })
+  );
+
   return (
-    <>
-      <Group control={formGroup}>
-        {(props) => {
-          return (
-            <>
-              <pre>{JSON.stringify(Object.assign(props, { controls: "这个没法显示" }), null, 2)}</pre>
-              <label className="form-label">name</label>
-              <Field name="name">{Input}</Field>
-              <label className="form-label">address</label>
-              <Field name="address">{Input}</Field>
-            </>
-          );
-        }}
-      </Group>
+    <Group control={groupControlRef.current}>
+      {(props) => {
+        return (
+          <>
+            <Field name="consignee">
+              {({ value, setValue }) => {
+                return (
+                  <TextField
+                    label="consignee"
+                    variant="outlined"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                );
+              }}
+            </Field>
 
-      <h3>简写只支持创建Field：</h3>
+            <br />
+            <br />
 
-      <Group control={formGroupInShort}>
-        {(props) => {
-          return (
-            <>
-              {JSON.stringify(props.value)}
-              <Field name="name">{Input}</Field>
-              <Field name="address">{Input}</Field>
-            </>
-          );
-        }}
-      </Group>
-    </>
+            <Field name="address">
+              {({ value, setValue }) => {
+                return (
+                  <TextField
+                    label="address"
+                    variant="outlined"
+                    multiline
+                    maxRows={14}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                  />
+                );
+              }}
+            </Field>
+          </>
+        );
+      }}
+    </Group>
   );
 };
 

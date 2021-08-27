@@ -6,12 +6,17 @@ import { Link } from "react-router-dom";
 
 import DemoCard from "../../components/demoCard";
 import { BasicWithMui } from "../../demo/basic";
+import TsCode from "../../components/tsCode";
 
 const FieldPage = () => {
   return (
     <div className={"page"}>
       <Typography paragraph variant={"h2"}>
         单一元素
+      </Typography>
+
+      <Typography paragraph>
+        单一元素是最小的数据源。往往绑定一个单独的受控组件，比如一个输入框，一个树形选择器。
       </Typography>
 
       <Typography paragraph>首先，我们创建一个FieldController作为数据源。</Typography>
@@ -24,9 +29,7 @@ const FieldPage = () => {
         本例中我们放在useRef里。
       </Typography>
 
-      <SyntaxHighlighter language="typescript" style={atomOneLight}>
-        {'const controlRef = useRef(new FieldControl<string>(""));'}
-      </SyntaxHighlighter>
+      <TsCode>{'const controlRef = useRef(new FieldControl<string>(""));'}</TsCode>
 
       <br />
 
@@ -35,9 +38,7 @@ const FieldPage = () => {
         中获取更多信息。接下来利用{"<Field/>"}订阅FieldController。
       </Typography>
 
-      <SyntaxHighlighter language="typescript" style={atomOneLight}>
-        {"<Field control={controlRef.current}></Field>"}
-      </SyntaxHighlighter>
+      <TsCode>{"<Field control={controlRef.current}></Field>"}</TsCode>
 
       <br />
 
@@ -47,13 +48,13 @@ const FieldPage = () => {
 
       <Typography paragraph>接下来，将{"<Field/>"}得到的数据传递给视图</Typography>
 
-      <SyntaxHighlighter language="typescript" style={atomOneLight}>
+      <TsCode>
         {"<Field control={controlRef.current}>\n" +
           "    {({ value, setValue }) => {\n" +
           '        return <TextField label="material-ui" value={value} onChange={(e) => setValue(e.target.value)} />;\n' +
           "    }}\n" +
           "</Field>"}
-      </SyntaxHighlighter>
+      </TsCode>
 
       <br />
 

@@ -8,6 +8,7 @@ import QuickStart from "./pages/quickStart";
 import Menu from "./components/menu";
 import Core from "./pages/core";
 import FieldPage from "./pages/basic/field";
+import GroupPage from "./pages/basic/group";
 
 function App() {
   const location = useLocation();
@@ -23,8 +24,8 @@ function App() {
           <Route path="/core" component={Core} />
 
           <Route path="/field" component={FieldPage} />
+          <Route path="/group" component={GroupPage} />
           {/* <Route path="/list" component={FieldPage} /> */}
-          {/* <Route path="/group" component={FieldPage} /> */}
         </Switch>
       </div>
     </div>

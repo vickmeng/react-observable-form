@@ -24,12 +24,16 @@ const BASIC: ISubMenu = {
       link: "/field",
     },
     {
+      text: "群组",
+      link: "/group",
+    },
+    {
       text: "列表",
       link: "/list",
     },
     {
-      text: "群组",
-      link: "/group",
+      text: "初始化参数",
+      link: "/list",
     },
   ],
 };
