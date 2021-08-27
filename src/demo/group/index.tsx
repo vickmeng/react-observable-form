@@ -1,12 +1,7 @@
 import React, { useRef } from "react";
-import { TextField } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 
 import { Field, Group, GroupControl } from "../../../packages/index";
-
-// const formGroup = new GroupControl({
-//   name: new FieldControl("vick"),
-//   address: new FieldControl(""),
-// });
 
 const GroupDemo = () => {
   // const groupControlRef = useRef(
@@ -58,6 +53,18 @@ const GroupDemo = () => {
                 );
               }}
             </Field>
+            <br />
+            <br />
+
+            <Button
+              variant="contained"
+              color={"primary"}
+              onClick={() => {
+                console.log(groupControlRef.current.value);
+              }}
+            >
+              打印数据
+            </Button>
           </>
         );
       }}

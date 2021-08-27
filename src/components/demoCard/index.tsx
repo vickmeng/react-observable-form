@@ -25,7 +25,7 @@ const DemoCard = (props: IProps) => {
       <CardContent>{props.demo}</CardContent>
       <CardActions disableSpacing>
         <IconButton onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
-          <CodeIcon />
+          <CodeIcon color={expanded ? "primary" : "inherit"} />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
