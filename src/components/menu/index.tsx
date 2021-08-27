@@ -145,6 +145,12 @@ const Menu = () => {
         <SubMenu menu={BASIC} />
         <SubMenu menu={ADVANCE} />
         <SubMenu menu={API} />
+
+        <Link to="/core">
+          <ListItem button>
+            <ListItemText primary="其他资源" />
+          </ListItem>
+        </Link>
       </List>
     </aside>
   );

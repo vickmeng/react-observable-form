@@ -8,15 +8,13 @@ import "./index.css";
 import App from "./App";
 
 const theme = createTheme({
-  // palette: {
-  //   type: "dark",
-  // },
   palette: { primary: { main: "#FE6B8B" } },
   typography: {
     h2: { color: "#FE6B8B", fontWeight: 100 },
     h4: { fontWeight: 100 },
     body1: {
       fontWeight: 100,
+      textIndent: 32,
     },
   },
 });
