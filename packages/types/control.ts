@@ -30,7 +30,7 @@ export type FormControlOptions = ControlBasicOptions;
 export type FormGroupOptions = ControlBasicOptions;
 
 export type FormListOptions = ControlBasicOptions;
-
+// TODO 泛型？
 export type CreateControlParams = AbstractControl<any> | [value?: any, options?: FormControlOptions];
 
 export type FormGroupControlsConfig = {

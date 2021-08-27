@@ -99,7 +99,7 @@ const Home = () => {
         </div>
       </section>
 
-      <footer>遵循 MIT 开源协议 &nbsp;&nbsp; Copyright © laomeng</footer>
+      <footer>遵循 MIT 开源协议 &nbsp;&nbsp; Copyright © Rxjs-CN</footer>
     </main>
   );
 };

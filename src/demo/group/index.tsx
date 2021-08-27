@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { TextField } from "@material-ui/core";
 
-import { Field, FieldControl, Group, GroupControl } from "../../../packages/index";
+import { Field, Group, GroupControl } from "../../../packages/index";
 
 // const formGroup = new GroupControl({
 //   name: new FieldControl("vick"),
@@ -9,10 +9,17 @@ import { Field, FieldControl, Group, GroupControl } from "../../../packages/inde
 // });
 
 const GroupDemo = () => {
+  // const groupControlRef = useRef(
+  //   new GroupControl({
+  //     consignee: new FieldControl("vick"),
+  //     address: new FieldControl("No.1,Chaowai Street,Chaoyang District,Beijing City"),
+  //   })
+  // );
+
   const groupControlRef = useRef(
     new GroupControl({
       consignee: ["vick"],
-      address: new FieldControl("No.1,Chaowai Street,Chaoyang District,Beijing City"),
+      address: ["No.1,Chaowai Street,Chaoyang District,Beijing City"],
     })
   );
 

@@ -1,7 +1,5 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Link } from "react-router-dom";
 
 import DemoCard from "../../components/demoCard";
