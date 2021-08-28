@@ -1,30 +1,47 @@
-import React from "react";
+import React, { useRef } from "react";
+import { Avatar, Button, TextField } from "@material-ui/core";
 
-import { ListControl } from "../../../packages/controls/listControl";
-import { List } from "../../../packages/items/list";
-import { Field } from "../../../packages/items/field";
-import Input from "../../components/Input";
-
-const formList = new ListControl([["vick"], [""]]);
+import { Field, List, ListControl } from "../../../packages";
+import "./index.less";
 
 const ListDemo = () => {
+  const controlRef = useRef(new ListControl([["Vick"], ["Tom"], ["Jack"], ["Lulu"]]));
+
   return (
-    <List control={formList}>
-      {({ controls, ...rest }) => {
-        return (
-          <>
-            <pre>{JSON.stringify(rest, null, 2)}</pre>
-            {controls.map((control, i) => {
-              return (
-                <Field name={`${i}`} key={`key${i}`}>
-                  {Input}
-                </Field>
-              );
-            })}
-          </>
-        );
-      }}
-    </List>
+    <>
+      <ul className="list-demo__ul">
+        <List control={controlRef.current}>
+          {({ controls, ...rest }) => {
+            return (
+              <>
+                {controls.map((control, i) => {
+                  return (
+                    <li key={`key${i}`}>
+                      <Avatar>{i + 1}</Avatar>
+                      <Field name={`${i}`}>
+                        {({ value, setValue }) => {
+                          return <TextField label="姓名" value={value} onChange={(e) => setValue(e.target.value)} />;
+                        }}
+                      </Field>
+                    </li>
+                  );
+                })}
+              </>
+            );
+          }}
+        </List>
+      </ul>
+
+      <Button
+        variant="contained"
+        color={"primary"}
+        onClick={() => {
+          console.log(controlRef.current.value);
+        }}
+      >
+        在控制台中打印数据
+      </Button>
+    </>
   );
 };
 

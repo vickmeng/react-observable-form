@@ -14,7 +14,7 @@ const GroupPage = () => {
       </Typography>
 
       <Typography paragraph>
-        Group是由name为key，以其他controller为value组成的hash型数据源，一张表单往往就是一个Group。
+        我们用Group指代群组，它是由name为key，以其他controller为value组成的hash型数据源，一张表单往往就是一个Group。
       </Typography>
 
       <Typography paragraph>

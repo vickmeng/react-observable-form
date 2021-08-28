@@ -1,12 +1,10 @@
 @import '@/antd/dist/antd.css';
 
-@import "@/highlight.js/styles/a11y-light.css";
+ul,ol{list-style:none; }
 
 
 .divide {
-    /*border-bottom: 3px  #FE6B8B solid;*/
     background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
-    /*width: 30px;*/
 }
 
 .divide.vertical {
@@ -14,7 +12,6 @@
     width: 3px;
     height: 40px;
 }
-
 
 .page {
     padding: 20px 160px;

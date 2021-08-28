@@ -14,12 +14,12 @@ const FieldPage = () => {
       </Typography>
 
       <Typography paragraph>
-        单一元素是最小的数据源。往往绑定一个单独的受控组件，比如一个输入框，一个树形选择器。
+        我们用Field指代单一元素，它是最小的数据源。往往绑定一个单独的受控组件，比如一个输入框，一个树形选择器。
       </Typography>
 
       <Typography paragraph>首先，我们创建一个FieldController作为数据源。</Typography>
       <Typography paragraph>
-        兵无常势，水无常形，
+        兵无常势，水无常形。
         <b>
           你可以根据需要把FieldController放在任何一个可方便获取的位置,可以是组件外，{"<Context/>"}
           中，或者各种状态管理工具，但请避免重复创造实例。

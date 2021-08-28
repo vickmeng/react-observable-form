@@ -23,9 +23,9 @@ const Core = () => {
 
       <Typography paragraph>
         <ul>
-          <li>FieldControl：创建单一元素的控制器</li>
-          <li>GroupControl：创建组合型元素的控制器</li>
-          <li>ListControl：创建集合型元素的控制器</li>
+          <li>FieldControl：用以创建单一元素的控制器</li>
+          <li>GroupControl：用以创建群组元素的控制器</li>
+          <li>ListControl：用以创建列表元素的控制器</li>
         </ul>
       </Typography>
 
@@ -50,7 +50,7 @@ const Core = () => {
       <br />
 
       <Typography paragraph>
-        可以查看<Link to={"/"}>基础使用</Link>更直观得进行学习
+        可以查看<Link to={"/field"}>基础使用</Link>更直观得进行学习
       </Typography>
     </div>
   );

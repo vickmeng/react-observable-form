@@ -13,7 +13,7 @@ const GroupDemo = () => {
 
   const groupControlRef = useRef(
     new GroupControl({
-      consignee: ["vick"],
+      consignee: ["Vick"],
       address: ["No.1,Chaowai Street,Chaoyang District,Beijing City"],
     })
   );
@@ -63,7 +63,7 @@ const GroupDemo = () => {
                 console.log(groupControlRef.current.value);
               }}
             >
-              打印数据
+              在控制台中打印数据
             </Button>
           </>
         );
