@@ -32,8 +32,8 @@ const BASIC: ISubMenu = {
       link: "/list",
     },
     {
-      text: "初始化参数",
-      link: "/list",
+      text: "校验",
+      link: "/validate",
     },
   ],
 };
@@ -157,7 +157,7 @@ const Menu = () => {
 
         <Link to="/core">
           <ListItem button>
-            <ListItemText primary="其他资源" />
+            <ListItemText primary="更好的选择" />
           </ListItem>
         </Link>
       </List>

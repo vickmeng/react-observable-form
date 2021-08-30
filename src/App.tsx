@@ -10,6 +10,7 @@ import Core from "./pages/core";
 import FieldPage from "./pages/basic/field";
 import GroupPage from "./pages/basic/group";
 import ListPage from "./pages/basic/list";
+import ValidatePage from "./pages/basic/validate";
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function App() {
           <Route path="/field" component={FieldPage} />
           <Route path="/group" component={GroupPage} />
           <Route path="/list" component={ListPage} />
+          <Route path="/validate" component={ValidatePage} />
         </Switch>
       </div>
     </div>

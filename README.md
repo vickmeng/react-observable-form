@@ -13,5 +13,6 @@
     11 各种warning
     12 list setValue disable dirty validator errors(done)
     13. list嵌套group(done)
-    14, list:push,insert group:add 简写
+    14, list:push,insert group:add 简写 (done)
+    15, refactor setvalues for group and list
 ```

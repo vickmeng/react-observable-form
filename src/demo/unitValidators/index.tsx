@@ -28,7 +28,7 @@ const RequiredErrorMessage = (props: ErrorInternalProps) => (
   <p className="text-danger">{props.errors?.required && "必填项"}</p>
 );
 
-const ValidatorsDemo = () => {
+const UnitValidateDemo = () => {
   return (
     <>
       <Group control={formGroup}>
@@ -57,4 +57,4 @@ const ValidatorsDemo = () => {
   );
 };
 
-export default ValidatorsDemo;
+export default UnitValidateDemo;

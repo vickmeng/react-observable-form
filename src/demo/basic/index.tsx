@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import { Input, Form } from "antd";
 import { TextField } from "@material-ui/core";
 
-import { Field, FieldControl } from "../../../packages";
+import { Field } from "../../../packages/items/field";
+import { FieldControl } from "../../../packages/controls/fieldControl";
 
 export const BasicWithAntd = () => {
   const controlRef = useRef(new FieldControl<string>(""));

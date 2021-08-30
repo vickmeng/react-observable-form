@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
 import { Avatar, Button, TextField } from "@material-ui/core";
 
-import { Field, List, ListControl } from "../../../packages";
+import { Field } from "../../../packages/items/field";
+import { ListControl } from "../../../packages/controls/listControl";
+import { List } from "../../../packages/items/list";
 import "./index.less";
 
 const ListDemo = () => {
