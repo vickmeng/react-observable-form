@@ -13,11 +13,12 @@ const ValidatePage = () => {
       </Typography>
 
       <Typography paragraph>
-        我们可以在初始化时通过参数为controller设计校验规则，也可以通过controller暴露的方法方法动态修改校验规则。我们可以在
-        <Link to="/">动态表单</Link> 中了解更多内容。
+        我们可以在初始化时通过validators参数为controller设计校验规则，也可以通过controller暴露的方法方法动态修改校验规则。
+        controller会根据validators的顺序依次进行校验，我们可以在<Link to="/">动态表单</Link>，
+        <Link to="/">自定义校验</Link>中了解更多内容。
       </Typography>
 
-      <Typography paragraph>同时,react-observable-form也为开发者预设了一些常用的校验方法。</Typography>
+      <Typography paragraph>同时,react-observable-form也为开发者准备了一些常用的校验方法。</Typography>
 
       <DemoCard
         demo={<ValidateDemo />}
