@@ -32,7 +32,7 @@ export function isErrorWithNameProps(props: ErrorProps): props is ErrorWithNameP
 
 export const getErrorsBy = (control: AbstractControl, validators: ValidatorFn[]) => {
   const errors: Errors = validators.reduce((acc, cur) => {
-    const error = cur(control.value);
+    const error = cur(control);
     if (error) {
       acc = { ...acc, ...error };
     }

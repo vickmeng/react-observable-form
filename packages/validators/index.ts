@@ -5,11 +5,11 @@ const EMAIL_REGEXP =
 
 const isEmptyInputValue = (value: any) => value == null || value.length === 0;
 
-export const required: ValidatorFn = (value) => (isEmptyInputValue(value) ? { required: true } : null);
+export const required: ValidatorFn = (control) => (isEmptyInputValue(control.value) ? { required: true } : null);
 
-export const emailValidator: ValidatorFn = (value) => {
-  if (isEmptyInputValue(value)) {
+export const emailValidator: ValidatorFn = (control) => {
+  if (isEmptyInputValue(control.value)) {
     return null;
   }
-  return EMAIL_REGEXP.test(value) ? null : { email: true };
+  return EMAIL_REGEXP.test(control.value) ? null : { email: true };
 };

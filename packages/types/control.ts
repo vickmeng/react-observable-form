@@ -16,7 +16,7 @@ export type Errors = {
   [key: string]: any;
 };
 
-export type ValidatorFn<V = any> = (value: V) => Errors | null;
+export type ValidatorFn<V = any> = (control: AbstractControl<V>) => Errors | null;
 
 export interface ControlBasicOptions {
   disabled?: boolean;
