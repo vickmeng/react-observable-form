@@ -30,9 +30,9 @@ export function isErrorWithNameProps(props: ErrorProps): props is ErrorWithNameP
   return (props as ErrorWithNameProps).name !== undefined;
 }
 
-export const getErrorsBy = (value: any, validators: ValidatorFn[]) => {
+export const getErrorsBy = (control: AbstractControl, validators: ValidatorFn[]) => {
   const errors: Errors = validators.reduce((acc, cur) => {
-    const error = cur(value);
+    const error = cur(control.value);
     if (error) {
       acc = { ...acc, ...error };
     }

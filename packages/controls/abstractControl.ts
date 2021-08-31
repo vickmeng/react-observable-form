@@ -85,7 +85,7 @@ export abstract class AbstractControl<V = any> {
     this.initDisabled(disabled);
     this.initDirty(dirty);
 
-    this.initErrors(getErrorsBy(value, validators));
+    this.initErrors(getErrorsBy(this, validators));
     this.initValid(this.checkValid());
 
     this.validChange.subscribe(this.updatePrivateValid);
@@ -113,7 +113,7 @@ export abstract class AbstractControl<V = any> {
 
   setValidators = (validators: ValidatorFn[]) => {
     this._validators = validators;
-    this.validateAndUpdateErrors(this.value);
+    this.validateAndUpdateErrors();
   };
 
   disable = () => {
@@ -183,8 +183,8 @@ export abstract class AbstractControl<V = any> {
     this._dirty = dirty;
   };
 
-  protected validateAndUpdateErrors = (value: V) => {
-    const errors = getErrorsBy(value, this._validators);
+  protected validateAndUpdateErrors = () => {
+    const errors = getErrorsBy(this, this._validators);
 
     this.setErrors(errors);
     this.setValid(this.checkValid());
