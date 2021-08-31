@@ -2,7 +2,7 @@ import React from "react";
 
 import { Field, Group, GroupControl } from "../../../packages/index";
 import Input from "../../components/Input";
-import { required } from "../../../packages/validators";
+import { requiredValidator } from "../../../packages/validators";
 import { ValidatorFn } from "../../../packages/types/control";
 import { Error } from "../../../packages/items/error";
 import { ErrorInternalProps } from "../../../packages/types/items";
@@ -18,8 +18,8 @@ const confirmPassword: ValidatorFn<FormValue> = (value) => {
 
 const formGroup = new GroupControl(
   {
-    passWord: ["", { validators: [required] }],
-    confirmPassWord: ["", { validators: [required] }],
+    passWord: ["", { validators: [requiredValidator] }],
+    confirmPassWord: ["", { validators: [requiredValidator] }],
   },
   { validators: [confirmPassword] }
 );

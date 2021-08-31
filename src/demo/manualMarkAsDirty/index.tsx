@@ -2,10 +2,10 @@ import React from "react";
 import { Input } from "antd";
 
 import { Field, FieldControl } from "../../../packages/index";
-import { required } from "../../../packages/validators";
+import { requiredValidator } from "../../../packages/validators";
 import { Error } from "../../../packages/items/error";
 
-const formControl = new FieldControl<string>("Tommy", { validators: [required], autoMarkAsDirty: false });
+const formControl = new FieldControl<string>("Tommy", { validators: [requiredValidator], autoMarkAsDirty: false });
 
 const ManualMarkAsDirty = () => {
   return (

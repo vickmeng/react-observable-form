@@ -2,12 +2,12 @@ import React, { useRef } from "react";
 import { TextField, FormHelperText } from "@material-ui/core";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
-import { required } from "../../../packages/validators";
+import { requiredValidator } from "../../../packages/validators";
 import { Error } from "../../../packages/items/error";
 import { Field } from "../../../packages/items/field";
 import { FieldControl } from "../../../packages/controls/fieldControl";
 export const ValidateDemo = () => {
-  const controlRef = useRef(new FieldControl("", { validators: [required] }));
+  const controlRef = useRef(new FieldControl("", { validators: [requiredValidator] }));
 
   return (
     <>

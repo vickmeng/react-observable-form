@@ -2,10 +2,10 @@ import React from "react";
 
 import { Field, FieldControl } from "../../../packages/index";
 import Input from "../../components/Input";
-import { required } from "../../../packages/validators";
+import { requiredValidator } from "../../../packages/validators";
 import { Error } from "../../../packages/items/error";
 
-const formControl = new FieldControl<string>("", { validators: [required] });
+const formControl = new FieldControl<string>("", { validators: [requiredValidator] });
 
 const DirtyDemo = () => {
   return (

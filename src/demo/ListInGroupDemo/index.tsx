@@ -7,7 +7,7 @@ import { Field } from "../../../packages/items/field";
 import { FieldInternalProps } from "../../../packages/types/items";
 import { ListControl } from "../../../packages/controls/listControl";
 import { List } from "../../../packages/items/list";
-import { required } from "../../../packages/validators";
+import { requiredValidator } from "../../../packages/validators";
 import { Error } from "../../../packages/items/error";
 
 const requiredFamilyMembers = (value: string[]) => {
@@ -21,7 +21,7 @@ const requiredFamilyMembers = (value: string[]) => {
 const createForm = () => {
   const group = new GroupControl({
     married: [true],
-    familyMembers: new ListControl([["", { validators: [required] }]], {
+    familyMembers: new ListControl([["", { validators: [requiredValidator] }]], {
       validators: [requiredFamilyMembers],
     }),
   });
@@ -100,7 +100,7 @@ const ListInGroupDemo = () => {
 
           <Button
             onClick={() => {
-              fromGroupRef.current.get<ListControl>("familyMembers").push(["", { validators: [required] }]);
+              fromGroupRef.current.get<ListControl>("familyMembers").push(["", { validators: [requiredValidator] }]);
             }}
           >
             加一名
