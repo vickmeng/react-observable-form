@@ -13,13 +13,13 @@ const ValidatePage = () => {
       </Typography>
 
       <Typography paragraph>
-        我们可以在初始化时通过validators参数为controller设计校验规则，也可以通过controller暴露的方法方法动态修改校验规则。
-        controller会根据validators的顺序依次进行校验，我们可以在<Link to="/">动态表单</Link>，
-        <Link to="/">自定义校验</Link>中了解更多内容。
+        我们可以在初始化时通过validators参数为controller设计校验规则，也可以通过controller暴露的setValidators方法方法动态修改校验规则。
+        controller会根据validators的顺序依次进行校验，我们可以在<Link to="/">动态表单</Link>中了解更多内容。
       </Typography>
 
       <Typography paragraph>
-        同时,react-observable-form也为开发者准备了一些常用的校验方法,<a>可在此处查看</a>。
+        validators接受一组符合validatorFn的方法，开发者可以由此定义校验规则，同时,react-observable-form也为开发者准备了一些常用的校验方法可供参考与是用,
+        <a>可在此处查看</a>。这部分实现大量的参考了@angular/core的forms模块。
       </Typography>
 
       <Typography paragraph>
