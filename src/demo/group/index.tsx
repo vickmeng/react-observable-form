@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Button, TextField } from "@material-ui/core";
 
 import { Field, Group, GroupControl } from "../../../packages/index";
+import { useControlValue } from "../../../packages/hooks";
 
 const GroupDemo = () => {
   // const groupControlRef = useRef(
@@ -17,6 +18,16 @@ const GroupDemo = () => {
       address: ["No.1,Chaowai Street,Chaoyang District,Beijing City"],
     })
   );
+
+  useEffect(() => {
+    const subscription = groupControlRef.current.valueChange.subscribe((v) => {
+      console.log("value changed", v);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
   return (
     <Group control={groupControlRef.current}>
