@@ -22,13 +22,13 @@ const createForm = () => {
   const group = new GroupControl({
     married: [true],
     familyMembers: new ListControl([["", { validators: [requiredValidator] }]], {
-      validators: [requiredFamilyMembers],
+      validators: [requiredValidator],
     }),
   });
 
   group.get("married").valueChange.subscribe((v) => {
     if (v) {
-      group.get("familyMembers").setValidators([requiredFamilyMembers]);
+      group.get("familyMembers").setValidators([requiredValidator]);
     } else {
       group.get("familyMembers").setValidators([]);
     }

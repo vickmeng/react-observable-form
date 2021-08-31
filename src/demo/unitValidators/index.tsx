@@ -12,8 +12,8 @@ interface FormValue {
   confirmPassWord: string;
 }
 
-const confirmPassword: ValidatorFn<FormValue> = (value) => {
-  return value.confirmPassWord === value.passWord ? null : { confirmPassword: true };
+const confirmPassword: ValidatorFn<FormValue> = (control) => {
+  return control.value.confirmPassWord === control.value.passWord ? null : { confirmPassword: true };
 };
 
 const formGroup = new GroupControl(

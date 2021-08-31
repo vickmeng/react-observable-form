@@ -11,6 +11,9 @@ import FieldPage from "./pages/basic/field";
 import GroupPage from "./pages/basic/group";
 import ListPage from "./pages/basic/list";
 import ValidatePage from "./pages/basic/validate";
+import DynamicPage from "./pages/advance/dynamic";
+import SubscribePage from "./pages/advance/subscribe";
+import ResourcesPage from "./pages/resources";
 
 function App() {
   const location = useLocation();
@@ -29,6 +32,10 @@ function App() {
           <Route path="/group" component={GroupPage} />
           <Route path="/list" component={ListPage} />
           <Route path="/validate" component={ValidatePage} />
+
+          <Route path="/subscribe" component={SubscribePage} />
+          <Route path="/dynamic" component={DynamicPage} />
+          <Route path="/resources" component={ResourcesPage} />
         </Switch>
       </div>
     </div>

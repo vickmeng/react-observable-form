@@ -42,18 +42,19 @@ const ADVANCE: ISubMenu = {
   title: "高级使用",
   routes: [
     {
+      text: "订阅变化",
+      link: "/subscribe",
+    },
+    {
       text: "动态表单",
-      link: "",
+      link: "/dynamic",
     },
 
     {
       text: "联合校验",
       link: "",
     },
-    {
-      text: "订阅变化",
-      link: "",
-    },
+
     {
       text: "复杂嵌套",
       link: "",
@@ -155,9 +156,9 @@ const Menu = () => {
         <SubMenu menu={ADVANCE} />
         <SubMenu menu={API} />
 
-        <Link to="/core">
+        <Link to="/resources">
           <ListItem button>
-            <ListItemText primary="更好的选择" />
+            <ListItemText primary="更多选择" />
           </ListItem>
         </Link>
       </List>
