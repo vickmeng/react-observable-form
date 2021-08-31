@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { Button, TextField } from "@material-ui/core";
 
 import { Field, Group, GroupControl } from "../../../packages/index";
-import { useControlValue } from "../../../packages/hooks";
 
 const GroupDemo = () => {
   // const groupControlRef = useRef(
