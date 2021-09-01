@@ -13,7 +13,7 @@ const SubscribePage = () => {
       </Typography>
 
       <Typography paragraph>
-        让开发者自由订阅表单状态变化是开发react-observable-form的初衷，开发者可以响应value，disabled，dirty，errors，validate等等不同的状态变化并作出响应。
+        让开发者自由订阅表单状态变化是开发react-observable-form的初衷，开发者可以订阅value，disabled，dirty，errors，validate等等不同的状态变化并作出响应。
         比如对表单元素进行操作，以达到动态表单的效果，再比如，表单某个值发生变化时实时发送请求。
       </Typography>
 
@@ -21,6 +21,8 @@ const SubscribePage = () => {
         我们仍然以group为例，controller提供valueChange提供开发者进行对value变化的订阅。此处完全使用Rxjs的api，
         如果你对Rxjs并不了解，也并不会影响你的使用。更多的可订阅对象请在<Link to={"/"}>API</Link>中了解
       </Typography>
+
+      <Typography paragraph>请打开控制台查看value变化：</Typography>
 
       <DemoCard
         demo={<GroupDemo />}

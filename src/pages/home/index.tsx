@@ -9,6 +9,7 @@ import { DisableField } from "../../demo/disable";
 import rxImg from "../../assets/img/rx.png";
 import reactImg from "../../assets/img/react.svg";
 import flowImg from "../../assets/img/flow.png";
+import pipeImg from "../../assets/img/pipe.png";
 
 import "./index.less";
 
@@ -45,13 +46,20 @@ const Home = () => {
       </div>
 
       <section>
-        <h2>响应式</h2>
+        <h2>自由订阅</h2>
         <p>随时随处订阅表单元素状态变化</p>
         <img src={flowImg} width={500} />
       </section>
 
       <section>
-        <h2>自由集成</h2>
+        <h2>Rxjs</h2>
+        <p>可以使用Rxjs Operators助力开发</p>
+
+        <img src={pipeImg} width={600} />
+      </section>
+
+      <section>
+        <h2>友好集成</h2>
         <p>自由对接流行的组件库</p>
 
         <div className="third">
