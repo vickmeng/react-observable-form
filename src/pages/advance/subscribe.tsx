@@ -24,7 +24,7 @@ const SubscribePage = () => {
       </Typography>
 
       <Typography paragraph>
-        如果开发者觉得订阅valueChange很麻烦，建议自行封装hook简化逻辑，<b>但是你一定要清楚Rxjs的机制</b>。
+        如果开发者觉得订阅valueChange很麻烦，建议自行封装hook简化逻辑，<b>但是你一定要清楚Rxjs做了什么</b>。
       </Typography>
 
       <Typography paragraph>请打开控制台查看value变化：</Typography>

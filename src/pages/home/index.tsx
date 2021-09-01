@@ -5,7 +5,7 @@ import { atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
 import { BasicWithAntd, BasicWithMui } from "../../demo/basic";
-import { DisableField } from "../../demo/disable";
+import { DisableDemo } from "../../demo/disable";
 import rxImg from "../../assets/img/rx.png";
 import reactImg from "../../assets/img/react.svg";
 import flowImg from "../../assets/img/flow.png";
@@ -102,7 +102,7 @@ const Home = () => {
           </div>
 
           <div className="demo">
-            <DisableField />
+            <DisableDemo />
           </div>
         </div>
       </section>
