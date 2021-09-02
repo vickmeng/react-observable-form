@@ -2,10 +2,9 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 
 import nestImg from "../../assets/img/nest.png";
-
-import "./nest.less";
 import DemoCard from "../../components/demoCard";
 import NestedDemo from "../../demo/NestedDemo";
+import "./nest.less";
 
 const NestPage = () => {
   return (
