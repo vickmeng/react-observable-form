@@ -1,16 +1,17 @@
 @import '@/antd/dist/antd.css';
 
-ul,ol{list-style:none; }
+/*ul,ol{padding-left: 10px }*/
 
 
 .divide {
-    background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+    background: linear-gradient(45deg, #4c00b7 30%, #ee0a90 90%);
 }
 
 .divide.vertical {
     margin: 0 40px;
     width: 3px;
     height: 40px;
+    background: #4c00b7;
 }
 
 .page {
@@ -18,7 +19,7 @@ ul,ol{list-style:none; }
 }
 
 .page a {
-    color: #FE6B8B;
+    color: #4c00b7;
 }
 
 pre.code {
@@ -27,7 +28,7 @@ pre.code {
 }
 
 .MuiButton-containedPrimary{
-    /*background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);*/
+    /*background: linear-gradient(45deg, #4c00b7 30%, #ee0a90 90%);*/
 }
 
 .MuiButton-containedPrimary .MuiButton-label{

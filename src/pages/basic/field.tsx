@@ -64,7 +64,7 @@ const FieldPage = () => {
 
       <br />
 
-      <Typography paragraph>本来自采用material-ui作为视图库。完整代码如下：</Typography>
+      <Typography paragraph>本例采用material-ui作为视图库。完整代码如下：</Typography>
 
       <DemoCard
         code={

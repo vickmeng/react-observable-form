@@ -8,9 +8,9 @@ import "./index.css";
 import App from "./App";
 
 const theme = createTheme({
-  palette: { primary: { main: "#FE6B8B" } },
+  palette: { primary: { main: "#4c00b7" }, secondary: { main: "#4c00b7" } },
   typography: {
-    h2: { color: "#FE6B8B", fontWeight: 100 },
+    h2: { color: "#4c00b7", fontWeight: 100 },
     h4: { fontWeight: 100 },
     body1: {
       fontWeight: 100,
