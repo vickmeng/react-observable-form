@@ -17,6 +17,7 @@ import ResourcesPage from "./pages/resources";
 import UniteValidatePage from "./pages/advance/uniteValidate";
 import NestPage from "./pages/advance/nest";
 import UseRxPage from "./pages/advance/useRx";
+import FieldApiPage from "./pages/api/FieldApi";
 
 function App() {
   const location = useLocation();
@@ -42,6 +43,8 @@ function App() {
           <Route path="/uniteValidate" component={UniteValidatePage} />
           <Route path="/nest" component={NestPage} />
           <Route path="/useRx" component={UseRxPage} />
+
+          <Route path="/fieldApi" component={FieldApiPage} />
         </Switch>
       </div>
     </div>

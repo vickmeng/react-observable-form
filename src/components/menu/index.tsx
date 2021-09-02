@@ -71,7 +71,7 @@ const API: ISubMenu = {
   routes: [
     {
       text: "<Field/>",
-      link: "",
+      link: "fieldApi",
     },
     {
       text: "<Group/>",
