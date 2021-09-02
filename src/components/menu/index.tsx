@@ -61,7 +61,7 @@ const ADVANCE: ISubMenu = {
     },
     {
       text: "与Rxjs",
-      link: "",
+      link: "/useRx",
     },
   ],
 };

@@ -7,7 +7,7 @@ import NestedDemo from "../../demo/NestedDemo";
 
 const NestPage = () => {
   return (
-    <div className={"page nest-page"}>
+    <div className={"page"}>
       <Typography paragraph variant={"h2"}>
         复杂嵌套
       </Typography>
