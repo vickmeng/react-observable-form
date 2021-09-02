@@ -52,12 +52,12 @@ const ADVANCE: ISubMenu = {
 
     {
       text: "联合校验",
-      link: "",
+      link: "/uniteValidate",
     },
 
     {
       text: "复杂嵌套",
-      link: "",
+      link: "/nest",
     },
     {
       text: "与Rxjs",

@@ -14,6 +14,8 @@ import ValidatePage from "./pages/basic/validate";
 import DynamicPage from "./pages/advance/dynamic";
 import SubscribePage from "./pages/advance/subscribe";
 import ResourcesPage from "./pages/resources";
+import UniteValidatePage from "./pages/advance/uniteValidate";
+import NestPage from "./pages/advance/nest";
 
 function App() {
   const location = useLocation();
@@ -36,6 +38,9 @@ function App() {
           <Route path="/subscribe" component={SubscribePage} />
           <Route path="/dynamic" component={DynamicPage} />
           <Route path="/resources" component={ResourcesPage} />
+          <Route path="/uniteValidate" component={UniteValidatePage} />
+
+          <Route path="/nest" component={NestPage} />
         </Switch>
       </div>
     </div>

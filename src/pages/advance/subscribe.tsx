@@ -20,7 +20,7 @@ const SubscribePage = () => {
 
       <Typography paragraph>
         我们仍然以group为例，controller提供valueChange提供开发者进行对value变化的订阅。此处完全使用Rxjs的api，
-        如果你对Rxjs并不了解，也并不会影响你的使用。更多的可订阅对象请在<Link to={"/"}>API</Link>中了解
+        如果你对Rxjs并不了解，也并不会影响你的使用。更多的可订阅对象请在<Link to={"/"}>API</Link>中了解。
       </Typography>
 
       <Typography paragraph>

@@ -8,7 +8,7 @@ const ResourcesPage = () => {
         更多选择
       </Typography>
 
-      <Typography paragraph>react社区中还有非常多的优秀竞品值得关注：</Typography>
+      <Typography paragraph>react社区中还有非常多优秀作品值得关注：</Typography>
 
       <Typography paragraph>
         <ul>
