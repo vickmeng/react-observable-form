@@ -18,6 +18,11 @@
     padding: 20px 160px;
 }
 
+.page > img {
+    display: block;
+    margin: 0 auto;
+}
+
 .page a {
     color: #4c00b7;
 }

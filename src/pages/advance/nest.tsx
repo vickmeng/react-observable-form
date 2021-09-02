@@ -4,7 +4,6 @@ import { Typography } from "@material-ui/core";
 import nestImg from "../../assets/img/nest.png";
 import DemoCard from "../../components/demoCard";
 import NestedDemo from "../../demo/NestedDemo";
-import "./nest.less";
 
 const NestPage = () => {
   return (
@@ -22,9 +21,7 @@ const NestPage = () => {
         试想一个场景：我们做一张统计家庭成员的表单，需要填写本人姓名，动态添加家庭成员，每个家庭成员需要填写姓名与联系电话。我们设计出如下的嵌套关系：
       </Typography>
 
-      <Typography paragraph>
-        <img src={nestImg} width={600} />
-      </Typography>
+      <img src={nestImg} width={600} />
 
       <Typography paragraph>实现如下：</Typography>
 
