@@ -75,7 +75,7 @@ const API: ISubMenu = {
     },
     {
       text: "<Group/>",
-      link: "",
+      link: "groupApi",
     },
     {
       text: "<List/>",

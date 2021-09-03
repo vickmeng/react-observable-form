@@ -1,15 +1,15 @@
-import React from "react";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import React from "react";
 
-const FieldApiPage = () => {
+const GroupApiPage = () => {
   return (
     <div className={"page"}>
       <Typography paragraph variant={"h2"}>
-        {"<Field<V> ...props/>"}
+        {"<Group ...props/>"}
       </Typography>
 
       <Typography paragraph variant={"h4"}>
-        props:{"FieldProps<V>"}
+        props:{"GroupProps"}
       </Typography>
 
       <TableContainer component={Paper}>
@@ -50,7 +50,7 @@ const FieldApiPage = () => {
                 绑定的controller，与name互斥
               </TableCell>
               <TableCell component="th" scope="row">
-                {"FieldControl<V = any>"}
+                GroupControl
               </TableCell>
               <TableCell component="th" scope="row">
                 否
@@ -67,7 +67,7 @@ const FieldApiPage = () => {
                 内容
               </TableCell>
               <TableCell component="th" scope="row">
-                (props: <a href={"#fieldInternalProps"}>{"FieldInternalProps<V>"}</a>) {`=>`} ReactElement
+                (props: <a href={"#GroupInternalProps"}>GroupInternalProps</a>) {`=>`} ReactElement
               </TableCell>
               <TableCell component="th" scope="row">
                 是
@@ -81,8 +81,8 @@ const FieldApiPage = () => {
       </TableContainer>
       <br />
 
-      <Typography paragraph variant={"h4"} id={"fieldInternalProps"}>
-        {"FieldInternalProps<V>"}
+      <Typography paragraph variant={"h4"} id={"GroupInternalProps"}>
+        GroupInternalProps
       </Typography>
 
       <TableContainer component={Paper}>
@@ -116,43 +116,7 @@ const FieldApiPage = () => {
                 值
               </TableCell>
               <TableCell component="th" scope="row">
-                {"<V>"}
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                setValue
-              </TableCell>
-              <TableCell component="th" scope="row">
-                更新值
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {'FieldControl<V>["setValue"]'}
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                markAsDirty
-              </TableCell>
-              <TableCell component="th" scope="row">
-                标记值未被修改过
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {'FieldControl<V>["markAsDirty"]'}
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                markAsPristine
-              </TableCell>
-              <TableCell component="th" scope="row">
-                标记值被修改过
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {'FieldControl<V>["markAsPristine"]'}
+                {"Record<string, any>"}
               </TableCell>
             </TableRow>
 
@@ -246,4 +210,4 @@ const FieldApiPage = () => {
   );
 };
 
-export default FieldApiPage;
+export default GroupApiPage;
