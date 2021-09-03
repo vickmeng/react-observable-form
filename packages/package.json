@@ -1,6 +1,6 @@
 {
   "name": "react-observable-form",
-  "version": "1.0.3-beta",
+  "version": "1.0.3-beta2",
   "license": "MIT",
   "keywords": [
     "react",
@@ -21,5 +21,8 @@
     "typescript": "*"
   },
   "module": "dist/index.js",
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ]
 }
