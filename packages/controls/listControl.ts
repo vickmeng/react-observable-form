@@ -88,7 +88,11 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
   };
 
   private initControls = (controlsConfig: FormListControlsConfig) => {
-    this._controls = controlsConfig.map((config) => createControl(config));
+    this._controls = controlsConfig.map((config) => {
+      const childControl = createControl(config);
+      childControl.parent = this;
+      return childControl;
+    });
   };
 
   private updatePrivateControlsAndResetSubscribeGraph = (controls: ListControls) => {

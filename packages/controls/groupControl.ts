@@ -102,7 +102,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     for (const controlKey in controlsConfig) {
       if (Object.prototype.hasOwnProperty.call(controlsConfig, controlKey)) {
         const config = controlsConfig[controlKey];
-        controls[controlKey] = createControl(config);
+        const childControl = createControl(config);
+        childControl.parent = this;
+        controls[controlKey] = childControl;
       }
     }
 

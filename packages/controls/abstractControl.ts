@@ -5,6 +5,9 @@ import { isEqual } from "lodash";
 import { ControlBasicOptions, Errors, ValidatorFn } from "../types/control";
 import { getErrorsBy } from "../utils";
 
+import { GroupControl } from "./groupControl";
+import { ListControl } from "./listControl";
+
 export abstract class AbstractControl<V = any> {
   get value() {
     return this._value;
@@ -99,6 +102,8 @@ export abstract class AbstractControl<V = any> {
       this.valueChange.subscribe(this.markAsDirty);
     }
   }
+
+  parent?: GroupControl | ListControl;
 
   destroy = () => {
     this.destroy$.next(true);
