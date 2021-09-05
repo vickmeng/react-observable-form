@@ -32,6 +32,7 @@ export function Field<V>(props: FieldProps<V>) {
   const childrenProps: FieldInternalProps = {
     name,
     value,
+    control,
     setValue: control.setValue,
     markAsDirty: control.markAsDirty,
     markAsPristine: control.markAsPristine,

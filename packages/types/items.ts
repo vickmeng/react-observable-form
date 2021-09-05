@@ -26,6 +26,7 @@ export interface ItemWithControlProps<P, C extends AbstractControl<any>> extends
 
 export interface FieldInternalProps<V = any> {
   name?: string;
+  control: FieldControl;
   value: V;
   setValue: FieldControl<V>["setValue"];
   markAsDirty: FieldControl<V>["markAsDirty"];
