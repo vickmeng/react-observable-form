@@ -1,15 +1,17 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 import React from "react";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 
-const GroupApiPage = () => {
+import { ListInternalProps } from "../../../packages/types/items";
+
+const ListApiPage = () => {
   return (
     <div className={"page"}>
       <Typography paragraph variant={"h2"}>
-        {"<Group ...props/>"}
+        {"<List ...props/>"}
       </Typography>
 
       <Typography paragraph variant={"h4"}>
-        props:{"GroupProps"}
+        props:{"ListProps"}
       </Typography>
 
       <TableContainer component={Paper}>
@@ -50,7 +52,7 @@ const GroupApiPage = () => {
                 绑定的controller，与name互斥
               </TableCell>
               <TableCell component="th" scope="row">
-                GroupControl
+                ListControl
               </TableCell>
               <TableCell component="th" scope="row">
                 否
@@ -67,7 +69,7 @@ const GroupApiPage = () => {
                 内容
               </TableCell>
               <TableCell component="th" scope="row">
-                (props: <a href={"#GroupInternalProps"}>GroupInternalProps</a>) {`=>`} ReactElement
+                (props: <a href={"#ListInternalProps"}>ListInternalProps</a>) {`=>`} ReactElement
               </TableCell>
               <TableCell component="th" scope="row">
                 是
@@ -81,8 +83,8 @@ const GroupApiPage = () => {
       </TableContainer>
       <br />
 
-      <Typography paragraph variant={"h4"} id={"GroupInternalProps"}>
-        GroupInternalProps
+      <Typography paragraph variant={"h4"} id={"ListInternalProps"}>
+        ListInternalProps
       </Typography>
 
       <TableContainer component={Paper}>
@@ -203,7 +205,6 @@ const GroupApiPage = () => {
                 {"{[key: string]: any}  |  null"}
               </TableCell>
             </TableRow>
-
             <TableRow>
               <TableCell component="th" scope="row">
                 controls
@@ -212,7 +213,7 @@ const GroupApiPage = () => {
                 子controller集合
               </TableCell>
               <TableCell component="th" scope="row">
-                {"{\n" + "  [key: string]: AbstractControl<any>;\n" + "}"}
+                {"AbstractControl<any>[]"}
               </TableCell>
             </TableRow>
           </TableBody>
@@ -222,4 +223,4 @@ const GroupApiPage = () => {
   );
 };
 
-export default GroupApiPage;
+export default ListApiPage;

@@ -1,15 +1,15 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 import React from "react";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 
-const GroupApiPage = () => {
+const ErrorApiPage = () => {
   return (
     <div className={"page"}>
       <Typography paragraph variant={"h2"}>
-        {"<Group ...props/>"}
+        {"<Error<V> ...props/>"}
       </Typography>
 
       <Typography paragraph variant={"h4"}>
-        props:{"GroupProps"}
+        props:{"FieldProps<V>"}
       </Typography>
 
       <TableContainer component={Paper}>
@@ -50,7 +50,7 @@ const GroupApiPage = () => {
                 绑定的controller，与name互斥
               </TableCell>
               <TableCell component="th" scope="row">
-                GroupControl
+                {"FieldControl<V = any>"}
               </TableCell>
               <TableCell component="th" scope="row">
                 否
@@ -67,7 +67,7 @@ const GroupApiPage = () => {
                 内容
               </TableCell>
               <TableCell component="th" scope="row">
-                (props: <a href={"#GroupInternalProps"}>GroupInternalProps</a>) {`=>`} ReactElement
+                (props: <a href={"#ErrorInternalProps"}>{"ErrorInternalProps"}</a>) {`=>`} ReactElement
               </TableCell>
               <TableCell component="th" scope="row">
                 是
@@ -81,8 +81,8 @@ const GroupApiPage = () => {
       </TableContainer>
       <br />
 
-      <Typography paragraph variant={"h4"} id={"GroupInternalProps"}>
-        GroupInternalProps
+      <Typography paragraph variant={"h4"} id={"ErrorInternalProps"}>
+        {"ErrorInternalProps"}
       </Typography>
 
       <TableContainer component={Paper}>
@@ -105,18 +105,6 @@ const GroupApiPage = () => {
               </TableCell>
               <TableCell component="th" scope="row">
                 string?
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                value
-              </TableCell>
-              <TableCell component="th" scope="row">
-                值
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {"Record<string, any>"}
               </TableCell>
             </TableRow>
 
@@ -146,54 +134,6 @@ const GroupApiPage = () => {
 
             <TableRow>
               <TableCell component="th" scope="row">
-                disabled
-              </TableCell>
-              <TableCell component="th" scope="row">
-                被禁用
-              </TableCell>
-              <TableCell component="th" scope="row">
-                boolean
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                enabled
-              </TableCell>
-              <TableCell component="th" scope="row">
-                未被禁用
-              </TableCell>
-              <TableCell component="th" scope="row">
-                boolean
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                valid
-              </TableCell>
-              <TableCell component="th" scope="row">
-                通过校验
-              </TableCell>
-              <TableCell component="th" scope="row">
-                boolean
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                invalid
-              </TableCell>
-              <TableCell component="th" scope="row">
-                未通过校验
-              </TableCell>
-              <TableCell component="th" scope="row">
-                boolean
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
                 errors
               </TableCell>
               <TableCell component="th" scope="row">
@@ -203,18 +143,6 @@ const GroupApiPage = () => {
                 {"{[key: string]: any}  |  null"}
               </TableCell>
             </TableRow>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-                controls
-              </TableCell>
-              <TableCell component="th" scope="row">
-                子controller集合
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {"{\n" + "  [key: string]: AbstractControl<any>;\n" + "}"}
-              </TableCell>
-            </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
@@ -222,4 +150,4 @@ const GroupApiPage = () => {
   );
 };
 
-export default GroupApiPage;
+export default ErrorApiPage;

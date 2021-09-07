@@ -19,6 +19,8 @@ import NestPage from "./pages/advance/nest";
 import UseRxPage from "./pages/advance/useRx";
 import FieldApiPage from "./pages/api/FieldApi";
 import GroupApiPage from "./pages/api/GroupApi";
+import ListApiPage from "./pages/api/ListApi";
+import ErrorApiPage from "./pages/api/ErrorApi";
 
 function App() {
   const location = useLocation();
@@ -47,6 +49,8 @@ function App() {
 
           <Route path="/fieldApi" component={FieldApiPage} />
           <Route path="/groupApi" component={GroupApiPage} />
+          <Route path="/listApi" component={ListApiPage} />
+          <Route path="/errorApi" component={ErrorApiPage} />
         </Switch>
       </div>
     </div>

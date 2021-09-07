@@ -6,9 +6,9 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 
 import { BasicWithAntd, BasicWithMui } from "../../demo/basic";
 import { DisableDemo } from "../../demo/disable";
+import flowImg from "../../assets/img/flow.png";
 import rxImg from "../../assets/img/rx.png";
 import reactImg from "../../assets/img/react.svg";
-import flowImg from "../../assets/img/flow.png";
 
 import "./index.less";
 import UseRxjsDemo from "../../demo/useRxjsDemo";
