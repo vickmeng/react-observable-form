@@ -9,9 +9,9 @@ import { DisableDemo } from "../../demo/disable";
 import rxImg from "../../assets/img/rx.png";
 import reactImg from "../../assets/img/react.svg";
 import flowImg from "../../assets/img/flow.png";
-import pipeImg from "../../assets/img/pipe.png";
 
 import "./index.less";
+import UseRxjsDemo from "../../demo/useRxjsDemo";
 
 const Home = () => {
   return (
@@ -53,9 +53,20 @@ const Home = () => {
 
       <section>
         <h2>Rxjs</h2>
-        <p>可以使用Rxjs Operators助力开发</p>
-
-        <img src={pipeImg} width={600} />
+        <div className="demo-wrapper">
+          <div className="code">
+            <SyntaxHighlighter language="javascript" style={atomOneLight}>
+              {"valueChange\n" +
+                ".pipe(debounceTime(500))\n" +
+                ".subscribe((v) => {\n" +
+                '  console.log("value change", v);\n' +
+                "});"}
+            </SyntaxHighlighter>
+          </div>
+          <div className="demo">
+            <UseRxjsDemo />
+          </div>
+        </div>
       </section>
 
       <section>
@@ -76,10 +87,10 @@ const Home = () => {
       </section>
 
       <section>
-        <h2>集中管理</h2>
-        <p>声明式表单，集中管理动态逻辑</p>
+        <h2>响应式</h2>
+        <p>响应式表单，状态流转描述动态逻辑</p>
 
-        <div className="declare">
+        <div className="demo-wrapper">
           <div className="code">
             <SyntaxHighlighter language="javascript" style={atomOneLight}>
               {"const group = new GroupControl({\n" +

@@ -21,7 +21,7 @@ const UseRxjsDemo = () => {
   return (
     <Field control={controlRef.current}>
       {({ value, setValue }) => {
-        return <TextField label="延迟500ms" value={value} onChange={(e) => setValue(e.target.value)} />;
+        return <TextField label="防抖500ms" value={value} onChange={(e) => setValue(e.target.value)} />;
       }}
     </Field>
   );
