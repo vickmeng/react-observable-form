@@ -25,9 +25,9 @@ const Home = () => {
             <Link className="link" to="/quick-start">
               文档
             </Link>
-            <Link className="link" to="/">
-              示例
-            </Link>
+            <a className="link" href="https://github.com/RxJS-CN" target="_blank" rel="noreferrer">
+              RxJS 中文社区
+            </a>
           </div>
           <div>
             <a href="https://github.com/vickmeng/react-observable-form">
