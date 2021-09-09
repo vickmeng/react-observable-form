@@ -2,9 +2,10 @@ import React from "react";
 import { Button, TextField } from "@material-ui/core";
 
 import { Field, Group, GroupControl } from "../../../packages/index";
+import { requiredValidator } from "../../../packages/validators";
 
 const group = new GroupControl({
-  consignee: ["Vick"],
+  consignee: ["", { validators: [requiredValidator] }],
   address: ["No.1,Chaowai Street,Chaoyang District,Beijing City"],
 });
 
@@ -75,7 +76,7 @@ const PlayGroundPage = () => {
               variant="contained"
               color={"primary"}
               onClick={() => {
-                console.log(group.value);
+                console.log(group);
               }}
             >
               在控制台中打印数据

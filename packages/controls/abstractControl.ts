@@ -67,6 +67,7 @@ export abstract class AbstractControl<V = any> {
 
   protected abstract checkValid(): boolean;
 
+  protected _initValue!: V;
   protected _value!: V;
   protected _errors!: Errors | null;
   protected _disabled!: boolean;
