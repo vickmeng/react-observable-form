@@ -5,6 +5,7 @@ import {
   CreateControlParams,
   FormListControlsConfig,
   FormListOptions,
+  GroupValue,
   ListControls,
   ListValue,
 } from "../types/control";
@@ -36,7 +37,8 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
   constructor(controlsConfig: FormListControlsConfig, options: FormListOptions = {}) {
     super();
     this.initControls(controlsConfig);
-    this.initBasicParams(this.getListValueFromControls(), options);
+    this._initValue = this.getListValueFromControls();
+    this.initBasicParams(this._initValue, options);
 
     this.resetGraph();
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
@@ -70,17 +72,19 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.controlsSubject.next(controls);
   };
 
-  // TODO
-  reset = () => {};
-
   override setValue = (value: ListValue<V>) => {
     if (value === this.value) {
       return;
     }
-    // TODO
-    // this.setValueToControls(value);
 
-    this.valueSubject$.next(value);
+    this.destroyGraph();
+
+    this.setValueToControls(value);
+
+    this.valueSubject$.next(this.getListValueFromControls());
+    this.validSubject$.next(this.checkValid());
+
+    this.resetGraph();
   };
 
   /**
@@ -95,6 +99,13 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
       const childControl = createControl(config);
       childControl.parent = this;
       return childControl;
+    });
+  };
+
+  private setValueToControls = (value: ListValue) => {
+    this._controls.forEach((control, i) => {
+      const hasKey = Object.prototype.hasOwnProperty.call(value, i);
+      hasKey && control.setValue(value[i]);
     });
   };
 
@@ -130,6 +141,16 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
 
     this.resetValueGraph([...valueChanges, ...disabledChanges]);
     this.resetValidGraph(validChanges);
+  };
+
+  private destroyGraph = () => {
+    if (this.valueChangesSubscription) {
+      this.valueChangesSubscription.unsubscribe();
+    }
+
+    if (this.validChangesSubscription) {
+      this.validChangesSubscription.unsubscribe();
+    }
   };
 
   private resetValueGraph(changes: Observable<any>[]) {

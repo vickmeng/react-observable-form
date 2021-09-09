@@ -29,9 +29,5 @@ export class FieldControl<V = any> extends AbstractControl<V> {
     this.valueSubject$.next(value);
   };
 
-  override reset() {
-    this.setValue(this._initValue);
-  }
-
   protected checkValid = () => !this.errors;
 }

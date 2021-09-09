@@ -63,8 +63,6 @@ export abstract class AbstractControl<V = any> {
 
   abstract setValue(value: V): void;
 
-  abstract reset(): void;
-
   protected abstract checkValid(): boolean;
 
   protected _initValue!: V;
@@ -145,6 +143,10 @@ export abstract class AbstractControl<V = any> {
 
   markAsPristine = () => {
     this.setDirty(false);
+  };
+
+  reset = () => {
+    this.setValue(this._initValue);
   };
 
   protected initValue = (value: V) => {

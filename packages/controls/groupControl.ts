@@ -1,11 +1,11 @@
 import { merge, Observable, Subject, Subscription } from "rxjs";
-import { map, skipWhile, takeUntil } from "rxjs/operators";
+import { map, takeUntil } from "rxjs/operators";
 
 import {
-  GroupControls,
   CreateControlParams,
   FormGroupControlsConfig,
   FormGroupOptions,
+  GroupControls,
   GroupValue,
 } from "../types/control";
 import { createControl } from "../utils";
@@ -96,11 +96,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.controlsSubject.next(controls);
   };
 
-  // TODO
-  reset = () => {
-    this.setValue(this._initValue);
-  };
-
   /**
    * has group level error or has invalid controls
    */
@@ -124,17 +119,10 @@ export class GroupControl extends AbstractControl<GroupValue> {
   };
 
   private setValueToControls = (value: GroupValue) => {
-    /**
-     * open the lock and prevent trigger valueChange,validChange callback by controls value change
-     */
-
     Object.keys(this._controls).forEach((name) => {
       const hasKey = Object.prototype.hasOwnProperty.call(value, name);
       hasKey && this._controls[name].setValue(value[name]);
     });
-    /**
-     * close the lock
-     */
   };
 
   private updatePrivateControlsAndResetSubscribeGraph = (controls: GroupControls) => {
