@@ -63,6 +63,8 @@ export abstract class AbstractControl<V = any> {
 
   abstract setValue(value: V): void;
 
+  abstract reset(): void;
+
   protected abstract checkValid(): boolean;
 
   protected _value!: V;

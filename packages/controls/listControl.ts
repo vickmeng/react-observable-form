@@ -70,6 +70,9 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.controlsSubject.next(controls);
   };
 
+  // TODO
+  reset = () => {};
+
   override setValue = (value: ListValue<V>) => {
     if (value === this.value) {
       return;

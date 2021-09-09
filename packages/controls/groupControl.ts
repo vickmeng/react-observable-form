@@ -29,7 +29,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
    * @private controlsChangeNotifyLock
    * Prevent frequent triggering of ValueChangeCallback when setting Value
    */
-  private controlsChangeNotifyLock = false;
   private valueChangesSubscription!: Subscription;
   private validChangesSubscription!: Subscription;
 
@@ -51,9 +50,10 @@ export class GroupControl extends AbstractControl<GroupValue> {
       return;
     }
 
+    this.destroyGraph();
     this.setValueToControls(value);
-
-    this.valueSubject$.next(value);
+    this.valueSubject$.next(this.getGroupValueFromControls());
+    this.resetGraph();
   };
 
   add = (name: string, params: CreateControlParams) => {
@@ -89,6 +89,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.controlsSubject.next(controls);
   };
 
+  // TODO
+  reset = () => {};
+
   /**
    * has group level error or has invalid controls
    */
@@ -115,16 +118,14 @@ export class GroupControl extends AbstractControl<GroupValue> {
     /**
      * open the lock and prevent trigger valueChange,validChange callback by controls value change
      */
-    this.controlsChangeNotifyLock = true;
 
     Object.keys(this._controls).forEach((name) => {
       const hasKey = Object.prototype.hasOwnProperty.call(value, name);
-      this._controls[name].setValue(hasKey ? value[name] : null);
+      hasKey && this._controls[name].setValue(value[name]);
     });
     /**
      * close the lock
      */
-    this.controlsChangeNotifyLock = false;
   };
 
   private updatePrivateControlsAndResetSubscribeGraph = (controls: GroupControls) => {
@@ -162,6 +163,16 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.resetValidGraph(validChanges);
   };
 
+  private destroyGraph = () => {
+    if (this.valueChangesSubscription) {
+      this.valueChangesSubscription.unsubscribe();
+    }
+
+    if (this.validChangesSubscription) {
+      this.validChangesSubscription.unsubscribe();
+    }
+  };
+
   private resetValueGraph(changes: Observable<any>[]) {
     if (this.valueChangesSubscription) {
       this.valueChangesSubscription.unsubscribe();
@@ -170,7 +181,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.valueChangesSubscription = merge(...changes)
       .pipe(
         takeUntil(this.destroy$),
-        skipWhile(() => this.controlsChangeNotifyLock),
         map(() => this.getGroupValueFromControls())
       )
       .subscribe((v) => {
@@ -186,7 +196,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.validChangesSubscription = merge(...validChanges)
       .pipe(
         takeUntil(this.destroy$),
-        skipWhile(() => this.controlsChangeNotifyLock),
         map(() => this.checkValid())
       )
       .subscribe(this.setValid);

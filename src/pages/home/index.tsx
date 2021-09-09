@@ -52,7 +52,9 @@ const Home = () => {
       </section>
 
       <section>
-        <h2>Rxjs</h2>
+        <h2>RxJs</h2>
+        <p>享受RxJs所有功能</p>
+
         <div className="demo-wrapper">
           <div className="code">
             <SyntaxHighlighter language="javascript" style={atomOneLight}>
@@ -71,7 +73,7 @@ const Home = () => {
 
       <section>
         <h2>友好集成</h2>
-        <p>自由对接流行的组件库</p>
+        <p>自由桥接流行的组件库</p>
 
         <div className="third">
           <div className="third--demo antd">
