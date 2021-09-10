@@ -5,7 +5,6 @@ import {
   CreateControlParams,
   FormListControlsConfig,
   FormListOptions,
-  GroupValue,
   ListControls,
   ListValue,
 } from "../types/control";
