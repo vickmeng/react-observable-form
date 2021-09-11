@@ -35,8 +35,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
   constructor(controlsConfig: FormGroupControlsConfig, options: FormGroupOptions = {}) {
     super();
     this.initControls(controlsConfig);
-    this._initValue = this.getGroupValueFromControls();
-    this.initBasicParams(this._initValue, options);
+    this.initBasicParams(this.getGroupValueFromControls(), options);
 
     this.resetGraph();
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
@@ -56,6 +55,17 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.destroyGraph();
 
     this.setValueToControls(value);
+
+    this.valueSubject$.next(this.getGroupValueFromControls());
+    this.validSubject$.next(this.checkValid());
+
+    this.resetGraph();
+  };
+
+  override reset = () => {
+    this.destroyGraph();
+
+    Object.values(this.controls).forEach((control) => control.reset());
 
     this.valueSubject$.next(this.getGroupValueFromControls());
     this.validSubject$.next(this.checkValid());

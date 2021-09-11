@@ -36,8 +36,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
   constructor(controlsConfig: FormListControlsConfig, options: FormListOptions = {}) {
     super();
     this.initControls(controlsConfig);
-    this._initValue = this.getListValueFromControls();
-    this.initBasicParams(this._initValue, options);
+    this.initBasicParams(this.getListValueFromControls(), options);
 
     this.resetGraph();
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
@@ -79,6 +78,17 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.destroyGraph();
 
     this.setValueToControls(value);
+
+    this.valueSubject$.next(this.getListValueFromControls());
+    this.validSubject$.next(this.checkValid());
+
+    this.resetGraph();
+  };
+
+  override reset = () => {
+    this.destroyGraph();
+
+    this.controls.forEach((control) => control.reset());
 
     this.valueSubject$.next(this.getListValueFromControls());
     this.validSubject$.next(this.checkValid());
