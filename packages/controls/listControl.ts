@@ -71,10 +71,6 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
   };
 
   override setValue = (value: ListValue<V>) => {
-    if (value === this.value) {
-      return;
-    }
-
     this.destroyGraph();
 
     this.setValueToControls(value);
