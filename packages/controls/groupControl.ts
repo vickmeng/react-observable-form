@@ -46,9 +46,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
   };
 
   override setValue = (value: GroupValue) => {
-    if (value === this.value) {
-      return;
-    }
     /**
      * destroyGraph avoid multiple trigger group valueChange
      */
@@ -170,6 +167,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.resetValidGraph(validChanges);
   };
 
+  /**
+   * break the relationship with children controllers
+   */
   private destroyGraph = () => {
     if (this.valueChangesSubscription) {
       this.valueChangesSubscription.unsubscribe();
