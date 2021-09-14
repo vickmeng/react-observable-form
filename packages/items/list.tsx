@@ -12,6 +12,7 @@ import {
 } from "../hooks";
 import { ListValue } from "../types/control";
 import { ListControl } from "../controls/listControl";
+import { FieldControl } from "../controls/fieldControl";
 
 import { ParentFormContext } from "./context";
 
@@ -23,6 +24,10 @@ export const List = (props: ListProps) => {
   const { name = undefined, control } = isListWithNameProps(props)
     ? { name: props.name, control: parent!.get<ListControl<any>>(props.name) }
     : { control: props.control };
+
+  if (!(control instanceof ListControl)) {
+    throw new Error("props error:List can only receive ListControl as control");
+  }
 
   const value = useControlValue<ListValue>(control);
   const disabled = useControlDisabled(control);

@@ -12,6 +12,7 @@ import {
   useControlValue,
 } from "../hooks";
 import { GroupValue } from "../types/control";
+import { ListControl } from "../controls/listControl";
 
 import { ParentFormContext } from "./context";
 
@@ -23,6 +24,10 @@ export const Group = (props: GroupProps) => {
   const { name = undefined, control } = isGroupWithNameProps(props)
     ? { name: props.name, control: parent!.get<GroupControl>(props.name) }
     : { control: props.control };
+
+  if (!(control instanceof GroupControl)) {
+    throw new Error("props error:Group can only receive GroupControl as control");
+  }
 
   const value = useControlValue<GroupValue>(control);
   const disabled = useControlDisabled(control);
