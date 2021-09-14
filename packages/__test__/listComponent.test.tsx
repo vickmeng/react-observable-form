@@ -17,7 +17,7 @@ describe("<List/>", () => {
                 return (
                   <Field<string> name={`${i}`} key={`${i}`}>
                     {({ value }) => {
-                      return <input value={value} />;
+                      return <input value={value} readOnly />;
                     }}
                   </Field>
                 );

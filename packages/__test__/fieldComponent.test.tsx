@@ -11,7 +11,7 @@ describe("<Field/>", () => {
     const { asFragment } = render(
       <Field control={fieldControl}>
         {({ value }) => {
-          return <input value={value} />;
+          return <input value={value} readOnly />;
         }}
       </Field>
     );

@@ -3,6 +3,7 @@
 exports[`<Field/> should render <Field/> 1`] = `
 <DocumentFragment>
   <input
+    readonly=""
     value="Tom"
   />
 </DocumentFragment>
