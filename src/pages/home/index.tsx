@@ -53,7 +53,7 @@ const Home = () => {
 
       <section>
         <h2>RxJs</h2>
-        <p>享受RxJs所有功能</p>
+        <p>享受RxJs所有Operators</p>
 
         <div className="demo-wrapper">
           <div className="code">
@@ -90,7 +90,7 @@ const Home = () => {
 
       <section>
         <h2>响应式</h2>
-        <p>响应式表单，状态流转描述动态逻辑</p>
+        <p>响应式表单，状态驱动动态逻辑</p>
 
         <div className="demo-wrapper">
           <div className="code">

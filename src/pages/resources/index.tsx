@@ -21,6 +21,9 @@ const ResourcesPage = () => {
           <li>
             <a href={"https://www.npmjs.com/package/formik"}>formik</a>
           </li>
+          <li>
+            <a href={"https://v2.formilyjs.org/"}>formily</a>
+          </li>
         </ul>
       </Typography>
     </div>
