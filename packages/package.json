@@ -1,6 +1,6 @@
 {
   "name": "react-observable-form",
-  "version": "1.0.4-beta1",
+  "version": "1.0.4-beta2",
   "license": "MIT",
   "keywords": [
     "react",
@@ -24,5 +24,6 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist/*"
-  ]
+  ],
+  "readme": "./README.md"
 }
