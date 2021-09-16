@@ -29,7 +29,6 @@ export const List = (props: ListProps) => {
     throw new Error("props error:List can only receive ListControl as control");
   }
 
-  const value = useControlValue<ListValue>(control);
   const disabled = useControlDisabled(control);
   const dirty = useControlDirty(control);
   const valid = useControlValid(control);
@@ -38,7 +37,6 @@ export const List = (props: ListProps) => {
 
   const childProps: ListInternalProps = {
     name,
-    value,
     disabled,
     enabled: !disabled,
     errors,

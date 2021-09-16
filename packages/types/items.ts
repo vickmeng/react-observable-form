@@ -55,7 +55,6 @@ export type FieldProps<V = any> = FieldWithNameProps<V> | FieldWithControlProps<
  */
 export interface GroupInternalProps {
   name?: string;
-  value: Record<string, any>;
   enabled: boolean;
   disabled: boolean;
   errors: Errors | null;
@@ -80,7 +79,6 @@ export type GroupProps = GroupWithNameProps | GroupWithControlProps;
  */
 export interface ListInternalProps {
   name?: string;
-  value: any[];
   enabled: boolean;
   disabled: boolean;
   errors: Errors | null;
