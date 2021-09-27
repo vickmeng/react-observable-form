@@ -1,11 +1,11 @@
-import React from "react";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import React from "react";
 
-const FieldControlApiPage = () => {
+const ListControlApiPage = () => {
   return (
     <div className={"page"}>
       <Typography paragraph variant={"h2"}>
-        {`Class FieldControl<V>`}
+        {`Class ListControl`}
       </Typography>
 
       <Typography paragraph variant={"h4"}>
@@ -35,7 +35,19 @@ const FieldControlApiPage = () => {
                 （只读）值
               </TableCell>
               <TableCell component="th" scope="row">
-                {"<V>"}
+                any[]
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell component="th" scope="row">
+                controls
+              </TableCell>
+              <TableCell component="th" scope="row">
+                （只读）子controller集合
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {"AbstractControl<any>[]"}
               </TableCell>
             </TableRow>
 
@@ -131,7 +143,7 @@ const FieldControlApiPage = () => {
                 （只读）订阅值变化的可订阅对象
               </TableCell>
               <TableCell component="th" scope="row">
-                {"Observable<V>"}
+                {"Observable<{[key: string]: any}>"}
               </TableCell>
             </TableRow>
 
@@ -182,6 +194,17 @@ const FieldControlApiPage = () => {
                 {"Observable<boolean>"}
               </TableCell>
             </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+                controlsChange
+              </TableCell>
+              <TableCell component="th" scope="row">
+                （只读）订阅子controllers变化的可订阅对象
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {"Observable<AbstractControl<any>[]>"}
+              </TableCell>
+            </TableRow>
 
             <TableRow>
               <TableCell component="th" scope="row">
@@ -191,7 +214,7 @@ const FieldControlApiPage = () => {
                 更新值
               </TableCell>
               <TableCell component="th" scope="row">
-                {"(value:V)=>void"}
+                {"(value:any[])=>void"}
               </TableCell>
             </TableRow>
 
@@ -297,4 +320,4 @@ const FieldControlApiPage = () => {
   );
 };
 
-export default FieldControlApiPage;
+export default ListControlApiPage;

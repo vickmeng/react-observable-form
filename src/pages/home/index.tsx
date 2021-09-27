@@ -72,6 +72,11 @@ const Home = () => {
       </section>
 
       <section>
+        <h2>高性能</h2>
+        <p>视图状态分离，精确渲染组件</p>
+      </section>
+
+      <section>
         <h2>友好集成</h2>
         <p>自由桥接流行的组件库</p>
 
@@ -84,38 +89,6 @@ const Home = () => {
 
           <div className="third--demo mui">
             <BasicWithMui />
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>响应式</h2>
-        <p>响应式表单，状态驱动动态逻辑</p>
-
-        <div className="demo-wrapper">
-          <div className="code">
-            <SyntaxHighlighter language="javascript" style={atomOneLight}>
-              {"const group = new GroupControl({\n" +
-                '  married: ["unmarried"],\n' +
-                '  spouse: ["", { disabled: true }],\n' +
-                "});\n" +
-                "\n" +
-                'const married = group.get("married");\n' +
-                'const spouse = group.get("spouse");\n' +
-                "\n" +
-                "married.valueChange.subscribe((v) => {\n" +
-                '  if (v === "married") {\n' +
-                "    spouse.enable();\n" +
-                "  } else {\n" +
-                '    spouse.setValue("");\n' +
-                "    spouse.disable();\n" +
-                "  }\n" +
-                "});"}
-            </SyntaxHighlighter>
-          </div>
-
-          <div className="demo">
-            <DisableDemo />
           </div>
         </div>
       </section>

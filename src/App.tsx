@@ -23,6 +23,8 @@ import ListApiPage from "./pages/api/ListApi";
 import ErrorApiPage from "./pages/api/ErrorApi";
 import FieldControlApiPage from "./pages/api/FieldControl";
 import PlayGroundPage from "./pages/playGround";
+import GroupControlApiPage from "./pages/api/GroupControl";
+import ListControlApiPage from "./pages/api/ListControl";
 
 function App() {
   const location = useLocation();
@@ -55,6 +57,8 @@ function App() {
           <Route path="/errorApi" component={ErrorApiPage} />
 
           <Route path="/fieldControlApi" component={FieldControlApiPage} />
+          <Route path="/groupControlApi" component={GroupControlApiPage} />
+          <Route path="/listControlApi" component={ListControlApiPage} />
 
           <Route path="/playGround" component={PlayGroundPage} />
         </Switch>

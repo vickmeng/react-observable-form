@@ -91,11 +91,11 @@ const API: ISubMenu = {
     },
     {
       text: "GroupControl",
-      link: "",
+      link: "groupControlApi",
     },
     {
       text: "ListControl",
-      link: "",
+      link: "listControlApi",
     },
   ],
 };
