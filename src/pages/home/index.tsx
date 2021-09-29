@@ -5,13 +5,12 @@ import { atomOneLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
 import { BasicWithAntd, BasicWithMui } from "../../demo/basic";
-import { DisableDemo } from "../../demo/disable";
+import UseRxjsDemo from "../../demo/useRxjsDemo";
 import flowImg from "../../assets/img/flow.png";
-import rxImg from "../../assets/img/rx.png";
 import reactImg from "../../assets/img/react.svg";
+import rxImg from "../../assets/img/rx.png";
 
 import "./index.less";
-import UseRxjsDemo from "../../demo/useRxjsDemo";
 
 const Home = () => {
   return (
