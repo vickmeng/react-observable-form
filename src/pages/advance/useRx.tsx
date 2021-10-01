@@ -17,7 +17,36 @@ const UseRxPage = () => {
 
       <Typography paragraph>举个例子，利用debounceTime对搜索框进行防抖处理，请在控制台中查看效果：</Typography>
 
-      <DemoCard demo={<UseRxjsDemo />} code={"1"} />
+      <DemoCard
+        demo={<UseRxjsDemo />}
+        code={
+          'import React, { useEffect, useRef } from "react";\n' +
+          'import { TextField } from "@material-ui/core";\n' +
+          'import { debounceTime } from "rxjs/operators";\n' +
+          "\n" +
+          "const UseRxjsDemo = () => {\n" +
+          '  const controlRef = useRef(new FieldControl<string>(""));\n' +
+          "\n" +
+          "  useEffect(() => {\n" +
+          "    const subscription = controlRef.current.valueChange.pipe(debounceTime(500)).subscribe((v) => {\n" +
+          '      console.log("value change", v);\n' +
+          "    });\n" +
+          "\n" +
+          "    return () => {\n" +
+          "      subscription.unsubscribe();\n" +
+          "    };\n" +
+          "  }, []);\n" +
+          "\n" +
+          "  return (\n" +
+          "    <Field control={controlRef.current}>\n" +
+          "      {({ value, setValue }) => {\n" +
+          '        return <TextField label="防抖500ms" value={value} onChange={(e) => setValue(e.target.value)} />;\n' +
+          "      }}\n" +
+          "    </Field>\n" +
+          "  );\n" +
+          "}"
+        }
+      />
     </div>
   );
 };
