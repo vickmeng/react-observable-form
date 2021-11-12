@@ -17,10 +17,12 @@ export type Errors = {
 };
 
 export type ValidatorFn<V = any> = (control: AbstractControl<V>) => Errors | null;
+export type AsyncValidatorFn<V = any> = (control: AbstractControl<V>) => Promise<Errors | null>;
 
 export interface ControlBasicOptions {
   disabled?: boolean;
   validators?: ValidatorFn[];
+  asyncValidators?: AsyncValidatorFn[];
   dirty?: boolean;
   autoValidate?: boolean;
   autoMarkAsDirty?: boolean;

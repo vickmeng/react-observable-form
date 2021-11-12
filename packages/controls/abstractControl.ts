@@ -73,6 +73,7 @@ export abstract class AbstractControl<V = any> {
   protected _dirty!: boolean;
   protected _valid!: boolean;
   protected _validators!: ValidatorFn[];
+  protected autoValidate!: boolean;
 
   protected valueSubject$ = new Subject<V>();
   protected disabledSubject$ = new Subject<boolean>();
@@ -87,6 +88,7 @@ export abstract class AbstractControl<V = any> {
       disabled = false,
       dirty = false,
       validators = [],
+      asyncValidators = [],
       autoValidate = true,
       autoMarkAsDirty = true,
     }: ControlBasicOptions
@@ -94,6 +96,7 @@ export abstract class AbstractControl<V = any> {
     this.initValue(value);
     this.initValidators(validators);
     this.initDisabled(disabled);
+    this.autoValidate = autoValidate;
 
     if (autoValidate) {
       this.initErrors(getErrorsBy(this, validators));
@@ -132,7 +135,9 @@ export abstract class AbstractControl<V = any> {
 
   setValidators = (validators: ValidatorFn[]) => {
     this._validators = validators;
-    this.validateAndUpdateErrors();
+    if (this.autoValidate) {
+      this.validateAndUpdateErrors();
+    }
   };
 
   disable = () => {
