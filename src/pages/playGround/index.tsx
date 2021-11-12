@@ -1,90 +1,30 @@
 import React from "react";
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
-import { Field, Group, GroupControl } from "../../../packages/index";
+import { Field, FieldControl } from "../../../packages/index";
 import { requiredValidator } from "../../../packages/validators";
 
-const group = new GroupControl({
-  consignee: ["", { validators: [requiredValidator] }],
-  address: ["No.1,Chaowai Street,Chaoyang District,Beijing City"],
-});
-
-group.valueChange.subscribe((v) => {
-  console.log(v);
+const nameControl = new FieldControl("vick", {
+  validators: [requiredValidator],
 });
 
 const PlayGroundPage = () => {
   return (
-    <Group control={group}>
-      {(props) => {
+    <Field control={nameControl}>
+      {({ value, setValue, valid, errors, dirty }) => {
         return (
           <>
-            <Field name="consignee">
-              {({ value, setValue }) => {
-                return (
-                  <TextField
-                    label="consignee"
-                    variant="outlined"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                  />
-                );
-              }}
-            </Field>
-
+            <TextField label="name" value={value} onChange={(e) => setValue(e.target.value)} />
             <br />
+            {valid + ""}
             <br />
-
-            <Field name="address">
-              {({ value, setValue }) => {
-                return (
-                  <TextField
-                    label="address"
-                    variant="outlined"
-                    multiline
-                    maxRows={14}
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                  />
-                );
-              }}
-            </Field>
+            {dirty + ""}
             <br />
-            <br />
-
-            <Button
-              variant="contained"
-              color={"primary"}
-              onClick={() => {
-                group.setValue({ consignee: "consignee", address: "address" });
-              }}
-            >
-              set
-            </Button>
-
-            <Button
-              variant="contained"
-              color={"primary"}
-              onClick={() => {
-                group.reset();
-              }}
-            >
-              reset
-            </Button>
-
-            <Button
-              variant="contained"
-              color={"primary"}
-              onClick={() => {
-                console.log(group);
-              }}
-            >
-              在控制台中打印数据
-            </Button>
+            {JSON.stringify(errors)}
           </>
         );
       }}
-    </Group>
+    </Field>
   );
 };
 

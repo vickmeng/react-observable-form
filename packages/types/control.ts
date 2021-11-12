@@ -22,6 +22,7 @@ export interface ControlBasicOptions {
   disabled?: boolean;
   validators?: ValidatorFn[];
   dirty?: boolean;
+  autoValidate?: boolean;
   autoMarkAsDirty?: boolean;
 }
 

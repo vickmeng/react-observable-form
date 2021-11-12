@@ -83,23 +83,35 @@ export abstract class AbstractControl<V = any> {
 
   protected initBasicParams(
     value: V,
-    { disabled = false, dirty = false, validators = [], autoMarkAsDirty = true }: ControlBasicOptions
+    {
+      disabled = false,
+      dirty = false,
+      validators = [],
+      autoValidate = true,
+      autoMarkAsDirty = true,
+    }: ControlBasicOptions
   ) {
     this.initValue(value);
     this.initValidators(validators);
     this.initDisabled(disabled);
+
+    if (autoValidate) {
+      this.initErrors(getErrorsBy(this, validators));
+    }
     this.initDirty(dirty);
 
-    this.initErrors(getErrorsBy(this, validators));
     this.initValid(this.checkValid());
 
     this.validChange.subscribe(this.updatePrivateValid);
     this.errorsChange.subscribe(this.updatePrivateErrors);
     this.disabledChange.subscribe(this.updatePrivateDisabled);
     this.dirtyChange.subscribe(this.updatePrivateDirty);
-
     this.valueChange.subscribe(this.updatePrivateValue);
-    this.valueChange.subscribe(this.validateAndUpdateErrors);
+
+    if (autoValidate) {
+      this.valueChange.subscribe(this.validateAndUpdateErrors);
+    }
+
     if (autoMarkAsDirty) {
       this.valueChange.subscribe(this.markAsDirty);
     }
