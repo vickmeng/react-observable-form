@@ -1,8 +1,8 @@
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { Observable, Subject } from "rxjs";
+import { switchMap, takeUntil } from "rxjs/operators";
 import { isEqual } from "lodash";
 
-import { ControlBasicOptions, Errors, ValidatorFn } from "../types/control";
+import { AsyncValidatorFn, ControlBasicOptions, Errors, ValidatorFn } from "../types/control";
 import { getErrorsBy } from "../utils";
 
 import { GroupControl } from "./groupControl";
@@ -15,6 +15,10 @@ export abstract class AbstractControl<V = any> {
 
   get errors() {
     return this._errors;
+  }
+
+  get asyncErrors() {
+    return this._asyncErrors;
   }
 
   get valid() {
@@ -49,6 +53,10 @@ export abstract class AbstractControl<V = any> {
     return this.errorsSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
+  get asyncErrorsChange() {
+    return this.asyncErrorsSubject$.asObservable().pipe(takeUntil(this.destroy$));
+  }
+
   get disabledChange() {
     return this.disabledSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
@@ -61,6 +69,27 @@ export abstract class AbstractControl<V = any> {
     return this.validSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
+  get asyncValidSubjectNotifierChange(): Observable<Errors | null> {
+    return this.asyncValidSubjectNotifier$.asObservable().pipe(
+      takeUntil(this.destroy$),
+      switchMap((control) => {
+        const asyncValidatorsPromiseList = control._asyncValidators.map((asyncValidator) => {
+          const error = asyncValidator(control);
+          return error;
+        });
+
+        return Promise.all(asyncValidatorsPromiseList).then((errorList) => {
+          return errorList.reduce((acc, cur) => {
+            if (cur) {
+              acc = Object.assign({}, acc, cur);
+            }
+            return acc;
+          }, null);
+        });
+      })
+    );
+  }
+
   abstract setValue(value: V): void;
 
   abstract reset(): void;
@@ -69,10 +98,12 @@ export abstract class AbstractControl<V = any> {
 
   protected _value!: V;
   protected _errors!: Errors | null;
+  protected _asyncErrors?: Errors | null;
   protected _disabled!: boolean;
   protected _dirty!: boolean;
   protected _valid!: boolean;
-  protected _validators!: ValidatorFn[];
+  protected _validators!: ValidatorFn<V>[];
+  protected _asyncValidators!: AsyncValidatorFn<V>[];
   protected autoValidate!: boolean;
 
   protected valueSubject$ = new Subject<V>();
@@ -80,21 +111,26 @@ export abstract class AbstractControl<V = any> {
   protected validSubject$ = new Subject<boolean>();
   protected dirtySubject$ = new Subject<boolean>();
   protected errorsSubject$ = new Subject<Errors | null>();
+  protected asyncErrorsSubject$ = new Subject<Errors | null>();
   protected destroy$ = new Subject<true>();
 
-  protected initBasicParams(
+  private asyncValidSubjectNotifier$ = new Subject<AbstractControl<V>>();
+
+  protected initBasicParams = (
     value: V,
     {
       disabled = false,
       dirty = false,
-      validators = [],
-      asyncValidators = [],
       autoValidate = true,
+      validators = [],
+      autoAsyncValidate = true,
+      asyncValidators = [],
       autoMarkAsDirty = true,
     }: ControlBasicOptions
-  ) {
+  ) => {
     this.initValue(value);
     this.initValidators(validators);
+    this.initAsyncValidators(asyncValidators);
     this.initDisabled(disabled);
     this.autoValidate = autoValidate;
 
@@ -106,7 +142,16 @@ export abstract class AbstractControl<V = any> {
     this.initValid(this.checkValid());
 
     this.validChange.subscribe(this.updatePrivateValid);
+
     this.errorsChange.subscribe(this.updatePrivateErrors);
+
+    this.asyncValidSubjectNotifierChange.subscribe((errors) => {
+      this.setAsyncErrors(errors);
+      this.setValid(this.checkValid());
+    });
+
+    this.asyncErrorsChange.subscribe(this.updatePrivateAsyncErrors);
+
     this.disabledChange.subscribe(this.updatePrivateDisabled);
     this.dirtyChange.subscribe(this.updatePrivateDirty);
     this.valueChange.subscribe(this.updatePrivateValue);
@@ -115,10 +160,15 @@ export abstract class AbstractControl<V = any> {
       this.valueChange.subscribe(this.validateAndUpdateErrors);
     }
 
+    if (autoAsyncValidate) {
+      this.asyncValidateAndUpdateErrors();
+      this.valueChange.subscribe(this.asyncValidateAndUpdateErrors);
+    }
+
     if (autoMarkAsDirty) {
       this.valueChange.subscribe(this.markAsDirty);
     }
-  }
+  };
 
   parent?: GroupControl | ListControl;
 
@@ -131,6 +181,13 @@ export abstract class AbstractControl<V = any> {
       return;
     }
     this.errorsSubject$.next(errors);
+  };
+
+  setAsyncErrors = (errors: Errors | null) => {
+    if (isEqual(errors, this.asyncErrors)) {
+      return;
+    }
+    this.asyncErrorsSubject$.next(errors);
   };
 
   setValidators = (validators: ValidatorFn[]) => {
@@ -187,6 +244,10 @@ export abstract class AbstractControl<V = any> {
     this._validators = validators;
   };
 
+  protected initAsyncValidators = (asyncValidators: AsyncValidatorFn[]) => {
+    this._asyncValidators = asyncValidators;
+  };
+
   protected updatePrivateValue = (value: V) => {
     this._value = value;
   };
@@ -197,6 +258,10 @@ export abstract class AbstractControl<V = any> {
 
   protected updatePrivateErrors = (errors: Errors | null) => {
     this._errors = errors;
+  };
+
+  protected updatePrivateAsyncErrors = (errors: Errors | null) => {
+    this._asyncErrors = errors;
   };
 
   protected updatePrivateDisabled = (disabled: boolean) => {
@@ -212,6 +277,10 @@ export abstract class AbstractControl<V = any> {
 
     this.setErrors(errors);
     this.setValid(this.checkValid());
+  };
+
+  protected asyncValidateAndUpdateErrors = () => {
+    this.asyncValidSubjectNotifier$.next(this);
   };
 
   private setDisabled = (disabled: boolean) => {

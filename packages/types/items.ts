@@ -34,6 +34,7 @@ export interface FieldInternalProps<V = any> {
   enabled: boolean;
   disabled: boolean;
   errors: Errors | null;
+  asyncErrors?: Errors | null;
   valid: boolean;
   invalid: boolean;
   dirty: boolean;

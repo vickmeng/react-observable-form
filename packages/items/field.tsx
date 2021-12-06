@@ -2,7 +2,14 @@ import { useContext } from "react";
 
 import { FieldInternalProps, FieldProps } from "../types/items";
 import { isFieldWithNameProps } from "../utils";
-import { useControlDirty, useControlDisabled, useControlErrors, useControlValid, useControlValue } from "../hooks";
+import {
+  useControlAsyncErrors,
+  useControlDirty,
+  useControlDisabled,
+  useControlErrors,
+  useControlValid,
+  useControlValue,
+} from "../hooks";
 import { FieldControl } from "../controls/fieldControl";
 
 import { ParentFormContext } from "./context";
@@ -28,6 +35,7 @@ export function Field<V>(props: FieldProps<V>) {
   const dirty = useControlDirty(control);
   const valid = useControlValid(control);
   const errors = useControlErrors(control);
+  const asyncErrors = useControlAsyncErrors(control);
 
   const childrenProps: FieldInternalProps = {
     name,
@@ -37,6 +45,7 @@ export function Field<V>(props: FieldProps<V>) {
     markAsDirty: control.markAsDirty,
     markAsPristine: control.markAsPristine,
     errors,
+    asyncErrors: asyncErrors,
     disabled,
     enabled: !disabled,
     valid,

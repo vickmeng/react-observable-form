@@ -21,10 +21,11 @@ export type AsyncValidatorFn<V = any> = (control: AbstractControl<V>) => Promise
 
 export interface ControlBasicOptions {
   disabled?: boolean;
+  autoValidate?: boolean;
   validators?: ValidatorFn[];
+  autoAsyncValidate?: boolean;
   asyncValidators?: AsyncValidatorFn[];
   dirty?: boolean;
-  autoValidate?: boolean;
   autoMarkAsDirty?: boolean;
 }
 
@@ -33,8 +34,8 @@ export type FormControlOptions = ControlBasicOptions;
 export type FormGroupOptions = ControlBasicOptions;
 
 export type FormListOptions = ControlBasicOptions;
-// TODO 泛型？
-export type CreateControlParams = AbstractControl<any> | [value?: any, options?: FormControlOptions];
+
+export type CreateControlParams<V = any> = AbstractControl<V> | [value?: V, options?: FormControlOptions];
 
 export type FormGroupControlsConfig = {
   [key: string]: CreateControlParams;
