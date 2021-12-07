@@ -94,4 +94,39 @@ describe("asyncValidator", () => {
         expect(asyncErrorsChangeCbSpy).toBeCalledWith(null);
       });
   });
+
+  it("should handle async validate correctly when setAsyncValidate called", async () => {
+    const asyncErrorsChangeCbSpy = jest.fn();
+    const validChangeCbSpy = jest.fn();
+
+    const fieldControl = new FieldControl("wrong", {
+      // asyncValidators: [asyncValidator],
+    });
+
+    fieldControl.validChange.subscribe(validChangeCbSpy);
+    fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
+
+    expect(fieldControl.valid).toBe(true);
+    expect(fieldControl.asyncErrors).toEqual(null);
+
+    fieldControl.setAsyncValidators([asyncValidator]);
+
+    await Promise.resolve()
+      .then()
+      .catch()
+      .finally(() => {
+        expect(fieldControl.valid).toBe(false);
+        expect(fieldControl.asyncErrors).toEqual({
+          asyncError: true,
+        });
+
+        expect(validChangeCbSpy).toBeCalledTimes(1);
+        expect(validChangeCbSpy).toBeCalledWith(false);
+
+        expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
+        expect(asyncErrorsChangeCbSpy).toBeCalledWith({
+          asyncError: true,
+        });
+      });
+  });
 });

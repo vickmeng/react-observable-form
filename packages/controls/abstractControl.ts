@@ -105,6 +105,7 @@ export abstract class AbstractControl<V = any> {
   protected _validators!: ValidatorFn<V>[];
   protected _asyncValidators!: AsyncValidatorFn<V>[];
   protected autoValidate!: boolean;
+  protected autoAsyncValidate!: boolean;
 
   protected valueSubject$ = new Subject<V>();
   protected disabledSubject$ = new Subject<boolean>();
@@ -133,6 +134,7 @@ export abstract class AbstractControl<V = any> {
     this.initAsyncValidators(asyncValidators);
     this.initDisabled(disabled);
     this.autoValidate = autoValidate;
+    this.autoAsyncValidate = autoAsyncValidate;
 
     if (autoValidate && !isEmpty(this._validators)) {
       this.initErrors(getErrorsBy(this, validators));
@@ -194,6 +196,13 @@ export abstract class AbstractControl<V = any> {
     this._validators = validators;
     if (this.autoValidate) {
       this.validateAndUpdateErrors();
+    }
+  };
+
+  setAsyncValidators = (asyncValidators: AsyncValidatorFn[]) => {
+    this._asyncValidators = asyncValidators;
+    if (this.autoAsyncValidate) {
+      this.asyncValidateAndUpdateErrors();
     }
   };
 
