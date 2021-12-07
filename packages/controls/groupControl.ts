@@ -107,7 +107,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
    * has group level error or has invalid controls
    */
   protected checkValid = () => {
-    return !(this.errors || Object.values(this._controls).some((control) => control.invalid));
+    return !(this.errors || this.asyncErrors || Object.values(this._controls).some((control) => control.invalid));
   };
 
   private initControls = (controlsConfig: FormGroupControlsConfig) => {

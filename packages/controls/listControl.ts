@@ -96,7 +96,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
    * has list level error or has invalid controls
    */
   protected checkValid = () => {
-    return !(this.errors || this._controls.some((control) => control.invalid));
+    return !(this.errors || this.asyncErrors || this._controls.some((control) => control.invalid));
   };
 
   private initControls = (controlsConfig: FormListControlsConfig) => {

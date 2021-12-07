@@ -35,5 +35,5 @@ export class FieldControl<V = any> extends AbstractControl<V> {
     this.setValue(this._initValue);
   };
 
-  protected checkValid = () => !this.errors && !this.asyncErrors;
+  protected checkValid = () => !(this.errors || this.asyncErrors);
 }
