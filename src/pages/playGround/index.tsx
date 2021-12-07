@@ -4,24 +4,14 @@ import { TextField } from "@material-ui/core";
 import { Field, FieldControl } from "../../../packages/index";
 import { requiredValidator } from "../../../packages/validators";
 import { AbstractControl } from "../../../packages/controls/abstractControl";
-import { Errors } from "../../../packages/types/control";
 
 const asyncV1 = (control: AbstractControl<any>) => {
-  if (control.value.length > 5) {
-    return new Promise<Errors | null>((resolve) => {
-      setTimeout(() => {
-        resolve({
-          asyncError1: "error1",
-          asyncError2a: "error1a",
-        });
-      }, 1000);
+  if (control.value === "wrong") {
+    return Promise.resolve({
+      asyncError: true,
     });
   } else {
-    return new Promise<Errors | null>((resolve) => {
-      setTimeout(() => {
-        resolve(null);
-      }, 1000);
-    });
+    return Promise.resolve(null);
   }
 };
 

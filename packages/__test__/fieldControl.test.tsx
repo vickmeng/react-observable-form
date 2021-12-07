@@ -182,7 +182,7 @@ describe("fieldControl", () => {
     expect(fieldControl.valid).toBe(false);
   });
 
-  it("should not re-valid when call setValidators given autoValidate isa false", () => {
+  it("should not re-valid when call setValidators given autoValidate is a false", () => {
     const errorsChangeCbSpy = jest.fn();
 
     const fieldControl = new FieldControl("", { autoValidate: false });
@@ -196,7 +196,7 @@ describe("fieldControl", () => {
     fieldControl.setValidators([requiredValidator]);
 
     expect(errorsChangeCbSpy).toBeCalledTimes(0);
-    expect(fieldControl.errors).toBe(undefined);
+    expect(fieldControl.errors).toBe(null);
     expect(fieldControl.valid).toBe(true);
   });
 
@@ -214,7 +214,7 @@ describe("fieldControl", () => {
     fieldControl.setValidators([requiredValidator]);
 
     expect(errorsChangeCbSpy).toBeCalledTimes(0);
-    expect(fieldControl.errors).toEqual(undefined);
+    expect(fieldControl.errors).toEqual(null);
     expect(fieldControl.valid).toBe(true);
   });
 

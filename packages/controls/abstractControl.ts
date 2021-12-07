@@ -1,6 +1,6 @@
 import { Observable, Subject } from "rxjs";
 import { switchMap, takeUntil } from "rxjs/operators";
-import { isEqual } from "lodash";
+import { isEmpty, isEqual } from "lodash";
 
 import { AsyncValidatorFn, ControlBasicOptions, Errors, ValidatorFn } from "../types/control";
 import { getErrorsBy } from "../utils";
@@ -97,8 +97,8 @@ export abstract class AbstractControl<V = any> {
   protected abstract checkValid(): boolean;
 
   protected _value!: V;
-  protected _errors!: Errors | null;
-  protected _asyncErrors?: Errors | null;
+  protected _errors: Errors | null = null;
+  protected _asyncErrors: Errors | null = null;
   protected _disabled!: boolean;
   protected _dirty!: boolean;
   protected _valid!: boolean;
@@ -134,7 +134,7 @@ export abstract class AbstractControl<V = any> {
     this.initDisabled(disabled);
     this.autoValidate = autoValidate;
 
-    if (autoValidate) {
+    if (autoValidate && !isEmpty(this._validators)) {
       this.initErrors(getErrorsBy(this, validators));
     }
     this.initDirty(dirty);
@@ -273,6 +273,10 @@ export abstract class AbstractControl<V = any> {
   };
 
   protected validateAndUpdateErrors = () => {
+    if (isEmpty(this._validators)) {
+      return;
+    }
+
     const errors = getErrorsBy(this, this._validators);
 
     this.setErrors(errors);
@@ -280,6 +284,10 @@ export abstract class AbstractControl<V = any> {
   };
 
   protected asyncValidateAndUpdateErrors = () => {
+    if (isEmpty(this._asyncValidators)) {
+      return;
+    }
+
     this.asyncValidSubjectNotifier$.next(this);
   };
 
