@@ -60,13 +60,8 @@ export interface GroupInternalProps {
   name?: string;
   enabled: boolean;
   disabled: boolean;
-  errors: Errors | null;
-  valid: boolean;
-  invalid: boolean;
   control: GroupControl;
   childControls: GroupChildControls;
-  dirty: boolean;
-  pristine: boolean;
 }
 
 export type GroupWithNameProps = ItemWithNameProps<GroupInternalProps>;
@@ -86,12 +81,7 @@ export interface ListInternalProps {
   control: ListControl;
   enabled: boolean;
   disabled: boolean;
-  errors: Errors | null;
-  valid: boolean;
-  invalid: boolean;
   childControls: ListChildControls;
-  dirty: boolean;
-  pristine: boolean;
 }
 
 export type ListWithNameProps = ItemWithNameProps<ListInternalProps>;
@@ -110,6 +100,8 @@ export type ListProps = ListWithNameProps | ListWithControlProps;
 export interface ErrorInternalProps {
   name?: string;
   errors: Errors | null;
+  valid: boolean;
+  invalid: boolean;
   dirty: boolean;
   pristine: boolean;
 }

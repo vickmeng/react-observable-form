@@ -20,6 +20,7 @@ const GroupDemo = () => {
 
   useEffect(() => {
     const subscription = groupControlRef.current.valueChange.subscribe((v) => {
+      // eslint-disable-next-line no-console
       console.log("value changed", v);
     });
 
@@ -70,6 +71,7 @@ const GroupDemo = () => {
               variant="contained"
               color={"primary"}
               onClick={() => {
+                // eslint-disable-next-line no-console
                 console.log(groupControlRef.current.value);
               }}
             >

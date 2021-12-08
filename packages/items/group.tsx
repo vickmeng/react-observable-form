@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { GroupInternalProps, GroupProps } from "../types/items";
 import { isGroupWithNameProps } from "../utils";
 import { GroupControl } from "../controls/groupControl";
-import { useControlControls, useControlDirty, useControlDisabled, useControlErrors, useControlValid } from "../hooks";
+import { useControlControls, useControlDisabled } from "../hooks";
 
 import { ParentFormContext } from "./context";
 
@@ -20,9 +20,6 @@ export const Group = (props: GroupProps) => {
     throw new Error("props error:Group can only receive GroupControl as control");
   }
   const disabled = useControlDisabled(control);
-  const dirty = useControlDirty(control);
-  const valid = useControlValid(control);
-  const errors = useControlErrors(control);
   const controls = useControlControls<GroupControl>(control);
 
   const childProps: GroupInternalProps = {
@@ -30,11 +27,6 @@ export const Group = (props: GroupProps) => {
     disabled,
     enabled: !disabled,
     control,
-    errors,
-    valid: valid,
-    invalid: !valid,
-    dirty,
-    pristine: !dirty,
     childControls: controls,
   };
 
