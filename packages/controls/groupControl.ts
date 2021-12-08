@@ -7,6 +7,7 @@ import {
   FormGroupOptions,
   GroupChildControls,
   GroupValue,
+  Valid,
 } from "../types/control";
 import { createControl } from "../utils";
 
@@ -54,7 +55,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.setValueToControls(value);
 
     this.valueSubject$.next(this.getGroupValueFromControls());
-    this.validSubject$.next(this.checkValid());
+    this.setValid(this.checkValid());
 
     this.resetGraph();
   };
@@ -65,7 +66,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     Object.values(this.controls).forEach((control) => control.reset());
 
     this.valueSubject$.next(this.getGroupValueFromControls());
-    this.validSubject$.next(this.checkValid());
+    this.setValid(this.checkValid());
 
     this.resetGraph();
   };
@@ -191,7 +192,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
       });
   }
 
-  private resetValidGraph = (validChanges: Observable<boolean>[]) => {
+  private resetValidGraph = (validChanges: Observable<Valid>[]) => {
     if (this.validChangesSubscription) {
       this.validChangesSubscription.unsubscribe();
     }

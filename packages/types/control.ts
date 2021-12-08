@@ -16,6 +16,8 @@ export type Errors = {
   [key: string]: any;
 };
 
+export type Valid = boolean | "pending";
+
 export type ValidatorFn<V = any> = (control: AbstractControl<V>) => Errors | null;
 export type AsyncValidatorFn<V = any> = (control: AbstractControl<V>) => Promise<Errors | null>;
 

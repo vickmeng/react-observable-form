@@ -7,6 +7,7 @@ import {
   FormListOptions,
   ListChildControls,
   ListValue,
+  Valid,
 } from "../types/control";
 import { createControl } from "../utils";
 
@@ -76,7 +77,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.setValueToControls(value);
 
     this.valueSubject$.next(this.getListValueFromControls());
-    this.validSubject$.next(this.checkValid());
+    this.setValid(this.checkValid());
 
     this.resetGraph();
   };
@@ -87,7 +88,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.controls.forEach((control) => control.reset());
 
     this.valueSubject$.next(this.getListValueFromControls());
-    this.validSubject$.next(this.checkValid());
+    this.setValid(this.checkValid());
 
     this.resetGraph();
   };
@@ -174,7 +175,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
       });
   }
 
-  private resetValidGraph = (validChanges: Observable<boolean>[]) => {
+  private resetValidGraph = (validChanges: Observable<Valid>[]) => {
     if (this.validChangesSubscription) {
       this.validChangesSubscription.unsubscribe();
     }

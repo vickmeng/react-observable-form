@@ -1,8 +1,8 @@
 import { Observable, Subject } from "rxjs";
 import { switchMap, takeUntil } from "rxjs/operators";
-import { isEmpty, isEqual } from "lodash";
+import { isEqual } from "lodash";
 
-import { AsyncValidatorFn, ControlBasicOptions, Errors, ValidatorFn } from "../types/control";
+import { AsyncValidatorFn, ControlBasicOptions, Errors, Valid, ValidatorFn } from "../types/control";
 import { getErrorsBy } from "../utils";
 
 import { GroupControl } from "./groupControl";
@@ -101,7 +101,7 @@ export abstract class AbstractControl<V = any> {
   protected _asyncErrors: Errors | null = null;
   protected _disabled!: boolean;
   protected _dirty!: boolean;
-  protected _valid!: boolean;
+  protected _valid!: Valid;
   protected _validators!: ValidatorFn<V>[];
   protected _asyncValidators!: AsyncValidatorFn<V>[];
   protected _autoValidate!: boolean;
@@ -109,7 +109,7 @@ export abstract class AbstractControl<V = any> {
 
   protected valueSubject$ = new Subject<V>();
   protected disabledSubject$ = new Subject<boolean>();
-  protected validSubject$ = new Subject<boolean>();
+  protected validSubject$ = new Subject<Valid>();
   protected dirtySubject$ = new Subject<boolean>();
   protected errorsSubject$ = new Subject<Errors | null>();
   protected asyncErrorsSubject$ = new Subject<Errors | null>();
@@ -136,10 +136,9 @@ export abstract class AbstractControl<V = any> {
     this._dirty = dirty;
     this._autoValidate = autoValidate;
     this._autoAsyncValidate = autoAsyncValidate;
-    if (autoValidate && !isEmpty(this._validators)) {
+    if (autoValidate) {
       this._errors = getErrorsBy(this, validators);
     }
-    this._valid = this.checkValid();
 
     this.validChange.subscribe((valid) => {
       this._valid = valid;
@@ -151,7 +150,7 @@ export abstract class AbstractControl<V = any> {
 
     this.asyncValidSubjectNotifierChange.subscribe((errors) => {
       this.setAsyncErrors(errors);
-      this.setValid(this.checkValid());
+      this.setValidByAsyncAction(this.checkValid());
     });
 
     this.asyncErrorsChange.subscribe((errors) => {
@@ -175,9 +174,14 @@ export abstract class AbstractControl<V = any> {
     }
 
     if (autoAsyncValidate) {
-      this.asyncValidateAndUpdateErrors();
+      /**
+       * don't use asyncValidateAndUpdateErrors to avoid push "pending" to validSubject twice
+       */
+      this.asyncValidSubjectNotifier$.next(this);
       this.valueChange.subscribe(this.asyncValidateAndUpdateErrors);
     }
+
+    this._valid = autoAsyncValidate ? "pending" : this.checkValid();
 
     if (autoMarkAsDirty) {
       this.valueChange.subscribe(this.markAsDirty);
@@ -226,13 +230,6 @@ export abstract class AbstractControl<V = any> {
     this.setDisabled(false);
   };
 
-  setValid = (valid: boolean) => {
-    if (valid === this.valid) {
-      return;
-    }
-    this.validSubject$.next(valid);
-  };
-
   markAsDirty = () => {
     this.setDirty(true);
   };
@@ -249,7 +246,29 @@ export abstract class AbstractControl<V = any> {
   };
 
   asyncValidateAndUpdateErrors = () => {
+    this.setValid("pending");
     this.asyncValidSubjectNotifier$.next(this);
+  };
+
+  protected setValid = (valid: Valid) => {
+    if (valid === this.valid) {
+      return;
+    }
+    /**
+     * if setValid by sync way will not break pending status
+     */
+    if (valid && this.valid === "pending") {
+      return;
+    }
+
+    this.validSubject$.next(valid);
+  };
+
+  private setValidByAsyncAction = (valid: Valid) => {
+    if (valid === this.valid) {
+      return;
+    }
+    this.validSubject$.next(valid);
   };
 
   private setDisabled = (disabled: boolean) => {

@@ -5,7 +5,7 @@ import { FieldControl } from "../controls/fieldControl";
 import { GroupControl } from "../controls/groupControl";
 import { ListControl } from "../controls/listControl";
 
-import { GroupChildControls, Errors, ListChildControls } from "./control";
+import { GroupChildControls, Errors, ListChildControls, Valid } from "./control";
 
 export interface IItemBasicProps<P> {
   children: (props: P) => ReactElement;
@@ -36,7 +36,7 @@ export interface FieldInternalProps<V = any> {
   disabled: boolean;
   errors: Errors | null;
   asyncErrors?: Errors | null;
-  valid: boolean;
+  valid: Valid;
   dirty: boolean;
 }
 
@@ -95,7 +95,7 @@ export type ListProps = ListWithNameProps | ListWithControlProps;
 export interface ErrorInternalProps {
   name?: string;
   errors: Errors | null;
-  valid: boolean;
+  valid: Valid;
   dirty: boolean;
   disabled: boolean;
   control: AbstractControl<any>;
