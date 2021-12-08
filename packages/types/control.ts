@@ -4,13 +4,13 @@ export type GroupValue = {
   [key: string]: any;
 };
 
-export type GroupControls = {
+export type GroupChildControls = {
   [key: string]: AbstractControl<any>;
 };
 
 export type ListValue<V = any> = V[];
 
-export type ListControls<V = any> = AbstractControl<V>[];
+export type ListChildControls<V = any> = AbstractControl<V>[];
 
 export type Errors = {
   [key: string]: any;

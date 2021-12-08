@@ -2,17 +2,8 @@ import React, { useContext } from "react";
 
 import { isListWithNameProps } from "../utils";
 import { ListInternalProps, ListProps } from "../types/items";
-import {
-  useControlControls,
-  useControlDirty,
-  useControlDisabled,
-  useControlErrors,
-  useControlValid,
-  useControlValue,
-} from "../hooks";
-import { ListValue } from "../types/control";
+import { useControlControls, useControlDirty, useControlDisabled, useControlErrors, useControlValid } from "../hooks";
 import { ListControl } from "../controls/listControl";
-import { FieldControl } from "../controls/fieldControl";
 
 import { ParentFormContext } from "./context";
 
@@ -38,13 +29,14 @@ export const List = (props: ListProps) => {
   const childProps: ListInternalProps = {
     name,
     disabled,
+    control,
     enabled: !disabled,
     errors,
     valid: valid,
     invalid: !valid,
     dirty,
     pristine: !dirty,
-    controls,
+    childControls: controls,
   };
 
   return <ParentFormContext.Provider value={control}>{children(childProps)}</ParentFormContext.Provider>;

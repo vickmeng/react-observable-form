@@ -29,12 +29,13 @@ export const Group = (props: GroupProps) => {
     name,
     disabled,
     enabled: !disabled,
+    control,
     errors,
     valid: valid,
     invalid: !valid,
     dirty,
     pristine: !dirty,
-    controls,
+    childControls: controls,
   };
 
   return <ParentFormContext.Provider value={control}>{children(childProps)}</ParentFormContext.Provider>;

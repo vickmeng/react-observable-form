@@ -5,7 +5,7 @@ import {
   CreateControlParams,
   FormListControlsConfig,
   FormListOptions,
-  ListControls,
+  ListChildControls,
   ListValue,
 } from "../types/control";
 import { createControl } from "../utils";
@@ -13,7 +13,7 @@ import { createControl } from "../utils";
 import { AbstractControl } from "./abstractControl";
 
 export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
-  get controls(): ListControls<V> {
+  get controls(): ListChildControls<V> {
     return this._controls;
   }
 
@@ -21,9 +21,9 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     return this.controlsSubject.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  private _controls!: ListControls<V>;
+  private _controls!: ListChildControls<V>;
 
-  private controlsSubject = new Subject<ListControls<V>>();
+  private controlsSubject = new Subject<ListChildControls<V>>();
 
   /**
    * @private controlsChangeNotifyLock
@@ -114,13 +114,13 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     });
   };
 
-  private updatePrivateControlsAndResetSubscribeGraph = (controls: ListControls) => {
+  private updatePrivateControlsAndResetSubscribeGraph = (controls: ListChildControls) => {
     this.updatePrivateControls(controls);
     this.valueSubject$.next(this.getListValueFromControls());
     this.resetGraph();
   };
 
-  private updatePrivateControls = (controls: ListControls) => {
+  private updatePrivateControls = (controls: ListChildControls) => {
     this._controls = controls;
   };
 

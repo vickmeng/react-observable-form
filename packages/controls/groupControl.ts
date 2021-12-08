@@ -5,7 +5,7 @@ import {
   CreateControlParams,
   FormGroupControlsConfig,
   FormGroupOptions,
-  GroupControls,
+  GroupChildControls,
   GroupValue,
 } from "../types/control";
 import { createControl } from "../utils";
@@ -13,7 +13,7 @@ import { createControl } from "../utils";
 import { AbstractControl } from "./abstractControl";
 
 export class GroupControl extends AbstractControl<GroupValue> {
-  get controls(): GroupControls {
+  get controls(): GroupChildControls {
     return this._controls;
   }
 
@@ -21,9 +21,9 @@ export class GroupControl extends AbstractControl<GroupValue> {
     return this.controlsSubject.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  private _controls!: GroupControls;
+  private _controls!: GroupChildControls;
 
-  private controlsSubject = new Subject<GroupControls>();
+  private controlsSubject = new Subject<GroupChildControls>();
 
   /**
    * @private controlsChangeNotifyLock
@@ -111,7 +111,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
   };
 
   private initControls = (controlsConfig: FormGroupControlsConfig) => {
-    const controls: GroupControls = {};
+    const controls: GroupChildControls = {};
 
     for (const controlKey in controlsConfig) {
       if (Object.prototype.hasOwnProperty.call(controlsConfig, controlKey)) {
@@ -132,14 +132,10 @@ export class GroupControl extends AbstractControl<GroupValue> {
     });
   };
 
-  private updatePrivateControlsAndResetSubscribeGraph = (controls: GroupControls) => {
-    this.updatePrivateControls(controls);
+  private updatePrivateControlsAndResetSubscribeGraph = (controls: GroupChildControls) => {
+    this._controls = controls;
     this.valueSubject$.next(this.getGroupValueFromControls());
     this.resetGraph();
-  };
-
-  private updatePrivateControls = (controls: GroupControls) => {
-    this._controls = controls;
   };
 
   private getGroupValueFromControls = () => {

@@ -29,10 +29,10 @@ describe("nest components", () => {
             <Error name="name">{({ errors }) => <>{errors?.required && "至少填一名家庭成员"}</>}</Error>
 
             <List name="familyMembers">
-              {({ controls }) => {
+              {({ childControls }) => {
                 return (
                   <>
-                    {controls.map((control, i) => {
+                    {childControls.map((control, i) => {
                       return (
                         <Group name={`${i}`} key={`${i}`}>
                           {() => {

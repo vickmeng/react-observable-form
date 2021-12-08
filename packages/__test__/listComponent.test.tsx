@@ -10,10 +10,10 @@ describe("<List/>", () => {
     const listControl = new ListControl([["Vick"], ["Tom"]]);
     const { asFragment } = render(
       <List control={listControl}>
-        {({ controls }) => {
+        {({ childControls }) => {
           return (
             <>
-              {controls.map((control, i) => {
+              {childControls.map((control, i) => {
                 return (
                   <Field<string> name={`${i}`} key={`${i}`}>
                     {({ value }) => {

@@ -13,10 +13,10 @@ const ListDemo = () => {
     <>
       <ul className="list-demo__ul">
         <List control={controlRef.current}>
-          {({ controls, ...rest }) => {
+          {({ childControls, ...rest }) => {
             return (
               <>
-                {controls.map((control, i) => {
+                {childControls.map((control, i) => {
                   return (
                     <li key={`key${i}`}>
                       <Avatar>{i + 1}</Avatar>
@@ -38,6 +38,7 @@ const ListDemo = () => {
         variant="contained"
         color={"primary"}
         onClick={() => {
+          // eslint-disable-next-line no-console
           console.log(controlRef.current.value);
         }}
       >

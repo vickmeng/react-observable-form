@@ -66,10 +66,10 @@ const NestedDemo = () => {
 
                 <TableBody>
                   <List name="familyMembers">
-                    {({ controls }) => {
+                    {({ childControls }) => {
                       return (
                         <>
-                          {controls.map((control, i) => {
+                          {childControls.map((control, i) => {
                             return (
                               <Group name={`${i}`} key={`${i}`}>
                                 {() => {
@@ -148,6 +148,7 @@ const NestedDemo = () => {
         variant="contained"
         color="primary"
         onClick={() => {
+          // eslint-disable-next-line no-console
           console.log(fromGroupRef.current.value);
         }}
       >
