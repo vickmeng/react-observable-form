@@ -49,11 +49,8 @@ export function Field<V>(props: FieldProps<V>) {
     errors,
     asyncErrors: asyncErrors,
     disabled,
-    enabled: !disabled,
     valid,
-    invalid: !valid,
     dirty,
-    pristine: !dirty,
   };
 
   return children(childrenProps);

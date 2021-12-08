@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { ErrorInternalProps, ErrorProps } from "../types/items";
 import { isErrorWithNameProps } from "../utils";
 import { GroupControl } from "../controls/groupControl";
-import { useControlDirty, useControlErrors, useControlValid } from "../hooks";
+import { useControlDirty, useControlDisabled, useControlErrors, useControlValid } from "../hooks";
 
 import { ParentFormContext } from "./context";
 
@@ -16,17 +16,18 @@ export const Error = (props: ErrorProps) => {
     ? { name: props.name, control: parentGroup!.get<GroupControl>(props.name) }
     : { control: props.control };
 
+  const disabled = useControlDisabled(control);
   const dirty = useControlDirty(control);
   const errors = useControlErrors(control);
   const valid = useControlValid(control);
 
   const childrenProps: ErrorInternalProps = {
     name,
+    control,
     errors,
-    dirty,
-    pristine: !dirty,
+    disabled,
     valid,
-    invalid: !valid,
+    dirty,
   };
   return children(childrenProps);
 };

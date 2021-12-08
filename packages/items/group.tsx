@@ -25,7 +25,6 @@ export const Group = (props: GroupProps) => {
   const childProps: GroupInternalProps = {
     name,
     disabled,
-    enabled: !disabled,
     control,
     childControls: controls,
   };

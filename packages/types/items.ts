@@ -33,14 +33,11 @@ export interface FieldInternalProps<V = any> {
   markAsPristine: FieldControl<V>["markAsPristine"];
   validateAndUpdateErrors: FieldControl<V>["validateAndUpdateErrors"];
   asyncValidateAndUpdateErrors: FieldControl<V>["asyncValidateAndUpdateErrors"];
-  enabled: boolean;
   disabled: boolean;
   errors: Errors | null;
   asyncErrors?: Errors | null;
   valid: boolean;
-  invalid: boolean;
   dirty: boolean;
-  pristine: boolean;
 }
 
 export type FieldWithNameProps<V = any> = ItemWithNameProps<FieldInternalProps<V>>;
@@ -58,7 +55,6 @@ export type FieldProps<V = any> = FieldWithNameProps<V> | FieldWithControlProps<
  */
 export interface GroupInternalProps {
   name?: string;
-  enabled: boolean;
   disabled: boolean;
   control: GroupControl;
   childControls: GroupChildControls;
@@ -79,7 +75,6 @@ export type GroupProps = GroupWithNameProps | GroupWithControlProps;
 export interface ListInternalProps {
   name?: string;
   control: ListControl;
-  enabled: boolean;
   disabled: boolean;
   childControls: ListChildControls;
 }
@@ -101,9 +96,9 @@ export interface ErrorInternalProps {
   name?: string;
   errors: Errors | null;
   valid: boolean;
-  invalid: boolean;
   dirty: boolean;
-  pristine: boolean;
+  disabled: boolean;
+  control: AbstractControl<any>;
 }
 export type ErrorWithNameProps = ItemWithNameProps<ErrorInternalProps>;
 export type ErrorWithControlProps = ItemWithControlProps<ErrorInternalProps, AbstractControl>;

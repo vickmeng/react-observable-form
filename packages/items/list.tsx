@@ -26,7 +26,6 @@ export const List = (props: ListProps) => {
   const childProps: ListInternalProps = {
     name,
     disabled,
-    enabled: !disabled,
     control,
     childControls: controls,
   };
