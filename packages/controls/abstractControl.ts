@@ -129,36 +129,46 @@ export abstract class AbstractControl<V = any> {
       autoMarkAsDirty = true,
     }: ControlBasicOptions
   ) => {
-    this.initValue(value);
-    this.initValidators(validators);
-    this.initAsyncValidators(asyncValidators);
-    this.initDisabled(disabled);
-    this.initDirty(dirty);
+    this._value = value;
+    this._validators = validators;
+    this._asyncValidators = asyncValidators;
+    this._disabled = disabled;
+    this._dirty = dirty;
     this._autoValidate = autoValidate;
     this._autoAsyncValidate = autoAsyncValidate;
-
     if (autoValidate && !isEmpty(this._validators)) {
-      this.initErrors(getErrorsBy(this, validators));
+      this._errors = getErrorsBy(this, validators);
     }
+    this._valid = this.checkValid();
 
-    this.initValid(this.checkValid());
+    this.validChange.subscribe((valid) => {
+      this._valid = valid;
+    });
 
-    this.validChange.subscribe(this.updatePrivateValid);
-
-    this.errorsChange.subscribe(this.updatePrivateErrors);
+    this.errorsChange.subscribe((errors) => {
+      this._errors = errors;
+    });
 
     this.asyncValidSubjectNotifierChange.subscribe((errors) => {
       this.setAsyncErrors(errors);
       this.setValid(this.checkValid());
     });
 
-    this.asyncErrorsChange.subscribe(this.updatePrivateAsyncErrors);
+    this.asyncErrorsChange.subscribe((errors) => {
+      this._asyncErrors = errors;
+    });
 
-    this.disabledChange.subscribe(this.updatePrivateDisabled);
+    this.disabledChange.subscribe((disabled) => {
+      this._disabled = disabled;
+    });
 
-    this.dirtyChange.subscribe(this.updatePrivateDirty);
+    this.dirtyChange.subscribe((dirty) => {
+      this._dirty = dirty;
+    });
 
-    this.valueChange.subscribe(this.updatePrivateValue);
+    this.valueChange.subscribe((value) => {
+      this._value = value;
+    });
 
     if (autoValidate) {
       this.valueChange.subscribe(this.validateAndUpdateErrors);
@@ -240,58 +250,6 @@ export abstract class AbstractControl<V = any> {
 
   asyncValidateAndUpdateErrors = () => {
     this.asyncValidSubjectNotifier$.next(this);
-  };
-
-  protected initValue = (value: V) => {
-    this.updatePrivateValue(value);
-  };
-
-  protected initDisabled = (disabled: boolean) => {
-    this._disabled = disabled;
-  };
-
-  protected initDirty = (dirty: boolean) => {
-    this._dirty = dirty;
-  };
-
-  protected initErrors = (errors: Errors | null) => {
-    this._errors = errors;
-  };
-
-  protected initValid = (valid: boolean) => {
-    this._valid = valid;
-  };
-
-  protected initValidators = (validators: ValidatorFn[]) => {
-    this._validators = validators;
-  };
-
-  protected initAsyncValidators = (asyncValidators: AsyncValidatorFn[]) => {
-    this._asyncValidators = asyncValidators;
-  };
-
-  protected updatePrivateValue = (value: V) => {
-    this._value = value;
-  };
-
-  protected updatePrivateValid = (valid: boolean) => {
-    this._valid = valid;
-  };
-
-  protected updatePrivateErrors = (errors: Errors | null) => {
-    this._errors = errors;
-  };
-
-  protected updatePrivateAsyncErrors = (errors: Errors | null) => {
-    this._asyncErrors = errors;
-  };
-
-  protected updatePrivateDisabled = (disabled: boolean) => {
-    this._disabled = disabled;
-  };
-
-  protected updatePrivateDirty = (dirty: boolean) => {
-    this._dirty = dirty;
   };
 
   private setDisabled = (disabled: boolean) => {
