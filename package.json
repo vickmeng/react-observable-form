@@ -6,7 +6,8 @@
     "buildDocs": "NODE_ENV=production tsc && vite build",
     "serve": "vite preview",
     "build": "rollup -c",
-    "test": "jest -c jest.config.ts"
+    "test": "jest -c jest.config.ts",
+    "test:c": "yarn test --coverage"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",

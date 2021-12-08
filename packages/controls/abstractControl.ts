@@ -69,7 +69,7 @@ export abstract class AbstractControl<V = any> {
     return this.validSubject$.asObservable().pipe(takeUntil(this.destroy$));
   }
 
-  get asyncValidSubjectNotifierChange(): Observable<Errors | null> {
+  private get asyncValidSubjectNotifierChange(): Observable<Errors | null> {
     return this.asyncValidSubjectNotifier$.asObservable().pipe(
       takeUntil(this.destroy$),
       switchMap((control) => {
@@ -104,8 +104,8 @@ export abstract class AbstractControl<V = any> {
   protected _valid!: boolean;
   protected _validators!: ValidatorFn<V>[];
   protected _asyncValidators!: AsyncValidatorFn<V>[];
-  protected autoValidate!: boolean;
-  protected autoAsyncValidate!: boolean;
+  protected _autoValidate!: boolean;
+  protected _autoAsyncValidate!: boolean;
 
   protected valueSubject$ = new Subject<V>();
   protected disabledSubject$ = new Subject<boolean>();
@@ -124,7 +124,7 @@ export abstract class AbstractControl<V = any> {
       dirty = false,
       autoValidate = true,
       validators = [],
-      autoAsyncValidate = true,
+      autoAsyncValidate = false,
       asyncValidators = [],
       autoMarkAsDirty = true,
     }: ControlBasicOptions
@@ -133,13 +133,13 @@ export abstract class AbstractControl<V = any> {
     this.initValidators(validators);
     this.initAsyncValidators(asyncValidators);
     this.initDisabled(disabled);
-    this.autoValidate = autoValidate;
-    this.autoAsyncValidate = autoAsyncValidate;
+    this.initDirty(dirty);
+    this._autoValidate = autoValidate;
+    this._autoAsyncValidate = autoAsyncValidate;
 
     if (autoValidate && !isEmpty(this._validators)) {
       this.initErrors(getErrorsBy(this, validators));
     }
-    this.initDirty(dirty);
 
     this.initValid(this.checkValid());
 
@@ -155,7 +155,9 @@ export abstract class AbstractControl<V = any> {
     this.asyncErrorsChange.subscribe(this.updatePrivateAsyncErrors);
 
     this.disabledChange.subscribe(this.updatePrivateDisabled);
+
     this.dirtyChange.subscribe(this.updatePrivateDirty);
+
     this.valueChange.subscribe(this.updatePrivateValue);
 
     if (autoValidate) {
@@ -194,14 +196,14 @@ export abstract class AbstractControl<V = any> {
 
   setValidators = (validators: ValidatorFn[]) => {
     this._validators = validators;
-    if (this.autoValidate) {
+    if (this._autoValidate) {
       this.validateAndUpdateErrors();
     }
   };
 
   setAsyncValidators = (asyncValidators: AsyncValidatorFn[]) => {
     this._asyncValidators = asyncValidators;
-    if (this.autoAsyncValidate) {
+    if (this._autoAsyncValidate) {
       this.asyncValidateAndUpdateErrors();
     }
   };
@@ -227,6 +229,17 @@ export abstract class AbstractControl<V = any> {
 
   markAsPristine = () => {
     this.setDirty(false);
+  };
+
+  validateAndUpdateErrors = () => {
+    const errors = getErrorsBy(this, this._validators);
+
+    this.setErrors(errors);
+    this.setValid(this.checkValid());
+  };
+
+  asyncValidateAndUpdateErrors = () => {
+    this.asyncValidSubjectNotifier$.next(this);
   };
 
   protected initValue = (value: V) => {
@@ -279,25 +292,6 @@ export abstract class AbstractControl<V = any> {
 
   protected updatePrivateDirty = (dirty: boolean) => {
     this._dirty = dirty;
-  };
-
-  protected validateAndUpdateErrors = () => {
-    if (isEmpty(this._validators)) {
-      return;
-    }
-
-    const errors = getErrorsBy(this, this._validators);
-
-    this.setErrors(errors);
-    this.setValid(this.checkValid());
-  };
-
-  protected asyncValidateAndUpdateErrors = () => {
-    if (isEmpty(this._asyncValidators)) {
-      return;
-    }
-
-    this.asyncValidSubjectNotifier$.next(this);
   };
 
   private setDisabled = (disabled: boolean) => {

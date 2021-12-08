@@ -17,6 +17,7 @@ describe("asyncValidator", () => {
     const validChangeCbSpy = jest.fn();
 
     const fieldControl = new FieldControl("wrong", {
+      autoAsyncValidate: true,
       asyncValidators: [asyncValidator],
     });
     fieldControl.validChange.subscribe(validChangeCbSpy);
@@ -25,23 +26,20 @@ describe("asyncValidator", () => {
     expect(fieldControl.valid).toBe(true);
     expect(fieldControl.asyncErrors).toBe(null);
 
-    await Promise.resolve()
-      .then()
-      .catch()
-      .finally(() => {
-        expect(fieldControl.valid).toBe(false);
-        expect(fieldControl.asyncErrors).toEqual({
-          asyncError: true,
-        });
+    await Promise.resolve().then().catch();
 
-        expect(validChangeCbSpy).toBeCalledTimes(1);
-        expect(validChangeCbSpy).toBeCalledWith(false);
+    expect(fieldControl.valid).toBe(false);
+    expect(fieldControl.asyncErrors).toEqual({
+      asyncError: true,
+    });
 
-        expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
-        expect(asyncErrorsChangeCbSpy).toBeCalledWith({
-          asyncError: true,
-        });
-      });
+    expect(validChangeCbSpy).toBeCalledTimes(1);
+    expect(validChangeCbSpy).toBeCalledWith(false);
+
+    expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
+    expect(asyncErrorsChangeCbSpy).toBeCalledWith({
+      asyncError: true,
+    });
   });
 
   it("should trigger asyncValidators correctly when setValue called", async () => {
@@ -49,6 +47,7 @@ describe("asyncValidator", () => {
     const validChangeCbSpy = jest.fn();
 
     const fieldControl = new FieldControl("", {
+      autoAsyncValidate: true,
       asyncValidators: [asyncValidator],
     });
 
@@ -60,46 +59,40 @@ describe("asyncValidator", () => {
     expect(fieldControl.valid).toBe(true);
     expect(fieldControl.asyncErrors).toBe(null);
 
-    await Promise.resolve()
-      .then()
-      .catch()
-      .finally(() => {
-        expect(fieldControl.valid).toBe(false);
-        expect(fieldControl.asyncErrors).toEqual({
-          asyncError: true,
-        });
+    await Promise.resolve().then().catch();
 
-        expect(validChangeCbSpy).toBeCalledTimes(1);
-        expect(validChangeCbSpy).toBeCalledWith(false);
+    expect(fieldControl.valid).toBe(false);
+    expect(fieldControl.asyncErrors).toEqual({
+      asyncError: true,
+    });
 
-        expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
-        expect(asyncErrorsChangeCbSpy).toBeCalledWith({
-          asyncError: true,
-        });
-      });
+    expect(validChangeCbSpy).toBeCalledTimes(1);
+    expect(validChangeCbSpy).toBeCalledWith(false);
+
+    expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
+    expect(asyncErrorsChangeCbSpy).toBeCalledWith({
+      asyncError: true,
+    });
 
     fieldControl.setValue("right");
 
-    await Promise.resolve()
-      .then()
-      .catch()
-      .finally(() => {
-        expect(fieldControl.valid).toBe(true);
-        expect(fieldControl.asyncErrors).toEqual(null);
+    await Promise.resolve().then().catch();
 
-        expect(validChangeCbSpy).toBeCalledTimes(2);
-        expect(validChangeCbSpy).toBeCalledWith(true);
+    expect(fieldControl.valid).toBe(true);
+    expect(fieldControl.asyncErrors).toEqual(null);
 
-        expect(asyncErrorsChangeCbSpy).toBeCalledTimes(2);
-        expect(asyncErrorsChangeCbSpy).toBeCalledWith(null);
-      });
+    expect(validChangeCbSpy).toBeCalledTimes(2);
+    expect(validChangeCbSpy).toBeCalledWith(true);
+
+    expect(asyncErrorsChangeCbSpy).toBeCalledTimes(2);
+    expect(asyncErrorsChangeCbSpy).toBeCalledWith(null);
   });
 
   it("should handle async validate correctly when setAsyncValidate called", async () => {
     const asyncErrorsChangeCbSpy = jest.fn();
     const validChangeCbSpy = jest.fn();
 
-    const fieldControl = new FieldControl("wrong", {});
+    const fieldControl = new FieldControl("wrong", { autoAsyncValidate: true });
 
     fieldControl.validChange.subscribe(validChangeCbSpy);
     fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
@@ -109,23 +102,20 @@ describe("asyncValidator", () => {
 
     fieldControl.setAsyncValidators([asyncValidator]);
 
-    await Promise.resolve()
-      .then()
-      .catch()
-      .finally(() => {
-        expect(fieldControl.valid).toBe(false);
-        expect(fieldControl.asyncErrors).toEqual({
-          asyncError: true,
-        });
+    await Promise.resolve().then().catch();
 
-        expect(validChangeCbSpy).toBeCalledTimes(1);
-        expect(validChangeCbSpy).toBeCalledWith(false);
+    expect(fieldControl.valid).toBe(false);
+    expect(fieldControl.asyncErrors).toEqual({
+      asyncError: true,
+    });
 
-        expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
-        expect(asyncErrorsChangeCbSpy).toBeCalledWith({
-          asyncError: true,
-        });
-      });
+    expect(validChangeCbSpy).toBeCalledTimes(1);
+    expect(validChangeCbSpy).toBeCalledWith(false);
+
+    expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
+    expect(asyncErrorsChangeCbSpy).toBeCalledWith({
+      asyncError: true,
+    });
   });
 
   it("should not trigger async validate when autoAsyncValidate is false", async () => {
@@ -140,15 +130,12 @@ describe("asyncValidator", () => {
     expect(fieldControl.valid).toBe(true);
     expect(fieldControl.asyncErrors).toEqual(null);
 
-    await Promise.resolve()
-      .then()
-      .catch()
-      .finally(() => {
-        expect(fieldControl.valid).toBe(true);
-        expect(fieldControl.asyncErrors).toEqual(null);
-        expect(validChangeCbSpy).not.toHaveBeenCalled();
-        expect(asyncErrorsChangeCbSpy).not.toHaveBeenCalled();
-      });
+    await Promise.resolve().then().catch();
+
+    expect(fieldControl.valid).toBe(true);
+    expect(fieldControl.asyncErrors).toEqual(null);
+    expect(validChangeCbSpy).not.toHaveBeenCalled();
+    expect(asyncErrorsChangeCbSpy).not.toHaveBeenCalled();
   });
 
   it("should trigger async validate only one time when call setValue continuously", async () => {
@@ -165,7 +152,7 @@ describe("asyncValidator", () => {
     const asyncErrorsChangeCbSpy = jest.fn();
     const validChangeCbSpy = jest.fn();
 
-    const fieldControl = new FieldControl("", { asyncValidators: [asyncValidator] });
+    const fieldControl = new FieldControl("", { autoAsyncValidate: true, asyncValidators: [asyncValidator] });
 
     fieldControl.validChange.subscribe(validChangeCbSpy);
     fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
@@ -178,22 +165,57 @@ describe("asyncValidator", () => {
     expect(fieldControl.valid).toBe(true);
     expect(fieldControl.asyncErrors).toEqual(null);
 
-    await Promise.resolve()
-      .then()
-      .catch()
-      .finally(() => {
-        expect(fieldControl.valid).toBe(false);
-        expect(fieldControl.asyncErrors).toEqual({
-          asyncError: true,
-        });
+    await Promise.resolve().then().catch();
 
-        expect(validChangeCbSpy).toBeCalledTimes(1);
-        expect(validChangeCbSpy).toBeCalledWith(false);
+    expect(fieldControl.valid).toBe(false);
+    expect(fieldControl.asyncErrors).toEqual({
+      asyncError: true,
+    });
 
-        expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
-        expect(asyncErrorsChangeCbSpy).toBeCalledWith({
-          asyncError: true,
-        });
-      });
+    expect(validChangeCbSpy).toBeCalledTimes(1);
+    expect(validChangeCbSpy).toBeCalledWith(false);
+
+    expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
+    expect(asyncErrorsChangeCbSpy).toBeCalledWith({
+      asyncError: true,
+    });
+  });
+
+  it("should trigger async validate manually", async () => {
+    const asyncErrorsChangeCbSpy = jest.fn();
+    const validChangeCbSpy = jest.fn();
+
+    const fieldControl = new FieldControl("wrong", { autoAsyncValidate: false, asyncValidators: [asyncValidator] });
+
+    fieldControl.validChange.subscribe(validChangeCbSpy);
+    fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
+
+    expect(fieldControl.valid).toBe(true);
+    expect(fieldControl.asyncErrors).toEqual(null);
+
+    await Promise.resolve().then().catch();
+
+    expect(fieldControl.valid).toBe(true);
+    expect(fieldControl.asyncErrors).toEqual(null);
+
+    expect(validChangeCbSpy).not.toHaveBeenCalled();
+    expect(asyncErrorsChangeCbSpy).not.toHaveBeenCalled();
+
+    fieldControl.asyncValidateAndUpdateErrors();
+
+    await Promise.resolve().then().catch();
+
+    expect(fieldControl.valid).toBe(false);
+    expect(fieldControl.asyncErrors).toEqual({
+      asyncError: true,
+    });
+
+    expect(validChangeCbSpy).toBeCalledTimes(1);
+    expect(validChangeCbSpy).toBeCalledWith(false);
+
+    expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
+    expect(asyncErrorsChangeCbSpy).toBeCalledWith({
+      asyncError: true,
+    });
   });
 });
