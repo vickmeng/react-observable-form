@@ -31,6 +31,8 @@ export interface FieldInternalProps<V = any> {
   setValue: FieldControl<V>["setValue"];
   markAsDirty: FieldControl<V>["markAsDirty"];
   markAsPristine: FieldControl<V>["markAsPristine"];
+  validateAndUpdateErrors: FieldControl<V>["validateAndUpdateErrors"];
+  asyncValidateAndUpdateErrors: FieldControl<V>["asyncValidateAndUpdateErrors"];
   enabled: boolean;
   disabled: boolean;
   errors: Errors | null;

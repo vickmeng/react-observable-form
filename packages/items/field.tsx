@@ -44,6 +44,8 @@ export function Field<V>(props: FieldProps<V>) {
     setValue: control.setValue,
     markAsDirty: control.markAsDirty,
     markAsPristine: control.markAsPristine,
+    validateAndUpdateErrors: control.validateAndUpdateErrors,
+    asyncValidateAndUpdateErrors: control.asyncValidateAndUpdateErrors,
     errors,
     asyncErrors: asyncErrors,
     disabled,
