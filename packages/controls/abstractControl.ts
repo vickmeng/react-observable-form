@@ -73,10 +73,7 @@ export abstract class AbstractControl<V = any> {
     return this.asyncValidSubjectNotifier$.asObservable().pipe(
       takeUntil(this.destroy$),
       switchMap((control) => {
-        const asyncValidatorsPromiseList = control._asyncValidators.map((asyncValidator) => {
-          const error = asyncValidator(control);
-          return error;
-        });
+        const asyncValidatorsPromiseList = control._asyncValidators.map((asyncValidator) => asyncValidator(control));
 
         return Promise.all(asyncValidatorsPromiseList).then((errorList) => {
           return errorList.reduce((acc, cur) => {
