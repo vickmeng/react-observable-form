@@ -99,9 +99,7 @@ describe("asyncValidator", () => {
     const asyncErrorsChangeCbSpy = jest.fn();
     const validChangeCbSpy = jest.fn();
 
-    const fieldControl = new FieldControl("wrong", {
-      // asyncValidators: [asyncValidator],
-    });
+    const fieldControl = new FieldControl("wrong", {});
 
     fieldControl.validChange.subscribe(validChangeCbSpy);
     fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
@@ -110,6 +108,75 @@ describe("asyncValidator", () => {
     expect(fieldControl.asyncErrors).toEqual(null);
 
     fieldControl.setAsyncValidators([asyncValidator]);
+
+    await Promise.resolve()
+      .then()
+      .catch()
+      .finally(() => {
+        expect(fieldControl.valid).toBe(false);
+        expect(fieldControl.asyncErrors).toEqual({
+          asyncError: true,
+        });
+
+        expect(validChangeCbSpy).toBeCalledTimes(1);
+        expect(validChangeCbSpy).toBeCalledWith(false);
+
+        expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
+        expect(asyncErrorsChangeCbSpy).toBeCalledWith({
+          asyncError: true,
+        });
+      });
+  });
+
+  it("should not trigger async validate when autoAsyncValidate is false", async () => {
+    const asyncErrorsChangeCbSpy = jest.fn();
+    const validChangeCbSpy = jest.fn();
+
+    const fieldControl = new FieldControl("wrong", { autoAsyncValidate: false, asyncValidators: [asyncValidator] });
+
+    fieldControl.validChange.subscribe(validChangeCbSpy);
+    fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
+
+    expect(fieldControl.valid).toBe(true);
+    expect(fieldControl.asyncErrors).toEqual(null);
+
+    await Promise.resolve()
+      .then()
+      .catch()
+      .finally(() => {
+        expect(fieldControl.valid).toBe(true);
+        expect(fieldControl.asyncErrors).toEqual(null);
+        expect(validChangeCbSpy).not.toHaveBeenCalled();
+        expect(asyncErrorsChangeCbSpy).not.toHaveBeenCalled();
+      });
+  });
+
+  it("should trigger async validate only one time when call setValue continuously", async () => {
+    const asyncValidator = (control: AbstractControl<string>) => {
+      if (control.value.length > 1) {
+        return Promise.resolve({
+          asyncError: true,
+        });
+      } else {
+        return Promise.resolve(null);
+      }
+    };
+
+    const asyncErrorsChangeCbSpy = jest.fn();
+    const validChangeCbSpy = jest.fn();
+
+    const fieldControl = new FieldControl("", { asyncValidators: [asyncValidator] });
+
+    fieldControl.validChange.subscribe(validChangeCbSpy);
+    fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
+
+    fieldControl.setValue("1");
+    fieldControl.setValue("12");
+    fieldControl.setValue("123");
+    fieldControl.setValue("1234");
+
+    expect(fieldControl.valid).toBe(true);
+    expect(fieldControl.asyncErrors).toEqual(null);
 
     await Promise.resolve()
       .then()
