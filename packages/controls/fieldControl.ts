@@ -3,7 +3,7 @@ import { FormControlOptions } from "../types/control";
 import { AbstractControl } from "./abstractControl";
 
 export class FieldControl<V = any> extends AbstractControl<V> {
-  private _initValue!: V;
+  private readonly _initValue!: V;
 
   override _noError = () => !(this.errors || this.asyncErrors);
   constructor(value: V, options: FormControlOptions = {}) {
