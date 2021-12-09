@@ -49,15 +49,17 @@ const ADVANCE: ISubMenu = {
       text: "动态表单",
       link: "/dynamic",
     },
-
     {
       text: "联合校验",
       link: "/uniteValidate",
     },
-
     {
       text: "复杂嵌套",
       link: "/nest",
+    },
+    {
+      text: "异步校验",
+      link: "/asyncValidate",
     },
     {
       text: "与Rxjs",
