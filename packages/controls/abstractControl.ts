@@ -91,7 +91,7 @@ export abstract class AbstractControl<V = any> {
 
   abstract reset(): void;
 
-  protected abstract checkValid(): boolean;
+  abstract _noError(): boolean;
 
   protected _value!: V;
   protected _errors: Errors | null = null;
@@ -147,7 +147,7 @@ export abstract class AbstractControl<V = any> {
 
     this.asyncValidSubjectNotifierChange.subscribe((errors) => {
       this.setAsyncErrors(errors);
-      this.setValidByAsyncAction(this.checkValid());
+      this.setValidByAsyncAction(this._noError());
     });
 
     this.asyncErrorsChange.subscribe((errors) => {
@@ -178,7 +178,7 @@ export abstract class AbstractControl<V = any> {
       this.valueChange.subscribe(this.asyncValidateAndUpdateErrors);
     }
 
-    this._valid = autoAsyncValidate ? "pending" : this.checkValid();
+    this._valid = autoAsyncValidate ? "pending" : this._noError();
 
     if (autoMarkAsDirty) {
       this.valueChange.subscribe(this.markAsDirty);
@@ -239,7 +239,7 @@ export abstract class AbstractControl<V = any> {
     const errors = getErrorsBy(this, this._validators);
 
     this.setErrors(errors);
-    this.setValid(this.checkValid());
+    this.setValid(this._noError());
   };
 
   asyncValidateAndUpdateErrors = () => {

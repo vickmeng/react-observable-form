@@ -34,6 +34,13 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
   private valueChangesSubscription!: Subscription;
   private validChangesSubscription!: Subscription;
 
+  /**
+   * has list level error or has controls with error
+   */
+  override _noError = () => {
+    return !(this.errors || this.asyncErrors || this._controls.some((control) => control._noError()));
+  };
+
   constructor(controlsConfig: FormListControlsConfig, options: FormListOptions = {}) {
     super();
     this.initControls(controlsConfig);
@@ -77,7 +84,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.setValueToControls(value);
 
     this.valueSubject$.next(this.getListValueFromControls());
-    this.setValid(this.checkValid());
+    this.setValid(this._noError());
 
     this.resetGraph();
   };
@@ -88,16 +95,9 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.controls.forEach((control) => control.reset());
 
     this.valueSubject$.next(this.getListValueFromControls());
-    this.setValid(this.checkValid());
+    this.setValid(this._noError());
 
     this.resetGraph();
-  };
-
-  /**
-   * has list level error or has invalid controls
-   */
-  protected checkValid = () => {
-    return !(this.errors || this.asyncErrors || this._controls.some((control) => control.invalid));
   };
 
   private initControls = (controlsConfig: FormListControlsConfig) => {
@@ -184,7 +184,7 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
       .pipe(
         takeUntil(this.destroy$),
         skipWhile(() => this.controlsChangeNotifyLock),
-        map(() => this.checkValid())
+        map(() => this._noError())
       )
       .subscribe(this.setValid);
   };

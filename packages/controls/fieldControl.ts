@@ -5,6 +5,7 @@ import { AbstractControl } from "./abstractControl";
 export class FieldControl<V = any> extends AbstractControl<V> {
   private _initValue!: V;
 
+  override _noError = () => !(this.errors || this.asyncErrors);
   constructor(value: V, options: FormControlOptions = {}) {
     super();
     this._initValue = value;
@@ -34,6 +35,4 @@ export class FieldControl<V = any> extends AbstractControl<V> {
   override reset = () => {
     this.setValue(this._initValue);
   };
-
-  protected checkValid = () => !(this.errors || this.asyncErrors);
 }

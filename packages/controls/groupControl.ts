@@ -33,6 +33,13 @@ export class GroupControl extends AbstractControl<GroupValue> {
   private valueChangesSubscription!: Subscription;
   private validChangesSubscription!: Subscription;
 
+  /**
+   * has group level error or has invalid controls
+   */
+  override _noError = () => {
+    return !(this.errors || this.asyncErrors || Object.values(this._controls).some((control) => !control._noError()));
+  };
+
   constructor(controlsConfig: FormGroupControlsConfig, options: FormGroupOptions = {}) {
     super();
     this.initControls(controlsConfig);
@@ -55,7 +62,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.setValueToControls(value);
 
     this.valueSubject$.next(this.getGroupValueFromControls());
-    this.setValid(this.checkValid());
+    this.setValid(this._noError());
 
     this.resetGraph();
   };
@@ -66,7 +73,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     Object.values(this.controls).forEach((control) => control.reset());
 
     this.valueSubject$.next(this.getGroupValueFromControls());
-    this.setValid(this.checkValid());
+    this.setValid(this._noError());
 
     this.resetGraph();
   };
@@ -102,13 +109,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
     delete controls[name];
 
     this.controlsSubject.next(controls);
-  };
-
-  /**
-   * has group level error or has invalid controls
-   */
-  protected checkValid = () => {
-    return !(this.errors || this.asyncErrors || Object.values(this._controls).some((control) => control.invalid));
   };
 
   private initControls = (controlsConfig: FormGroupControlsConfig) => {
@@ -200,7 +200,7 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.validChangesSubscription = merge(...validChanges)
       .pipe(
         takeUntil(this.destroy$),
-        map(() => this.checkValid())
+        map(() => this._noError())
       )
       .subscribe(this.setValid);
   };
