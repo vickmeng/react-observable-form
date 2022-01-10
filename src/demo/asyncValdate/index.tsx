@@ -87,7 +87,7 @@ export const AsyncValidateUsername = () => {
       </Field>
 
       <div>
-        <Button disabled={valid === false} onClick={onSubmit}>
+        <Button disabled={valid === false} onClick={onSubmit} color={"primary"} variant="contained">
           submit
         </Button>
       </div>
