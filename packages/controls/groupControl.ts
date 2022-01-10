@@ -61,10 +61,8 @@ export class GroupControl extends AbstractControl<GroupValue> {
 
     this.setValueToControls(value);
 
-    this.valueSubject$.next(this.getGroupValueFromControls());
-    this.setValid(this._noError());
-
     this.resetGraph();
+    this.valueSubject$.next(this.getGroupValueFromControls());
   };
 
   override reset = () => {
@@ -72,10 +70,8 @@ export class GroupControl extends AbstractControl<GroupValue> {
 
     Object.values(this.controls).forEach((control) => control.reset());
 
-    this.valueSubject$.next(this.getGroupValueFromControls());
-    this.setValid(this._noError());
-
     this.resetGraph();
+    this.valueSubject$.next(this.getGroupValueFromControls());
   };
 
   add = (name: string, params: CreateControlParams) => {

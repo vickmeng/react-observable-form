@@ -83,10 +83,8 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
 
     this.setValueToControls(value);
 
-    this.valueSubject$.next(this.getListValueFromControls());
-    this.setValid(this._noError());
-
     this.resetGraph();
+    this.valueSubject$.next(this.getListValueFromControls());
   };
 
   override reset = () => {
@@ -94,10 +92,8 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
 
     this.controls.forEach((control) => control.reset());
 
-    this.valueSubject$.next(this.getListValueFromControls());
-    this.setValid(this._noError());
-
     this.resetGraph();
+    this.valueSubject$.next(this.getListValueFromControls());
   };
 
   private initControls = (controlsConfig: FormListControlsConfig) => {

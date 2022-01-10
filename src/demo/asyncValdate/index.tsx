@@ -1,15 +1,17 @@
 import React, { useRef } from "react";
 import { InputAdornment, TextField, Button } from "@material-ui/core";
 import { Sync, CheckCircle, ErrorOutline } from "@material-ui/icons";
+import { take } from "rxjs/operators";
 
-import { FieldControl } from "../../../packages/controls/fieldControl";
-import { Field } from "../../../packages/items/field";
-import { AbstractControl } from "../../../packages/controls/abstractControl";
-import { Errors } from "../../../packages/types/control";
 import "./index.less";
+import { Field } from "../../../packages/items/field";
+import { AsyncValidatorFn } from "../../../packages/types/control";
+import { useControlValid } from "../../../packages/hooks";
+import { requiredValidator } from "../../../packages/validators";
+import { FieldControl } from "../../../packages/controls/fieldControl";
 
-const asyncValidator = (control: AbstractControl<string>) => {
-  return new Promise<Errors | null>((resolve) => {
+const asyncValidator: AsyncValidatorFn<string> = (control) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       if (control.value === "existed") {
         resolve({ existed: true });
@@ -23,11 +25,37 @@ const asyncValidator = (control: AbstractControl<string>) => {
 export const AsyncValidateUsername = () => {
   const controlRef = useRef(
     new FieldControl<string>("", {
-      autoAsyncValidate: false,
+      validators: [requiredValidator],
       asyncValidators: [asyncValidator],
+      autoAsyncValidate: false,
       autoMarkAsDirty: false,
     })
   );
+
+  const valid = useControlValid(controlRef.current);
+
+  const onSubmit = () => {
+    const handleSubmit = () => {
+      // eslint-disable-next-line no-console
+      console.log("提交成功", {
+        username: usernameControl.value,
+      });
+    };
+
+    const usernameControl = controlRef.current;
+
+    if (usernameControl.valid === true) {
+      handleSubmit();
+    }
+
+    if (usernameControl.valid === "pending") {
+      usernameControl.validChange.pipe(take(1)).subscribe((valid) => {
+        if (valid) {
+          handleSubmit();
+        }
+      });
+    }
+  };
 
   return (
     <>
@@ -58,7 +86,11 @@ export const AsyncValidateUsername = () => {
         }}
       </Field>
 
-      <Button />
+      <div>
+        <Button disabled={valid === false} onClick={onSubmit}>
+          submit
+        </Button>
+      </div>
     </>
   );
 };

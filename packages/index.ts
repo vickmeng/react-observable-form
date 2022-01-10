@@ -21,6 +21,8 @@ export type {
   FormGroupControlsConfig,
   FormListControlsConfig,
   ValidatorFn,
+  AsyncValidatorFn,
+  Errors,
 } from "./types/control";
 
 /**
