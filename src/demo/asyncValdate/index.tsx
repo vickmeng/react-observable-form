@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { InputAdornment, OutlinedInput } from "@material-ui/core";
+import { InputAdornment, TextField, Button } from "@material-ui/core";
 import { Sync, CheckCircle, ErrorOutline } from "@material-ui/icons";
 
 import { FieldControl } from "../../../packages/controls/fieldControl";
@@ -30,29 +30,35 @@ export const AsyncValidateUsername = () => {
   );
 
   return (
-    <Field control={controlRef.current}>
-      {({ value, setValue, markAsDirty, asyncValidateAndUpdateErrors, valid, dirty }) => {
-        return (
-          <OutlinedInput
-            label="username"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onBlur={(e) => {
-              markAsDirty();
-              asyncValidateAndUpdateErrors();
-            }}
-            endAdornment={
-              <InputAdornment position="end">
-                <>
-                  {valid === "pending" && <Sync className={"pending-icon"} />}
-                  {dirty && valid === true && <CheckCircle className={"success-icon"} />}
-                  {dirty && valid === false && <ErrorOutline className={"failed-icon"} />}
-                </>
-              </InputAdornment>
-            }
-          />
-        );
-      }}
-    </Field>
+    <>
+      <Field control={controlRef.current}>
+        {({ value, setValue, markAsDirty, asyncValidateAndUpdateErrors, valid, dirty }) => {
+          return (
+            <TextField
+              label="username"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onBlur={(e) => {
+                markAsDirty();
+                asyncValidateAndUpdateErrors();
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <>
+                      {valid === "pending" && <Sync className={"pending-icon"} />}
+                      {dirty && valid === true && <CheckCircle className={"success-icon"} />}
+                      {dirty && valid === false && <ErrorOutline className={"failed-icon"} />}
+                    </>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          );
+        }}
+      </Field>
+
+      <Button />
+    </>
   );
 };

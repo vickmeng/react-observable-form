@@ -46,4 +46,5 @@ export {
   useControlValid,
   useControlErrors,
   useControlControls,
+  useControlAsyncErrors,
 } from "./hooks";
