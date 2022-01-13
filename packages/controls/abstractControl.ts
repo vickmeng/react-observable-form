@@ -1,6 +1,6 @@
 import { Observable, Subject } from "rxjs";
 import { switchMap, takeUntil } from "rxjs/operators";
-import { isEqual } from "lodash";
+import { isEmpty, isEqual } from "lodash";
 
 import { AsyncValidatorFn, ControlBasicOptions, Errors, Valid, ValidatorFn } from "../types/control";
 import { getErrorsBy } from "../utils";
@@ -178,7 +178,7 @@ export abstract class AbstractControl<V = any> {
       this.valueChange.subscribe(this.asyncValidateAndUpdateErrors);
     }
 
-    this._valid = autoAsyncValidate ? "pending" : this._noError();
+    this._valid = autoAsyncValidate ? (isEmpty(this._asyncValidators) ? true : "pending") : this._noError();
 
     if (autoMarkAsDirty) {
       this.valueChange.subscribe(this.markAsDirty);

@@ -51,10 +51,13 @@ describe("asyncValidator", () => {
     fieldControl.validChange.subscribe(validChangeCbSpy);
     fieldControl.asyncErrorsChange.subscribe(asyncErrorsChangeCbSpy);
 
-    expect(fieldControl.valid).toBe("pending");
+    expect(fieldControl.valid).toBe(true);
     expect(fieldControl.asyncErrors).toEqual(null);
 
     fieldControl.setAsyncValidators([asyncValidator]);
+
+    expect(fieldControl.valid).toBe("pending");
+    expect(validChangeCbSpy).toBeCalledTimes(1);
 
     await Promise.resolve().then().catch();
 
@@ -63,7 +66,7 @@ describe("asyncValidator", () => {
       asyncError: true,
     });
 
-    expect(validChangeCbSpy).toBeCalledTimes(1);
+    expect(validChangeCbSpy).toBeCalledTimes(2);
     expect(validChangeCbSpy).toBeCalledWith(false);
 
     expect(asyncErrorsChangeCbSpy).toBeCalledTimes(1);
