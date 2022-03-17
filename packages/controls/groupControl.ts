@@ -2,6 +2,7 @@ import { merge, Observable, Subject, Subscription } from "rxjs";
 import { map, takeUntil } from "rxjs/operators";
 
 import {
+  ControlWithChildren,
   CreateControlParams,
   FormGroupControlsConfig,
   FormGroupOptions,
@@ -13,8 +14,8 @@ import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
 
-export class GroupControl extends AbstractControl<GroupValue> {
-  get controls(): GroupChildControls {
+export class GroupControl extends AbstractControl<GroupValue> implements ControlWithChildren<GroupChildControls> {
+  get controls() {
     return this._controls;
   }
 
@@ -49,10 +50,6 @@ export class GroupControl extends AbstractControl<GroupValue> {
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
-  get = <C extends AbstractControl<any>>(name: string): C => {
-    return this._controls[name] as C;
-  };
-
   override setValue = (value: GroupValue) => {
     /**
      * destroyGraph avoid multiple trigger group valueChange
@@ -72,6 +69,10 @@ export class GroupControl extends AbstractControl<GroupValue> {
 
     this.resetGraph();
     this.valueSubject$.next(this.getGroupValueFromControls());
+  };
+
+  get = <C extends AbstractControl<any>>(name: string): C => {
+    return this._controls[name] as C;
   };
 
   add = (name: string, params: CreateControlParams) => {

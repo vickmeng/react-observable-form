@@ -2,6 +2,7 @@ import { map, skipWhile, takeUntil } from "rxjs/operators";
 import { merge, Observable, Subject, Subscription } from "rxjs";
 
 import {
+  ControlWithChildren,
   CreateControlParams,
   FormListControlsConfig,
   FormListOptions,
@@ -13,8 +14,11 @@ import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
 
-export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
-  get controls(): ListChildControls<V> {
+export class ListControl<V = any>
+  extends AbstractControl<ListValue<V>>
+  implements ControlWithChildren<ListChildControls<V>>
+{
+  get controls() {
     return this._controls;
   }
 
@@ -50,6 +54,24 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
+  override setValue = (value: ListValue<V>) => {
+    this.destroyGraph();
+
+    this.setValueToControls(value);
+
+    this.resetGraph();
+    this.valueSubject$.next(this.getListValueFromControls());
+  };
+
+  override reset = () => {
+    this.destroyGraph();
+
+    this.controls.forEach((control) => control.reset());
+
+    this.resetGraph();
+    this.valueSubject$.next(this.getListValueFromControls());
+  };
+
   /**
    * @param name
    * for list, we use index as name
@@ -76,24 +98,6 @@ export class ListControl<V = any> extends AbstractControl<ListValue<V>> {
     controls.splice(start, deleteCount);
 
     this.controlsSubject.next(controls);
-  };
-
-  override setValue = (value: ListValue<V>) => {
-    this.destroyGraph();
-
-    this.setValueToControls(value);
-
-    this.resetGraph();
-    this.valueSubject$.next(this.getListValueFromControls());
-  };
-
-  override reset = () => {
-    this.destroyGraph();
-
-    this.controls.forEach((control) => control.reset());
-
-    this.resetGraph();
-    this.valueSubject$.next(this.getListValueFromControls());
   };
 
   private initControls = (controlsConfig: FormListControlsConfig) => {

@@ -1,3 +1,5 @@
+import { Observable } from "rxjs";
+
 import { AbstractControl } from "../controls/abstractControl";
 
 export type GroupValue = {
@@ -44,3 +46,10 @@ export type FormGroupControlsConfig = {
 };
 
 export type FormListControlsConfig = CreateControlParams[];
+
+export interface ControlWithChildren<CS = GroupChildControls | ListChildControls> {
+  readonly controls: CS;
+  readonly controlsChange: Observable<CS>;
+  get: (name: any) => AbstractControl;
+  remove: Function;
+}
