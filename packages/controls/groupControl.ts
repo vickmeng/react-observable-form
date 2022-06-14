@@ -14,7 +14,10 @@ import { createControl } from "../utils";
 
 import { AbstractControl } from "./abstractControl";
 
-export class GroupControl extends AbstractControl<GroupValue> implements ControlWithChildren<GroupChildControls> {
+export class GroupControl<V extends GroupValue = any>
+  extends AbstractControl<V>
+  implements ControlWithChildren<GroupChildControls>
+{
   get controls() {
     return this._controls;
   }
@@ -50,7 +53,7 @@ export class GroupControl extends AbstractControl<GroupValue> implements Control
     this.controlsChange.subscribe(this.updatePrivateControlsAndResetSubscribeGraph);
   }
 
-  override setValue = (value: GroupValue) => {
+  override setValue = (value: V) => {
     /**
      * destroyGraph avoid multiple trigger group valueChange
      */
@@ -123,7 +126,7 @@ export class GroupControl extends AbstractControl<GroupValue> implements Control
     this._controls = controls;
   };
 
-  private setValueToControls = (value: GroupValue) => {
+  private setValueToControls = (value: V) => {
     Object.keys(this._controls).forEach((name) => {
       const hasKey = Object.prototype.hasOwnProperty.call(value, name);
       hasKey && this._controls[name].setValue(value[name]);
@@ -137,14 +140,11 @@ export class GroupControl extends AbstractControl<GroupValue> implements Control
   };
 
   private getGroupValueFromControls = () => {
-    const value: GroupValue = {};
+    const value = {} as V;
     Object.keys(this._controls).forEach((name) => {
       const control = this._controls[name];
-      if (control.enabled) {
-        value[name] = control.value;
-      }
+      Object.assign(value, { [name]: control.value });
     });
-
     return value;
   };
 

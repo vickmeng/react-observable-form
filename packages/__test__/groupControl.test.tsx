@@ -3,8 +3,20 @@ import { requiredValidator } from "../validators";
 
 describe("groupControl", () => {
   it("should be created correctly", () => {
-    const groupControl = new GroupControl({
+    const groupControl = new GroupControl<{ name: string; address: string }>({
       name: ["Sam"],
+      address: ["NY"],
+    });
+
+    expect(groupControl.value).toEqual({
+      name: "Sam",
+      address: "NY",
+    });
+  });
+
+  it("should get value correctly given disabled sub children", () => {
+    const groupControl = new GroupControl<{ name: string; address: string }>({
+      name: ["Sam", { disabled: true }],
       address: ["NY"],
     });
 
