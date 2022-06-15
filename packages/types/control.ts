@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import { AbstractControl } from "../controls/abstractControl";
 
 export type GroupValue = {
-  [key: string]: unknown;
+  [key: string]: any;
 };
 
 export type GroupChildControls = {
