@@ -72,17 +72,17 @@ export type GroupProps = GroupWithNameProps | GroupWithControlProps;
  * start
  * List
  */
-export interface ListInternalProps {
+export interface ListInternalProps<V> {
   name?: string;
-  control: ListControl;
+  control: ListControl<V>;
   disabled: boolean;
-  childControls: ListChildControls;
+  childControls: ListChildControls<V>;
 }
 
-export type ListWithNameProps = ItemWithNameProps<ListInternalProps>;
-export type ListWithControlProps = ItemWithControlProps<ListInternalProps, ListControl<any>>;
+export type ListWithNameProps<V> = ItemWithNameProps<ListInternalProps<V>>;
+export type ListWithControlProps<V> = ItemWithControlProps<ListInternalProps<V>, ListControl<V>>;
 
-export type ListProps = ListWithNameProps | ListWithControlProps;
+export type ListProps<V = any> = ListWithNameProps<V> | ListWithControlProps<V>;
 /**
  * end
  */

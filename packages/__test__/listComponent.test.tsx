@@ -7,9 +7,9 @@ import { List } from "../items/list";
 
 describe("<List/>", () => {
   it("should render <List/>", () => {
-    const listControl = new ListControl([["Vick"], ["Tom"]]);
+    const listControl = new ListControl<string>([["Vick"], ["Tom"]]);
     const { asFragment } = render(
-      <List control={listControl}>
+      <List<string> control={listControl}>
         {({ childControls }) => {
           return (
             <>

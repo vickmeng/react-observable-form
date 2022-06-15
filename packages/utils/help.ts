@@ -22,8 +22,8 @@ export const isGroupWithNameProps = (props: GroupProps): props is GroupWithNameP
   return (props as GroupWithNameProps).name !== undefined;
 };
 
-export const isListWithNameProps = (props: ListProps): props is ListWithNameProps => {
-  return (props as ListWithNameProps).name !== undefined;
+export const isListWithNameProps = <V>(props: ListProps<V>): props is ListWithNameProps<V> => {
+  return (props as ListWithNameProps<V>).name !== undefined;
 };
 
 export function isErrorWithNameProps(props: ErrorProps): props is ErrorWithNameProps {
