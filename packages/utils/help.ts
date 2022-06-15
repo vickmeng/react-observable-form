@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash";
 
-import { CreateControlParams, Errors, ValidatorFn } from "../types/control";
+import { CreateControlParams, Errors, GroupValue, ValidatorFn } from "../types/control";
 import {
   ErrorProps,
   ErrorWithNameProps,
@@ -18,8 +18,8 @@ export function isFieldWithNameProps<V>(props: FieldProps<V>): props is FieldWit
   return (props as FieldWithNameProps<V>).name !== undefined;
 }
 
-export const isGroupWithNameProps = (props: GroupProps): props is GroupWithNameProps => {
-  return (props as GroupWithNameProps).name !== undefined;
+export const isGroupWithNameProps = <V extends GroupValue>(props: GroupProps<V>): props is GroupWithNameProps<V> => {
+  return (props as GroupWithNameProps<V>).name !== undefined;
 };
 
 export const isListWithNameProps = <V>(props: ListProps<V>): props is ListWithNameProps<V> => {

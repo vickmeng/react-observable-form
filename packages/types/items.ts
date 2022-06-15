@@ -5,7 +5,7 @@ import { FieldControl } from "../controls/fieldControl";
 import { GroupControl } from "../controls/groupControl";
 import { ListControl } from "../controls/listControl";
 
-import { GroupChildControls, Errors, ListChildControls, Valid } from "./control";
+import { GroupChildControls, Errors, ListChildControls, Valid, GroupValue } from "./control";
 
 export interface IItemBasicProps<P> {
   children: (props: P) => ReactElement;
@@ -53,17 +53,17 @@ export type FieldProps<V = any> = FieldWithNameProps<V> | FieldWithControlProps<
  * start
  * Group
  */
-export interface GroupInternalProps {
+export interface GroupInternalProps<V extends GroupValue> {
   name?: string;
   disabled: boolean;
-  control: GroupControl;
+  control: GroupControl<V>;
   childControls: GroupChildControls;
 }
 
-export type GroupWithNameProps = ItemWithNameProps<GroupInternalProps>;
-export type GroupWithControlProps = ItemWithControlProps<GroupInternalProps, GroupControl>;
+export type GroupWithNameProps<V extends GroupValue> = ItemWithNameProps<GroupInternalProps<V>>;
+export type GroupWithControlProps<V extends GroupValue> = ItemWithControlProps<GroupInternalProps<V>, GroupControl<V>>;
 
-export type GroupProps = GroupWithNameProps | GroupWithControlProps;
+export type GroupProps<V extends GroupValue = any> = GroupWithNameProps<V> | GroupWithControlProps<V>;
 /**
  * end
  */
