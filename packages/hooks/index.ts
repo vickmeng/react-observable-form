@@ -85,18 +85,18 @@ export const useControlValid = (control?: AbstractControl) => {
   return valid;
 };
 
-export const useControlErrors = (control: AbstractControl) => {
-  const [errors, setErrors] = useState(control.errors);
+export const useControlErrors = (control?: AbstractControl) => {
+  const [errors, setErrors] = useState(control?.errors);
 
   useEffect(() => {
-    const subscriber = control.errorsChange.subscribe(setErrors);
+    const subscriber = control?.errorsChange.subscribe(setErrors);
     return () => {
-      subscriber.unsubscribe();
+      subscriber?.unsubscribe();
     };
   }, [control]);
 
   useUpdateEffect(() => {
-    setErrors(control.errors);
+    setErrors(control?.errors);
   }, [control]);
 
   return errors;
