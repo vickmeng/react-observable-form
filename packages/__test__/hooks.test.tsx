@@ -1,8 +1,9 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import { FieldControl } from "../controls/fieldControl";
-import { useControlDirty, useControlDisabled, useControlValue } from "../hooks";
+import { useControlDirty, useControlDisabled, useControlValid, useControlValue } from "../hooks";
 import { AbstractControl } from "../controls/abstractControl";
+import { requiredValidator } from "../validators";
 
 describe("hooks", () => {
   it("useControlValue", () => {
@@ -67,6 +68,30 @@ describe("hooks", () => {
     expect(result.current).toBe(false);
 
     control = new FieldControl("", { dirty: true });
+    rerender();
+
+    expect(result.current).toBe(true);
+
+    control = undefined;
+    rerender();
+
+    expect(result.current).toBe(undefined);
+  });
+
+  it("useControlValid", () => {
+    let control: undefined | AbstractControl = new FieldControl("", {});
+
+    const { result, rerender } = renderHook(() => useControlValid(control));
+
+    expect(result.current).toBe(true);
+
+    act(() => {
+      control!.setValidators([requiredValidator]);
+    });
+
+    expect(result.current).toBe(false);
+
+    control = new FieldControl("", { validators: [] });
     rerender();
 
     expect(result.current).toBe(true);
