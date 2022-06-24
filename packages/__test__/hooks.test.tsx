@@ -1,9 +1,17 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import { FieldControl } from "../controls/fieldControl";
-import { useControlDirty, useControlDisabled, useControlErrors, useControlValid, useControlValue } from "../hooks";
+import {
+  useControlControls,
+  useControlDirty,
+  useControlDisabled,
+  useControlErrors,
+  useControlValid,
+  useControlValue,
+} from "../hooks";
 import { AbstractControl } from "../controls/abstractControl";
 import { requiredValidator } from "../validators";
+import { GroupControl } from "../controls/groupControl";
 
 describe("hooks", () => {
   it("useControlValue", () => {
@@ -119,6 +127,24 @@ describe("hooks", () => {
     rerender();
 
     expect(result.current).toEqual(null);
+
+    control = undefined;
+    rerender();
+
+    expect(result.current).toBe(undefined);
+  });
+
+  it("useControlControls", () => {
+    let control: undefined | GroupControl = new GroupControl({ name: ["Vick"] });
+
+    const { result, rerender } = renderHook(() => useControlControls(control));
+
+    expect(result.current!.name?.value).toBe("Vick");
+
+    control = new GroupControl({ name: ["Bob"] });
+    rerender();
+
+    expect(result.current!.name?.value).toBe("Bob");
 
     control = undefined;
     rerender();

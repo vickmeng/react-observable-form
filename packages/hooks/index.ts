@@ -119,19 +119,19 @@ export const useControlAsyncErrors = (control: AbstractControl) => {
   return asyncErrors;
 };
 
-export const useControlControls = <C extends GroupControl | ListControl>(control: C) => {
-  const [controls, setControls] = useState<C["controls"]>(control.controls);
+export const useControlControls = <C extends GroupControl | ListControl>(control?: C) => {
+  const [controls, setControls] = useState<C["controls"] | undefined>(control?.controls);
 
   useEffect(() => {
-    // @ts-ignore TODO
-    const subscriber = control.controlsChange.subscribe(setControls);
+    // @ts-ignore
+    const subscriber = control?.controlsChange.subscribe(setControls);
     return () => {
-      subscriber.unsubscribe();
+      subscriber?.unsubscribe();
     };
   }, [control]);
 
   useUpdateEffect(() => {
-    setControls(control.controls);
+    setControls(control?.controls);
   }, [control]);
 
   return controls;
