@@ -17,52 +17,52 @@ const useUpdateEffect: typeof useEffect = (effect, deps) => {
   }, deps);
 };
 
-export const useControlValue = <V>(control: AbstractControl<V>) => {
-  const [value, setValue] = useState<V>(control.value);
+export const useControlValue = <V>(control?: AbstractControl<V>) => {
+  const [value, setValue] = useState<V | undefined>(control?.value);
 
   useEffect(() => {
-    const subscriber = control.valueChange.subscribe(setValue);
+    const subscriber = control?.valueChange.subscribe(setValue);
     return () => {
-      subscriber.unsubscribe();
+      subscriber?.unsubscribe();
     };
   }, [control]);
 
   useUpdateEffect(() => {
-    setValue(control.value);
+    setValue(control?.value);
   }, [control]);
 
   return value;
 };
 
-export const useControlDisabled = (control: AbstractControl) => {
-  const [disabled, setDisabled] = useState<boolean>(control.disabled);
+export const useControlDisabled = (control?: AbstractControl) => {
+  const [disabled, setDisabled] = useState<boolean | undefined>(control?.disabled);
 
   useEffect(() => {
-    const subscriber = control.disabledChange.subscribe(setDisabled);
+    const subscriber = control?.disabledChange.subscribe(setDisabled);
     return () => {
-      subscriber.unsubscribe();
+      subscriber?.unsubscribe();
     };
   }, [control]);
 
   useUpdateEffect(() => {
-    setDisabled(control.disabled);
+    setDisabled(control?.disabled);
   }, [control]);
 
   return disabled;
 };
 
-export const useControlDirty = (control: AbstractControl) => {
-  const [dirty, setDirty] = useState<boolean>(control.dirty);
+export const useControlDirty = (control?: AbstractControl) => {
+  const [dirty, setDirty] = useState<boolean | undefined>(control?.dirty);
 
   useEffect(() => {
-    const subscriber = control.dirtyChange.subscribe(setDirty);
+    const subscriber = control?.dirtyChange.subscribe(setDirty);
     return () => {
-      subscriber.unsubscribe();
+      subscriber?.unsubscribe();
     };
   }, [control]);
 
   useUpdateEffect(() => {
-    setDirty(control.dirty);
+    setDirty(control?.dirty);
   }, [control]);
 
   return dirty;
