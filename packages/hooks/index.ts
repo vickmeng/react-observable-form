@@ -102,18 +102,18 @@ export const useControlErrors = (control?: AbstractControl) => {
   return errors;
 };
 
-export const useControlAsyncErrors = (control: AbstractControl) => {
-  const [asyncErrors, setAsyncErrors] = useState(control.asyncErrors);
+export const useControlAsyncErrors = (control?: AbstractControl) => {
+  const [asyncErrors, setAsyncErrors] = useState(control?.asyncErrors);
 
   useEffect(() => {
-    const subscriber = control.asyncErrorsChange.subscribe(setAsyncErrors);
+    const subscriber = control?.asyncErrorsChange.subscribe(setAsyncErrors);
     return () => {
-      subscriber.unsubscribe();
+      subscriber?.unsubscribe();
     };
   }, [control]);
 
   useUpdateEffect(() => {
-    setAsyncErrors(control.asyncErrors);
+    setAsyncErrors(control?.asyncErrors);
   }, [control]);
 
   return asyncErrors;

@@ -2,6 +2,7 @@ import { act, renderHook } from "@testing-library/react-hooks";
 
 import { FieldControl } from "../controls/fieldControl";
 import {
+  useControlAsyncErrors,
   useControlControls,
   useControlDirty,
   useControlDisabled,
@@ -12,6 +13,7 @@ import {
 import { AbstractControl } from "../controls/abstractControl";
 import { requiredValidator } from "../validators";
 import { GroupControl } from "../controls/groupControl";
+import { AsyncValidatorFn } from "../types/control";
 
 describe("hooks", () => {
   it("useControlValue", () => {
@@ -149,6 +151,38 @@ describe("hooks", () => {
     control = undefined;
     rerender();
 
+    expect(result.current).toBe(undefined);
+  });
+
+  it("useControlAsyncErrors", async () => {
+    const asyncValidator: AsyncValidatorFn<string> = (control) => {
+      return new Promise((resolve) => {
+        if (control.value === "error") {
+          resolve({ existed: true });
+        } else {
+          resolve(null);
+        }
+      });
+    };
+
+    let control: undefined | AbstractControl = new FieldControl("error", {
+      asyncValidators: [asyncValidator],
+      autoAsyncValidate: true,
+    });
+
+    const { result, rerender } = renderHook(() => useControlAsyncErrors(control));
+
+    expect(result.current).toBe(null);
+
+    await Promise.resolve().then().catch();
+
+    expect(result.current).toEqual({ existed: true });
+
+    control = undefined;
+    rerender();
+
+    expect(result.current).toBe(undefined);
+    await Promise.resolve().then().catch();
     expect(result.current).toBe(undefined);
   });
 });
