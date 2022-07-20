@@ -70,7 +70,7 @@ export const useControlDirty = (control?: AbstractControl) => {
 };
 
 export const useControlValid = (control?: AbstractControl) => {
-  const [valid, setValid] = useState<AbstractControl["valid"]>(control?.valid || false);
+  const [valid, setValid] = useState<AbstractControl["valid"]>(control ? control?.valid : true);
 
   useEffect(() => {
     const subscriber = control?.validChange.subscribe(setValid);
@@ -80,7 +80,7 @@ export const useControlValid = (control?: AbstractControl) => {
   }, [control]);
 
   useUpdateEffect(() => {
-    setValid(control?.valid || false);
+    setValid(control ? control?.valid : true);
   }, [control]);
 
   return valid;

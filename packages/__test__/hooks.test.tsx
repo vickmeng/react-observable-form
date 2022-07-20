@@ -61,7 +61,7 @@ describe("hooks", () => {
     control = undefined;
     rerender();
 
-    expect(result.current).toBe(undefined);
+    expect(result.current).toBe(false);
   });
 
   it("useControlDirty", () => {
@@ -85,7 +85,7 @@ describe("hooks", () => {
     control = undefined;
     rerender();
 
-    expect(result.current).toBe(undefined);
+    expect(result.current).toBe(false);
   });
 
   it("useControlValid", () => {
@@ -109,7 +109,7 @@ describe("hooks", () => {
     control = undefined;
     rerender();
 
-    expect(result.current).toBe(undefined);
+    expect(result.current).toBe(true);
   });
 
   it("useControlErrors", () => {
@@ -133,7 +133,7 @@ describe("hooks", () => {
     control = undefined;
     rerender();
 
-    expect(result.current).toBe(undefined);
+    expect(result.current).toBe(null);
   });
 
   it("useControlControls", () => {

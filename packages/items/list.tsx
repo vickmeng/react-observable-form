@@ -7,7 +7,7 @@ import { ListControl } from "../controls/listControl";
 
 import { ParentFormContext } from "./context";
 
-export const List = <V,>(props: ListProps<V>) => {
+export const List = <V extends unknown>(props: ListProps<V>) => {
   const { children } = props;
 
   const parent = useContext(ParentFormContext);
