@@ -1,4 +1,7 @@
 import { ListControl } from "../controls/listControl";
+import { GroupControl } from "../controls/groupControl";
+import { FieldControl } from "../controls/fieldControl";
+import { requiredValidator } from "../validators";
 
 describe("listControl", () => {
   it("should be created correctly", () => {
@@ -120,5 +123,15 @@ describe("listControl", () => {
 
     expect(fieldValueChangeCbSpy).toHaveBeenCalledWith("Sam");
     expect(fieldValueChangeCbSpy).toHaveBeenCalledTimes(2);
+  });
+
+  it("should get valid currently when nest children", () => {
+    const listControl = new ListControl([
+      new GroupControl({
+        name: new FieldControl("", { validators: [requiredValidator] }),
+      }),
+    ]);
+
+    expect(listControl.valid).toBe(false);
   });
 });
