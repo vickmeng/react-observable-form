@@ -27,7 +27,7 @@ export const Group = <V extends GroupValue = any>(props: GroupProps<V>) => {
     name,
     disabled,
     control,
-    childControls: controls,
+    childControls: controls || {},
   };
 
   return <ParentFormContext.Provider value={control}>{children(childProps)}</ParentFormContext.Provider>;

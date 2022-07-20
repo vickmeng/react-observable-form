@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { AbstractControl } from "../controls/abstractControl";
 import { GroupControl } from "../controls/groupControl";
 import { ListControl } from "../controls/listControl";
+import { Errors } from "../types/control";
 
 const useUpdateEffect: typeof useEffect = (effect, deps) => {
   const isMounted = useRef(false);
@@ -35,7 +36,7 @@ export const useControlValue = <V>(control?: AbstractControl<V>) => {
 };
 
 export const useControlDisabled = (control?: AbstractControl) => {
-  const [disabled, setDisabled] = useState<boolean | undefined>(control?.disabled);
+  const [disabled, setDisabled] = useState<boolean>(!!control?.disabled);
 
   useEffect(() => {
     const subscriber = control?.disabledChange.subscribe(setDisabled);
@@ -45,14 +46,14 @@ export const useControlDisabled = (control?: AbstractControl) => {
   }, [control]);
 
   useUpdateEffect(() => {
-    setDisabled(control?.disabled);
+    setDisabled(!!control?.disabled);
   }, [control]);
 
   return disabled;
 };
 
 export const useControlDirty = (control?: AbstractControl) => {
-  const [dirty, setDirty] = useState<boolean | undefined>(control?.dirty);
+  const [dirty, setDirty] = useState<boolean>(!!control?.dirty);
 
   useEffect(() => {
     const subscriber = control?.dirtyChange.subscribe(setDirty);
@@ -62,14 +63,14 @@ export const useControlDirty = (control?: AbstractControl) => {
   }, [control]);
 
   useUpdateEffect(() => {
-    setDirty(control?.dirty);
+    setDirty(!!control?.dirty);
   }, [control]);
 
   return dirty;
 };
 
 export const useControlValid = (control?: AbstractControl) => {
-  const [valid, setValid] = useState<AbstractControl["valid"] | undefined>(control?.valid);
+  const [valid, setValid] = useState<AbstractControl["valid"]>(control?.valid || false);
 
   useEffect(() => {
     const subscriber = control?.validChange.subscribe(setValid);
@@ -79,14 +80,14 @@ export const useControlValid = (control?: AbstractControl) => {
   }, [control]);
 
   useUpdateEffect(() => {
-    setValid(control?.valid);
+    setValid(control?.valid || false);
   }, [control]);
 
   return valid;
 };
 
 export const useControlErrors = (control?: AbstractControl) => {
-  const [errors, setErrors] = useState(control?.errors);
+  const [errors, setErrors] = useState<Errors | null>(control?.errors || null);
 
   useEffect(() => {
     const subscriber = control?.errorsChange.subscribe(setErrors);
@@ -96,7 +97,7 @@ export const useControlErrors = (control?: AbstractControl) => {
   }, [control]);
 
   useUpdateEffect(() => {
-    setErrors(control?.errors);
+    setErrors(control?.errors || null);
   }, [control]);
 
   return errors;
